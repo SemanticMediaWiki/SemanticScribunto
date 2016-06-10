@@ -40,7 +40,7 @@ Module namepace.
 ### Provided functions
 
 - `mw.ext.smw.getQueryResult` returns the same serialization format as the API `api.php?action=ask` module
-- `mw.ext.smw.getPropertyType` return a simple string
+- `mw.ext.smw.getPropertyType` returns a simple string (e.g. `_dat`)
 
 ## Contribution and support
 
