@@ -30,7 +30,7 @@
 		"php": ">=5.3.0",
 		"composer/installers": "1.*,>=1.0.1",
 		"mediawiki/semantic-media-wiki": "~2.3",
-		"mediawiki/scribunto": "dev-REL1_27"
+		"mediawiki/scribunto": "*"
 	},
 	"require-dev": {
 		"mediawiki/semantic-media-wiki": "@dev",
