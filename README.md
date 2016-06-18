@@ -7,13 +7,13 @@
 [![Packagist download count](https://poser.pugx.org/mediawiki/semantic-scribunto/d/total.png)](https://packagist.org/packages/mediawiki/semantic-scribunto)
 [![Dependency Status](https://www.versioneye.com/php/mediawiki:semantic-scribunto/badge.png)](https://www.versioneye.com/php/mediawiki:semantic-scribunto)
 
-Semantic Scribunto (a.k.a. SCRI) is a [Semantic Mediawiki][smw] extension to provide native support for the
+Semantic Scribunto (a.k.a. SSO) is a [Semantic Mediawiki][smw] extension to provide native support for the
 [Scribunto][scri] extension.
 
 ## Requirements
 
-- PHP 5.3.2 or later
-- MediaWiki 1.24 or later
+- PHP 5.5 or later
+- MediaWiki 1.26 or later
 - [Semantic MediaWiki][smw] 2.3 or later
 
 ## Installation

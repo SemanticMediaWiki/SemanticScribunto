@@ -8,7 +8,11 @@ if ( !is_readable( $autoloaderClassPath = __DIR__ . '/../../SemanticMediaWiki/te
 	die( 'The SemanticMediaWiki test autoloader is not available' );
 }
 
-print sprintf( "\n%-20s%s\n", "Semantic Scribunto: ", SMW_SCRIBUNTO_VERSION );
+if ( ( $version = SemanticScribunto::getVersion() ) === null ) {
+	die( "\SemanticScribunto is not loaded, please check your LocalSettings or Composer settings.\n" );
+}
+
+print sprintf( "\n%-20s%s\n", "Semantic Scribunto: ", $version );
 
 $autoLoader = require $autoloaderClassPath;
 $autoLoader->addPsr4( 'SMW\\Scribunto\\Tests\\', __DIR__ . '/phpunit/Unit' );
