@@ -57,7 +57,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 		$api->execute();
 		$data = $api->getResult()->getResultData();
 
-		return $data === null ? array( null ) : array( $data );
+		return array( $data );
 	}
 
 	/**
