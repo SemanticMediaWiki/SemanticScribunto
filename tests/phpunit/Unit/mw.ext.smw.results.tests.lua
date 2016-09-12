@@ -19,7 +19,9 @@ local tests = {
 	{ name = 'getQueryResult (meta count)',
 		func = function ( args )
 		  local ret =  mw.ext.smw.getQueryResult( args )
-		  return ret.printrequests[0].label
+		  for k,v in pairs(ret.query.printrequests ) do
+		      return v.label
+	  	  end
 		end,
 		args = { '[[Modification date::+]]|?Modification date|limit=0|mainlabel=-' },
 		expect = { 'Modification date' }
