@@ -56,7 +56,9 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 		$api = new ApiMain( $params );
 		$api->execute();
 		$data = $api->getResult()->getResultData();
-
+		if(!empty($data) && !empty($data["query"]) && !empty($data["query"]["results"])) {
+			$data["query"]["results"] = array_combine(range(1, count($data["query"]["results"])), array_values($data["query"]["results"]));
+		}
 		return array( $data );
 	}
 
