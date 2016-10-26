@@ -51,7 +51,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 		$query = QueryProcessor::createQuery(
 		    $queryString,
 		    QueryProcessor::getProcessedParams( $parameters, $printouts ),
-		    QueryProcessor::INLINE_QUERY,
+		    QueryProcessor::SPECIAL_PAGE,
 		    '',
 		    $printouts
 		);
