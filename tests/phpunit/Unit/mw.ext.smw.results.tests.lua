@@ -19,7 +19,7 @@ local tests = {
 	{ name = 'getQueryResult (meta count)',
 		func = function ( args )
 		  local ret =  mw.ext.smw.getQueryResult( args )
-		  for k,v in pairs(ret.query.printrequests ) do
+		  for k,v in pairs(ret.printrequests ) do
 		      return v.label
 	  	  end
 		end,
