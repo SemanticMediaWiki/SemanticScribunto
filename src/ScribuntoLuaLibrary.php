@@ -7,6 +7,9 @@ use SMW\DIProperty;
 use FauxRequest;
 use ApiMain;
 
+use SMWQueryProcessor as QueryProcessor;
+use SMW\ApplicationFactory;
+
 /**
  * @license GNU GPL v2+
  * @since 1.0
