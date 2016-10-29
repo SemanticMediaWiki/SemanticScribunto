@@ -34,9 +34,7 @@ end
 
 -- getPropertyType
 function smw.getPropertyType( name )
-	local propertyType = php.getPropertyType( name )
-	if propertyType == nil then return nil end
-	return propertyType
+	return php.getPropertyType( name )
 end
 
 return smw
