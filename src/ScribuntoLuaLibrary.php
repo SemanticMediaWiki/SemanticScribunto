@@ -7,6 +7,9 @@ use SMW\DIProperty;
 use FauxRequest;
 use ApiMain;
 
+use SMWQueryProcessor as QueryProcessor;
+use SMW\ApplicationFactory;
+
 /**
  * @license GNU GPL v2+
  * @since 1.0
@@ -37,29 +40,30 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	 *
 	 * @return array
 	 */
-	public function getQueryResult( $queryString = null ) {
+	public function getQueryResult( $argString = null ) {
 
-		$this->checkType( 'getQueryResult', 1, $queryString, 'string' );
-		$queryString = trim( $queryString );
+		$rawParameters = preg_split( "/(?<=[^\|])\|(?=[^\|])/", $argString );
 
-		if ( $queryString === '' ) {
-			return array( null );
-		}
-
-		$params = new FauxRequest(
-			array(
-				'action' => 'ask',
-				'query'  => $queryString
-			)
+		list( $queryString, $parameters, $printouts ) = QueryProcessor::getComponentsFromFunctionParams(
+		    $rawParameters,
+		    false
 		);
 
-		$api = new ApiMain( $params );
-		$api->execute();
-		$data = $api->getResult()->getResultData();
-		if(!empty($data["query"]["results"])) {
-			$data["query"]["results"] = array_combine(range(1, count($data["query"]["results"])), array_values($data["query"]["results"]));
+		QueryProcessor::addThisPrintout( $printouts, $parameters );
+
+		$query = QueryProcessor::createQuery(
+		    $queryString,
+		    QueryProcessor::getProcessedParams( $parameters, $printouts ),
+		    QueryProcessor::SPECIAL_PAGE,
+		    '',
+		    $printouts
+		);
+
+		$queryResult = ApplicationFactory::getInstance()->getStore()->getQueryResult( $query )->toArray();
+		if(!empty($queryResult["results"])) {
+		    $queryResult["results"] = array_combine(range(1, count($queryResult["results"])), array_values($queryResult["results"]));
 		}
-		return array( $data );
+		return array( $queryResult );
 	}
 
 	/**
