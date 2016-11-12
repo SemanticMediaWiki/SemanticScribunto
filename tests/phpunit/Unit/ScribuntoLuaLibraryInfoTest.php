@@ -11,7 +11,7 @@ namespace SMW\Scribunto\Tests;
  *
  * @author oetterer
  */
-class ScribuntoLuaLibrarySetTest extends ScribuntoLuaEngineTestBase {
+class ScribuntoLuaLibraryInfoTest extends ScribuntoLuaEngineTestBase {
 
 	/**
 	 * Lua test module
@@ -24,8 +24,7 @@ class ScribuntoLuaLibrarySetTest extends ScribuntoLuaEngineTestBase {
 	 */
 	public function getTestModules() {
 		return parent::getTestModules() + array(
-			self::$moduleName => __DIR__ . '/' . 'mw.smw.set.tests.lua',
+			self::$moduleName => __DIR__ . '/' . 'mw.smw.info.tests.lua',
 		);
 	}
-
 }
