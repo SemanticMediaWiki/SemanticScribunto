@@ -60,7 +60,7 @@ class HookRegistry {
 	private function addCallbackHandlers() {
 
 		$this->handlers['ScribuntoExternalLibraries'] = function( $engine, array &$extraLibraries ) {
-			$extraLibraries['mw.ext.smw'] = 'SMW\Scribunto\ScribuntoLuaLibrary';
+			$extraLibraries['mw.smw'] = 'SMW\Scribunto\ScribuntoLuaLibrary';
 			return true;
 		};
 	}

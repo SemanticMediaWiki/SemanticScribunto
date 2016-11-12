@@ -1,5 +1,5 @@
 --[[
-	Tests for mw.ext.smw module
+	Tests for mw.smw module
 
 	@since 0.1
 
@@ -14,7 +14,7 @@ local tests = {
 	--getQueryResult
 	{ name = 'getQueryResult (empty query)',
 		func = function ( args )
-		  local ret = mw.ext.smw.getQueryResult( args )
+		  local ret = mw.smw.getQueryResult( args )
 		  return ret.meta.count
 		end,
 		args = { '' },
@@ -22,7 +22,7 @@ local tests = {
 	},
 	{ name = 'getQueryResult (meta count)',
 		func = function ( args )
-		  local ret =  mw.ext.smw.getQueryResult( args )
+		  local ret =  mw.smw.getQueryResult( args )
 		  for k,v in pairs(ret.printrequests ) do
 		      return v.label
 	  	  end

@@ -12,15 +12,15 @@ local testframework = require 'Module:TestFramework'
 -- Tests
 local tests = {
 
-	{ name = 'getPropertyType (empty property)', func = mw.ext.smw.getPropertyType,
+	{ name = 'getPropertyType (empty property)', func = mw.smw.getPropertyType,
 		args = { '' },
 		expect = { nil }
 	},
-	{ name = 'getPropertyType (known property)', func = mw.ext.smw.getPropertyType,
+	{ name = 'getPropertyType (known property)', func = mw.smw.getPropertyType,
 		args = { 'Modification date' },
 		expect = { '_dat' }
 	},
-	{ name = 'getPropertyType (unknown property)', func = mw.ext.smw.getPropertyType,
+	{ name = 'getPropertyType (unknown property)', func = mw.smw.getPropertyType,
 		args = { 'Foo' },
 		expect = { '_wpg' }
 	}

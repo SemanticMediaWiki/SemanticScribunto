@@ -48,7 +48,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		$this->assertArrayHasKey(
-			'mw.ext.smw',
+			'mw.smw',
 			$extraLibraries
 		);
 	}

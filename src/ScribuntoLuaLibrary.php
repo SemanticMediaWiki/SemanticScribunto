@@ -28,7 +28,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 			'getPropertyType' => array( $this, 'getPropertyType' ),
 		);
 
-		$this->getEngine()->registerInterface( __DIR__ . '/' . 'mw.ext.smw.lua', $lib, array() );
+		$this->getEngine()->registerInterface( __DIR__ . '/' . 'mw.smw.lua', $lib, array() );
 	}
 
 	/**
