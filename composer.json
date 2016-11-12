@@ -29,8 +29,7 @@
 	"require": {
 		"php": ">=5.5",
 		"composer/installers": "1.*,>=1.0.1",
-		"mediawiki/semantic-media-wiki": "~2.3",
-		"mediawiki/scribunto": "*"
+		"mediawiki/semantic-media-wiki": "~2.3"
 	},
 	"require-dev": {
 		"mediawiki/semantic-media-wiki": "@dev",
