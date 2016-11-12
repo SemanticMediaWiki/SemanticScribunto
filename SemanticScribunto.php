@@ -11,16 +11,10 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 	die( 'This file is part of the Semantic Scribunto extension, it is not a valid entry point.' );
 }
 
-if ( version_compare( $GLOBALS[ 'wgVersion' ], '1.26', 'lt' ) ) {
-	die( '<b>Error:</b> This version of <a href="https://github.com/SemanticMediaWiki/SemanticScribunto/">Semantic Scribunto</a> is only compatible with MediaWiki 1.26 or above. You need to upgrade MediaWiki first.' );
-}
-
 if ( defined( 'SMW_SCRIBUNTO_VERSION' ) ) {
 	// Do not initialize more than once.
 	return 1;
 }
-
-define( 'SMW_SCRIBUNTO_VERSION', '1.0.0-alpha' );
 
 SemanticScribunto::initExtension();
 
@@ -37,6 +31,12 @@ class SemanticScribunto {
 	 * @since 1.0
 	 */
 	public static function initExtension() {
+
+		if ( is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
+			include_once __DIR__ . '/vendor/autoload.php';
+		}
+
+		define( 'SMW_SCRIBUNTO_VERSION', '1.0.0-alpha' );
 
 		// Register extension info
 		$GLOBALS['wgExtensionCredits']['semantic'][] = array(
@@ -65,7 +65,28 @@ class SemanticScribunto {
 	/**
 	 * @since 1.0
 	 */
+	public static function checkRequirements() {
+
+		if ( version_compare( $GLOBALS[ 'wgVersion' ], '1.26', 'lt' ) ) {
+			die( '<b>Error:</b> <a href="https://github.com/SemanticMediaWiki/SemanticScribunto/">Semantic Scribunto</a> is only compatible with MediaWiki 1.26 or above. You need to upgrade MediaWiki first.' );
+		}
+
+		// Using the constant as indicator to avoid class_exists
+		if ( !defined( 'CONTENT_MODEL_SCRIBUNTO' ) ) {
+			die( '<b>Error:</b> <a href="https://github.com/SemanticMediaWiki/SemanticScribunto/">Semantic Scribunto</a> requires the Scribunto extension, please enable or install <a href="https://www.mediawiki.org/wiki/Extension:Scribunto">Scribunto</a> first.' );
+		}
+
+		if ( !defined( 'SMW_VERSION' ) ) {
+			die( '<b>Error:</b> <a href="https://github.com/SemanticMediaWiki/SemanticScribunto/">Semantic Scribunto</a> requires the Semantic MediaWiki extension, please enable or install <a href="https://github.com/SemanticMediaWiki/SemanticMediaWiki/">Semantic MediaWiki</a> first.' );
+		}
+	}
+
+	/**
+	 * @since 1.0
+	 */
 	public static function onExtensionFunction() {
+		self::checkRequirements();
+
 		$hookRegistry = new HookRegistry();
 		$hookRegistry->register();
 	}
