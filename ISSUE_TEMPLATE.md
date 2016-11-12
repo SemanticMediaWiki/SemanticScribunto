@@ -1,7 +1,7 @@
 ### Setup and configuration
 
 - SMW version:
-- SSO version:
+- SSC version:
 - MW version:
 - DB (MySQL etc.):
 
