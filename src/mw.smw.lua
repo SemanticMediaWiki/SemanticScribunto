@@ -19,8 +19,7 @@ function smw.setupInterface()
 
 	-- Register library within the "mw.ext.smw" namespace
 	mw = mw or {}
-	mw.ext = mw.ext or {}
-	mw.ext.smw = smw
+	mw.smw = smw
 
 	package.loaded['mw.ext.smw'] = smw
 end

@@ -7,7 +7,7 @@
 [![Packagist download count](https://poser.pugx.org/mediawiki/semantic-scribunto/d/total.png)](https://packagist.org/packages/mediawiki/semantic-scribunto)
 [![Dependency Status](https://www.versioneye.com/php/mediawiki:semantic-scribunto/badge.png)](https://www.versioneye.com/php/mediawiki:semantic-scribunto)
 
-Semantic Scribunto (a.k.a. SSO) is a [Semantic Mediawiki][smw] extension to provide native support for the
+Semantic Scribunto (a.k.a. SSC) is a [Semantic Mediawiki][smw] extension to provide native support for the
 [Scribunto][scri] extension.
 
 ## Requirements
@@ -34,13 +34,8 @@ The recommended way to install Semantic Scribunto is by using [Composer][compose
 
 ## Usage
 
-[invoke.md](docs/invoke.md) contains some examples on how to use provided functions in the MediaWiki's
-Module namepace.
-
-### Provided functions
-
-- `mw.ext.smw.getQueryResult` returns the same serialization format as the API `api.php?action=ask` module
-- `mw.ext.smw.getPropertyType` returns a simple string (e.g. `_dat`)
+[functions.md](docs/functions.md) describes available `mw.smw` library functions
+provided by this extensions.
 
 ## Contribution and support
 
