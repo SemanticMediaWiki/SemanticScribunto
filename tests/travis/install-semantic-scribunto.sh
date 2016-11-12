@@ -17,11 +17,13 @@ function installToMediaWikiRoot {
 		composer require 'phpunit/phpunit=3.7.*' --update-with-dependencies
 	fi
 
-	if [ "$SCRI" != "" ]
+	if [ "$SSC" != "" ]
 	then
-		composer require 'mediawiki/semantic-scribunto='$SCRI --update-with-dependencies
+		composer require 'mediawiki/scribunto=*' --update-with-dependencies
+		composer require 'mediawiki/semantic-scribunto='$SSC --update-with-dependencies
 	else
 		composer init --stability dev
+		composer require mediawiki/scribunto "dev-master" --dev --update-with-dependencies
 		composer require mediawiki/semantic-scribunto "dev-master" --dev --update-with-dependencies
 
 		cd extensions
