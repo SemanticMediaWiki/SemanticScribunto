@@ -17,11 +17,11 @@ function smw.setupInterface()
 	php = mw_interface
 	mw_interface = nil
 
-	-- Register library within the "mw.ext.smw" namespace
+	-- Register library within the "mw.smw" namespace
 	mw = mw or {}
 	mw.smw = smw
 
-	package.loaded['mw.ext.smw'] = smw
+	package.loaded['mw.smw'] = smw
 end
 
 -- getQueryResult
@@ -34,6 +34,11 @@ end
 -- getPropertyType
 function smw.getPropertyType( name )
 	return php.getPropertyType( name )
+end
+
+-- set
+function smw.set( parameters )
+	return php.set( parameters )
 end
 
 return smw

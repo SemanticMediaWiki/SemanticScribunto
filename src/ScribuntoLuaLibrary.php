@@ -19,6 +19,14 @@ use SMW\ApplicationFactory;
 class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 
 	/**
+	 * This is the name of the key for error messages
+	 *
+	 * @var string
+	 * @since 1.0
+	 */
+	const SMW_ERROR_FIELD='error';
+
+	/**
 	 * @since 1.0
 	 */
 	public function register() {
@@ -26,6 +34,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 		$lib = array(
 			'getQueryResult'  => array( $this, 'getQueryResult' ),
 			'getPropertyType' => array( $this, 'getPropertyType' ),
+			'set'             => array( $this, 'set' ),
 		);
 
 		$this->getEngine()->registerInterface( __DIR__ . '/' . 'mw.smw.lua', $lib, array() );
@@ -36,7 +45,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	 *
 	 * @since 1.0
 	 *
-	 * @param string $queryString
+	 * @param string $argString
 	 *
 	 * @return array
 	 */
@@ -93,4 +102,66 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 		return array( $property->findPropertyTypeID() );
 	}
 
+	/**
+	 * This mirrors the functionality of the parser function #set and makes it available in lua.
+	 *
+	 * @global \Parser $wgParser
+	 *
+	 * @param string|array	$parameters	parameters passed from lua, string or array depending on call
+	 *
+	 * @uses \SMW\ParserFunctionFactory::__construct, ParameterProcessorFactory::newFromArray
+	 *
+	 * @return array|array[]
+	 */
+	public function set( $parameters )
+	{
+		global $wgParser;
+
+		# make sure, we have an array of parameters
+		if ( !is_array($parameters) ) {
+			$parameters = array($parameters);
+		}
+
+		# if $parameters were supplied as key => value pair (aka associative array), we have to rectify this here
+		$argumentsToParserFunction = array();
+		foreach ( $parameters as $key => $value ) {
+			if ( !is_int($key) && !preg_match('/[0-9]+/', $key) ) {
+				$value = $key . '=' . $value;
+			}
+			$argumentsToParserFunction[] = $value;
+		}
+
+		# prepare setParserFunction object
+		$parserFunctionFactory = new \SMW\ParserFunctionFactory( $wgParser );
+		$setParserFunction = $parserFunctionFactory->newSetParserFunction( $wgParser );
+
+		# call parse on setParserFunction
+		$parserFunctionCallResult = $setParserFunction->parse(
+			\SMW\ParameterProcessorFactory::newFromArray( $argumentsToParserFunction )
+		);
+
+		# get result
+		if ( is_array($parserFunctionCallResult) ) {
+			$result = $parserFunctionCallResult[0];
+			$noParse = isset($parserFunctionCallResult['noparse']) ? $parserFunctionCallResult['noparse'] : true;
+			$isHtml = isset($parserFunctionCallResult['isHTML']) ? $parserFunctionCallResult['isHTML'] : false;
+		} else {
+			$result = $parserFunctionCallResult;
+			$noParse = true;
+			$isHtml = false;
+		}
+
+		if ( ! $noParse ) {
+			$result = $wgParser->recursiveTagParseFully( $result );
+		}
+		$result = trim($result);
+
+		if ( strlen ($result) ) {
+			# if result a non empty string, assume an error message
+			return array( [ 1 => false, self::SMW_ERROR_FIELD => preg_replace('/<[^>]+>/', '', $result) ] );
+		} else {
+			# on success, return true
+			return array( 1 => true );
+		}
+	}
 }
