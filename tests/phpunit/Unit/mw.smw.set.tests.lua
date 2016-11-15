@@ -24,7 +24,7 @@ local tests = {
 		expect = {
 			{
 				false,
-				error = mw.message.new('smw_unknowntype'):plain()
+				error = mw.message.new('smw_unknowntype'):inLanguage(mw.getContentLanguage()):plain()
 			}
 		}
 	},
