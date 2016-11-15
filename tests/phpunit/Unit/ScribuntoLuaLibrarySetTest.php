@@ -27,5 +27,4 @@ class ScribuntoLuaLibrarySetTest extends ScribuntoLuaEngineTestBase {
 			'SMW\Scribunto\Tests\ScribuntoLuaLibrarySetTest' => __DIR__ . '/' . 'mw.smw.set.tests.lua',
 		);
 	}
-	
 }

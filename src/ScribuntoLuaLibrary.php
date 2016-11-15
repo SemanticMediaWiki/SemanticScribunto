@@ -9,6 +9,8 @@ use ApiMain;
 
 use SMWQueryProcessor as QueryProcessor;
 use SMW\ApplicationFactory;
+use SMW\ParameterProcessorFactory;
+use SMW\ParserFunctionFactory;
 
 /**
  * @license GNU GPL v2+
@@ -105,8 +107,6 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	/**
 	 * This mirrors the functionality of the parser function #set and makes it available in lua.
 	 *
-	 * @global \Parser $wgParser
-	 *
 	 * @param string|array	$parameters	parameters passed from lua, string or array depending on call
 	 *
 	 * @uses \SMW\ParserFunctionFactory::__construct, ParameterProcessorFactory::newFromArray
@@ -115,7 +115,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	 */
 	public function set( $parameters )
 	{
-		global $wgParser;
+		$parser = $this->getEngine()->getParser();
 
 		# make sure, we have an array of parameters
 		if ( !is_array($parameters) ) {
@@ -132,27 +132,25 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 		}
 
 		# prepare setParserFunction object
-		$parserFunctionFactory = new \SMW\ParserFunctionFactory( $wgParser );
-		$setParserFunction = $parserFunctionFactory->newSetParserFunction( $wgParser );
+		$parserFunctionFactory = new ParserFunctionFactory( $parser );
+		$setParserFunction = $parserFunctionFactory->newSetParserFunction( $parser );
 
 		# call parse on setParserFunction
 		$parserFunctionCallResult = $setParserFunction->parse(
-			\SMW\ParameterProcessorFactory::newFromArray( $argumentsToParserFunction )
+			ParameterProcessorFactory::newFromArray( $argumentsToParserFunction )
 		);
 
 		# get result
 		if ( is_array($parserFunctionCallResult) ) {
 			$result = $parserFunctionCallResult[0];
 			$noParse = isset($parserFunctionCallResult['noparse']) ? $parserFunctionCallResult['noparse'] : true;
-			$isHtml = isset($parserFunctionCallResult['isHTML']) ? $parserFunctionCallResult['isHTML'] : false;
 		} else {
 			$result = $parserFunctionCallResult;
 			$noParse = true;
-			$isHtml = false;
 		}
 
 		if ( ! $noParse ) {
-			$result = $wgParser->recursiveTagParseFully( $result );
+			$result = $parser->recursiveTagParseFully( $result );
 		}
 		$result = trim($result);
 
