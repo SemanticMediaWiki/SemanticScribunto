@@ -111,7 +111,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	 *
 	 * @uses \SMW\ParserFunctionFactory::__construct, ParameterProcessorFactory::newFromArray
 	 *
-	 * @return array|array[]
+	 * @return null|array|array[]
 	 */
 	public function set( $parameters )
 	{
@@ -128,7 +128,15 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 			if ( !is_int($key) && !preg_match('/[0-9]+/', $key) ) {
 				$value = $key . '=' . $value;
 			}
-			$argumentsToParserFunction[] = $value;
+			if ( $value ) {
+				# only add, when value is set. could be empty, if set was called with no parameter or empty string
+				$argumentsToParserFunction[] = $value;
+			}
+		}
+
+		# if we have no arguments, do nothing
+		if ( !sizeof($argumentsToParserFunction) ) {
+			return null;
 		}
 
 		# prepare setParserFunction object
