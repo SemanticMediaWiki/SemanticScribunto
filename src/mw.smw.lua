@@ -41,4 +41,9 @@ function smw.set( parameters )
 	return php.set( parameters )
 end
 
+-- subobject
+function smw.subobject( parameters, subobjectId )
+	return php.subobject( parameters, subobjectId )
+end
+
 return smw

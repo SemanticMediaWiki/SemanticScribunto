@@ -15,16 +15,17 @@ local tests = {
 		args = { '' },
 		expect = { nil }
 	},
-	{ name = 'set (matching input type to property type)', func = mw.smw.set,
-		args = { 'has type=page' },
+	{ name = 'set (matching input types to property types)', func = mw.smw.set,
+		args = { {'Has type=page', 'Allows value=test'} },
 		expect = { true }
 	},
 	{ name = 'set (supplying wrong input type to property type)', func = mw.smw.set,
-		args = { 'has type=test' },
+		args = { 'Has type=test' },
 		expect = {
 			{
 				false,
 				error = mw.message.new('smw_unknowntype'):inLanguage('en'):plain()
+				-- should be error = mw.message.new('smw_unknowntype'):inLanguage(mw.getContentLanguage()):plain()
 			}
 		}
 	},
