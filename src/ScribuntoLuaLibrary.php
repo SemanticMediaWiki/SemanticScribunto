@@ -11,6 +11,7 @@ use SMWQueryProcessor as QueryProcessor;
 use SMW\ApplicationFactory;
 use SMW\ParameterProcessorFactory;
 use SMW\ParserFunctionFactory;
+use SMWOutputs;
 
 /**
  * @license GNU GPL v2+
@@ -36,6 +37,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 		$lib = array(
 			'getQueryResult'  => array( $this, 'getQueryResult' ),
 			'getPropertyType' => array( $this, 'getPropertyType' ),
+			'info'            => array( $this, 'info' ),
 			'set'             => array( $this, 'set' ),
 		);
 
@@ -102,6 +104,54 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 		}
 
 		return array( $property->findPropertyTypeID() );
+	}
+
+	/**
+	 * This mirrors the functionality of the parser function #info and makes it available to lua.
+	 *
+	 * @param string	$text	text to show inside the info popup
+	 * @param string    $icon   identifier for the icon to use
+	 *
+	 * @uses \SMW\ParserFunctionFactory::__construct
+	 *
+	 * @return string[]
+	 */
+	public function info( $text, $icon='info' )
+	{
+		$parser = $this->getEngine()->getParser();
+
+		# do some parameter processing
+		if ( !trim($text) || ! is_string($text) ) {
+			# no info-text present, or wrong type abort
+			return null;
+		}
+		$infoText = trim($text);
+
+		# check if icon is set and valid
+		if ( !is_string($icon) || !in_array($icon, ['note', 'warning']) ) {
+			$icon = 'info';
+		}
+
+		# the actual info message is easy to create:
+		$result = smwfEncodeMessages(
+			array( $infoText ),
+			$icon,
+			' <!--br-->',
+			false // No escaping.
+		);
+
+		# to have all necessary data commited to output, use SMWOutputs::commitToParser()
+		SMWOutputs::commitToParser( $parser );
+
+		# result may be an array with probably 'noparse' set to false. check to be sure
+		$noParse = ( is_array($result) && isset($result['noparse']) ) ? $result['noparse'] : true;
+		$result = is_array($result) ? $result[0] : $result;
+
+		if ( ! $noParse ) {
+			$result = $parser->recursiveTagParseFully( $result );
+		}
+
+		return array( $result );
 	}
 
 	/**
