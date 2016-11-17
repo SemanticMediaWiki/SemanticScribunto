@@ -35,8 +35,8 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	public function register() {
 
 		$lib = array(
-			'getQueryResult'  => array( $this, 'getQueryResult' ),
 			'getPropertyType' => array( $this, 'getPropertyType' ),
+			'getQueryResult'  => array( $this, 'getQueryResult' ),
 			'info'            => array( $this, 'info' ),
 			'set'             => array( $this, 'set' ),
 		);
@@ -109,115 +109,139 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	/**
 	 * This mirrors the functionality of the parser function #info and makes it available to lua.
 	 *
-	 * @param string	$text	text to show inside the info popup
-	 * @param string    $icon   identifier for the icon to use
+	 * @since 1.0
+	 *
+	 * @param string $text text to show inside the info popup
+	 * @param string $icon identifier for the icon to use
 	 *
 	 * @uses \SMW\ParserFunctionFactory::__construct
 	 *
 	 * @return string[]
 	 */
-	public function info( $text, $icon='info' )
-	{
+	public function info( $text, $icon = 'info' ) {
+
 		$parser = $this->getEngine()->getParser();
 
-		# do some parameter processing
-		if ( !trim($text) || ! is_string($text) ) {
-			# no info-text present, or wrong type abort
+		// do some parameter processing
+		if ( ! trim( $text ) || ! is_string( $text ) ) {
+			// no info-text present, or wrong type. abort
 			return null;
 		}
-		$infoText = trim($text);
 
-		# check if icon is set and valid
-		if ( !is_string($icon) || !in_array($icon, ['note', 'warning']) ) {
+		// check if icon is set and valid
+		if ( !is_string( $icon ) || !in_array( $icon, [ 'note', 'warning' ] ) ) {
 			$icon = 'info';
 		}
 
-		# the actual info message is easy to create:
+		// the actual info message is easy to create:
 		$result = smwfEncodeMessages(
-			array( $infoText ),
+			array( $text ),
 			$icon,
 			' <!--br-->',
 			false // No escaping.
 		);
 
-		# to have all necessary data commited to output, use SMWOutputs::commitToParser()
+		// to have all necessary data committed to output, use SMWOutputs::commitToParser()
 		SMWOutputs::commitToParser( $parser );
 
-		# result may be an array with probably 'noparse' set to false. check to be sure
-		$noParse = ( is_array($result) && isset($result['noparse']) ) ? $result['noparse'] : true;
-		$result = is_array($result) ? $result[0] : $result;
-
-		if ( ! $noParse ) {
-			$result = $parser->recursiveTagParseFully( $result );
-		}
-
-		return array( $result );
+		return array( $this->extractResultString( $result ) );
 	}
 
 	/**
 	 * This mirrors the functionality of the parser function #set and makes it available in lua.
 	 *
-	 * @param string|array	$parameters	parameters passed from lua, string or array depending on call
+	 * @since 1.0
+	 *
+	 * @param string|array $parameters parameters passed from lua, string or array depending on call
 	 *
 	 * @uses \SMW\ParserFunctionFactory::__construct, ParameterProcessorFactory::newFromArray
 	 *
 	 * @return null|array|array[]
 	 */
-	public function set( $parameters )
-	{
+	public function set( $parameters ) {
+
 		$parser = $this->getEngine()->getParser();
 
-		# make sure, we have an array of parameters
-		if ( !is_array($parameters) ) {
-			$parameters = array($parameters);
-		}
-
-		# if $parameters were supplied as key => value pair (aka associative array), we have to rectify this here
-		$argumentsToParserFunction = array();
-		foreach ( $parameters as $key => $value ) {
-			if ( !is_int($key) && !preg_match('/[0-9]+/', $key) ) {
-				$value = $key . '=' . $value;
-			}
-			if ( $value ) {
-				# only add, when value is set. could be empty, if set was called with no parameter or empty string
-				$argumentsToParserFunction[] = $value;
-			}
-		}
-
-		# if we have no arguments, do nothing
-		if ( !sizeof($argumentsToParserFunction) ) {
+		// if we have no arguments, do nothing
+		if ( !sizeof( $arguments = $this->processLuaArguments( $parameters ) ) ) {
 			return null;
 		}
 
-		# prepare setParserFunction object
+		// prepare setParserFunction object
 		$parserFunctionFactory = new ParserFunctionFactory( $parser );
 		$setParserFunction = $parserFunctionFactory->newSetParserFunction( $parser );
 
-		# call parse on setParserFunction
+		// call parse on setParserFunction
 		$parserFunctionCallResult = $setParserFunction->parse(
-			ParameterProcessorFactory::newFromArray( $argumentsToParserFunction )
+			ParameterProcessorFactory::newFromArray( $arguments )
 		);
 
-		# get result
-		if ( is_array($parserFunctionCallResult) ) {
-			$result = $parserFunctionCallResult[0];
-			$noParse = isset($parserFunctionCallResult['noparse']) ? $parserFunctionCallResult['noparse'] : true;
+		// get usable result
+		$result = $this->extractResultString( $parserFunctionCallResult );
+
+		if ( strlen( $result ) ) {
+			// if result a non empty string, assume an error message
+			return array( [ 1 => false, self::SMW_ERROR_FIELD => preg_replace( '/<[^>]+>/', '', $result ) ] );
 		} else {
-			$result = $parserFunctionCallResult;
+			// on success, return true
+			return array( 1 => true );
+		}
+	}
+
+	/**
+	 * Takes a result returned from a parser function call and prepares it to be used as parsed string.
+	 *
+	 * @since 1.0
+	 *
+	 * @param string|array $parserFunctionResult
+	 *
+	 * @return string
+	 */
+	private function extractResultString( $parserFunctionResult ) {
+
+		// parser function call can return string or array
+		if ( is_array( $parserFunctionResult ) ) {
+			$result = $parserFunctionResult[0];
+			$noParse = isset($parserFunctionResult['noparse']) ? $parserFunctionResult['noparse'] : true;
+		} else {
+			$result = $parserFunctionResult;
 			$noParse = true;
 		}
 
 		if ( ! $noParse ) {
-			$result = $parser->recursiveTagParseFully( $result );
+			$result = $this->getEngine()->getParser()->recursiveTagParseFully( $result );
 		}
-		$result = trim($result);
+		return trim( $result );
+	}
 
-		if ( strlen ($result) ) {
-			# if result a non empty string, assume an error message
-			return array( [ 1 => false, self::SMW_ERROR_FIELD => preg_replace('/<[^>]+>/', '', $result) ] );
-		} else {
-			# on success, return true
-			return array( 1 => true );
+	/**
+	 * Takes the $arguments passed from lua and pre-processes them: make sure, we have a sequence array (not associative)
+	 *
+	 * @since 1.0
+	 *
+	 * @param string|array $arguments
+	 *
+	 * @return array
+	 */
+	private function processLuaArguments( $arguments ) {
+
+		// make sure, we have an array of parameters
+		if ( !is_array( $arguments ) ) {
+			$arguments = array( $arguments );
 		}
+
+		// if $arguments were supplied as key => value pair (aka associative array), we rectify this here
+		$processedArguments = array();
+		foreach ( $arguments as $key => $value ) {
+			if ( !is_int( $key ) && !preg_match( '/[0-9]+/', $key ) ) {
+				$value = (string) $key . '=' . (string) $value;
+			}
+			if ( $value ) {
+				// only add, when value is set. could be empty, if lua function was called with no parameter or empty string
+				$processedArguments[] = $value;
+			}
+		}
+
+		return $processedArguments;
 	}
 }

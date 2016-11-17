@@ -17,14 +17,14 @@ class ScribuntoLuaLibraryInfoTest extends ScribuntoLuaEngineTestBase {
 	 * Lua test module
 	 * @var string
 	 */
-	protected static $moduleName = 'SMW\Scribunto\Tests\ScribuntoLuaLibraryInfoTest';
+	protected static $moduleName = self::class;
 
 	/**
 	 * ScribuntoLuaEngineTestBase::getTestModules
 	 */
 	public function getTestModules() {
 		return parent::getTestModules() + array(
-			'SMW\Scribunto\Tests\ScribuntoLuaLibraryInfoTest' => __DIR__ . '/' . 'mw.smw.info.tests.lua',
+			self::$moduleName => __DIR__ . '/' . 'mw.smw.info.tests.lua',
 		);
 	}
 }
