@@ -1,10 +1,10 @@
 --[[
-	Tests for smw.property module
+	Tests for smw.set module
 
-	@since 0.1
+	@since 1.0
 
 	@licence GNU GPL v2+
-	@author mwjames
+	@author oetterer
 ]]
 
 local testframework = require 'Module:TestFramework'

@@ -36,6 +36,12 @@ function smw.getPropertyType( name )
 	return php.getPropertyType( name )
 end
 
+
+-- info
+function smw.info( text, icon )
+	return php.info( text, icon )
+end
+
 -- set
 function smw.set( parameters )
 	return php.set( parameters )
