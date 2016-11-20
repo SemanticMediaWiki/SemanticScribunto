@@ -73,11 +73,11 @@ class SemanticScribunto {
 
 		// Using the constant as indicator to avoid class_exists
 		if ( !defined( 'CONTENT_MODEL_SCRIBUNTO' ) ) {
-			die( '<b>Error:</b> <a href="https://github.com/SemanticMediaWiki/SemanticScribunto/">Semantic Scribunto</a> requires the Scribunto extension, please enable or install <a href="https://www.mediawiki.org/wiki/Extension:Scribunto">Scribunto</a> first.' );
+			die( '<b>Error:</b> <a href="https://github.com/SemanticMediaWiki/SemanticScribunto/">Semantic Scribunto</a> requires <a href="https://www.mediawiki.org/wiki/Extension:Scribunto">Scribunto</a>, please enable or install the extension first.' );
 		}
 
 		if ( !defined( 'SMW_VERSION' ) ) {
-			die( '<b>Error:</b> <a href="https://github.com/SemanticMediaWiki/SemanticScribunto/">Semantic Scribunto</a> requires the Semantic MediaWiki extension, please enable or install <a href="https://github.com/SemanticMediaWiki/SemanticMediaWiki/">Semantic MediaWiki</a> first.' );
+			die( '<b>Error:</b> <a href="https://github.com/SemanticMediaWiki/SemanticScribunto/">Semantic Scribunto</a> requires <a href="https://github.com/SemanticMediaWiki/SemanticMediaWiki/">Semantic MediaWiki</a>, please enable or install the extension first.' );
 		}
 	}
 
@@ -85,6 +85,8 @@ class SemanticScribunto {
 	 * @since 1.0
 	 */
 	public static function onExtensionFunction() {
+
+		// Check requirements after LocalSetting.php has been processed
 		self::checkRequirements();
 
 		$hookRegistry = new HookRegistry();
