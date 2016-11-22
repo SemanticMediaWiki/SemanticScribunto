@@ -42,7 +42,10 @@ class SemanticScribunto {
 		$GLOBALS['wgExtensionCredits']['semantic'][] = array(
 			'path'           => __FILE__,
 			'name'           => 'Semantic Scribunto',
-			'author'         => array( 'James Hong Kong' ),
+			'author'         => array(
+				'James Hong Kong',
+				'[https://www.semantic-mediawiki.org/wiki/User:Oetterer Tobias Oetterer]',
+			),
 			'url'            => 'https://github.com/SemanticMediaWiki/SemanticScribunto/',
 			'descriptionmsg' => 'smw-scribunto-desc',
 			'version'        => SMW_SCRIBUNTO_VERSION,
