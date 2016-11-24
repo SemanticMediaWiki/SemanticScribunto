@@ -48,13 +48,13 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	 *
 	 * @since 1.0
 	 *
-	 * @param string $argString
+	 * @param string|array $arguments
 	 *
 	 * @return array
 	 */
-	public function getQueryResult( $argString = null ) {
+	public function getQueryResult( $arguments = null ) {
 
-		$rawParameters = preg_split( "/(?<=[^\|])\|(?=[^\|])/", $argString );
+		$rawParameters = $this->processLuaArguments( $arguments );
 
 		list( $queryString, $parameters, $printouts ) = QueryProcessor::getComponentsFromFunctionParams(
 		    $rawParameters,
@@ -143,7 +143,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 		// to have all necessary data committed to output, use SMWOutputs::commitToParser()
 		SMWOutputs::commitToParser( $parser );
 
-		return array( $this->extractResultString( $result ) );
+		return array( $this->getParsedResult( $result ) );
 	}
 
 	/**
@@ -176,7 +176,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 		);
 
 		// get usable result
-		$result = $this->extractResultString( $parserFunctionCallResult );
+		$result = $this->getParsedResult( $parserFunctionCallResult );
 
 		if ( strlen( $result ) ) {
 			// if result a non empty string, assume an error message
@@ -229,7 +229,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 
 		$parserFunctionCallResult = $subobjectParserFunction->parse( $processedParameter );
 
-		if ( strlen( $result = $this->extractResultString( $parserFunctionCallResult ) ) ) {
+		if ( strlen( $result = $this->getParsedResult( $parserFunctionCallResult ) ) ) {
 			// if result a non empty string, assume an error message
 			return array( [ 1 => false, self::SMW_ERROR_FIELD => preg_replace( '/<[^>]+>/', '', $result ) ] );
 		} else {
@@ -247,7 +247,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	 *
 	 * @return string
 	 */
-	private function extractResultString( $parserFunctionResult ) {
+	private function getParsedResult( $parserFunctionResult ) {
 
 		// parser function call can return string or array
 		if ( is_array( $parserFunctionResult ) ) {
@@ -278,7 +278,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 
 		// make sure, we have an array of parameters
 		if ( !is_array( $arguments ) ) {
-			$arguments = array( $arguments );
+			$arguments = preg_split( "/(?<=[^\|])\|(?=[^\|])/", $arguments );
 		}
 
 		// if $arguments were supplied as key => value pair (aka associative array), we rectify this here

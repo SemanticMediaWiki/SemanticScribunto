@@ -120,6 +120,10 @@ class ScribuntoLuaLibraryTest extends \Scribunto_LuaEngineTestBase {
 			'Modification date',
 			$this->scribuntoLuaLibrary->getQueryResult( '[[Modification date::+]]|?Modification date|limit=0|mainlabel=-' )[0]['printrequests'][0]['label']
 		);
+		$this->assertEquals(
+			'Modification date',
+			$this->scribuntoLuaLibrary->getQueryResult( [ '[[Modification date::+]]', '?Modification date', 'limit' => 0, 'mainlabel=-' ] )[0]['printrequests'][0]['label']
+		);
 	}
 
 	/**
@@ -233,6 +237,10 @@ class ScribuntoLuaLibraryTest extends \Scribunto_LuaEngineTestBase {
 			[
 				[ '1215623e790d918773db943232068a93b21c9f1419cb85666c6558e87f5b7d47=test' ],
 				[ 1 => true ]
+			],
+			[
+				[ '1215623e790d918773db943232068a93b21c9f1419cb85666c6558e87f5b7d47=test', 'foo' => 'bar' ],
+				[ 1 => true ]
 			]
 		);
 
@@ -294,7 +302,7 @@ class ScribuntoLuaLibraryTest extends \Scribunto_LuaEngineTestBase {
 				[ array( 1 => false, 'error' => wfMessage('smw_unknowntype')->inLanguage('en')->plain() ) ]
 			],
 			[
-				[ [ 'has type=page', 'Allows value=test','1215623e790d918773db943232068a93b21c9f1419cb85666c6558e87f5b7d47=test' ], '01234567890_testStringAsId' ],
+				[ [ 'has type=page', 'Allows value' => 'test','1215623e790d918773db943232068a93b21c9f1419cb85666c6558e87f5b7d47=test' ], '01234567890_testStringAsId' ],
 				[ 1 => true ]
 			],
 		);

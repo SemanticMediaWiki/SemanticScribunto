@@ -32,7 +32,7 @@ function p.ask(frame)
         return "no parameter found"
     end
     
-    local queryResult = mw.smw.getQueryResult( frame.args[1] )
+    local queryResult = mw.smw.getQueryResult( frame.args )
 
     if queryResult == nil then
         return "(no values)"
@@ -41,7 +41,11 @@ function p.ask(frame)
     if type( queryResult ) == "table" then
         local myResult = ""
         for k,v in pairs( queryResult.results ) do
-            myResult = myResult .. k .. " | " .. v.fulltext .. " " .. v.fullurl .. " | " .. "<br/>"
+            if  v.fulltext and v.fullurl then
+                myResult = myResult .. k .. " | " .. v.fulltext .. " " .. v.fullurl .. " | " .. "<br/>"
+            else
+                myResult = myResult .. k .. " | no page title for result set available (you probably specified ''mainlabel=-')"
+            end
         end
         return myResult
     end
@@ -51,6 +55,7 @@ end
 
 return p
 ```
+
 The return format matches the data structure delivered by the [api]. You can see an example below:
 ```lua
 -- assuming sample call
