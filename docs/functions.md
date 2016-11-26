@@ -6,8 +6,8 @@ The following functions are available through the `mw.smw` package:
 
 - Data retrieval functions
 
-    - [`mw.smw.getQueryResult`](#mwsmwgetQueryResult)
-    - [`mw.smw.getPropertyType`](#mwsmwgetPropertyType)
+    - [`mw.smw.getQueryResult`](#mwsmwgetqueryresult)
+    - [`mw.smw.getPropertyType`](#mwsmwgetpropertytype)
 
 - Data storage functions
 
