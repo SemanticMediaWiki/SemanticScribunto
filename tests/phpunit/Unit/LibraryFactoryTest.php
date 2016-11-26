@@ -1,0 +1,112 @@
+<?php
+
+namespace SMW\Scribunto\Tests;
+
+use SMW\Scribunto\LibraryFactory;
+
+/**
+ * @covers \SMW\Scribunto\LibraryFactory
+ * @group semantic-scribunto
+ *
+ * @license GNU GPL v2+
+ * @since 1.0
+ *
+ * @author mwjames
+ */
+class LibraryFactoryTest extends \PHPUnit_Framework_TestCase {
+
+	private $store;
+	private $parser;
+
+	protected function setUp() {
+
+		$language = $this->getMockBuilder( '\Language' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$queryResult = $this->getMockBuilder( '\SMWQueryResult' )
+			->disableOriginalConstructor()
+			->getMockForAbstractClass();
+
+		$this->store = $this->getMockBuilder( '\SMW\Store' )
+			->disableOriginalConstructor()
+			->getMockForAbstractClass();
+
+		$this->store->expects( $this->any() )
+			->method( 'getQueryResult' )
+			->will( $this->returnValue( $queryResult ) );
+
+		$this->parser = $this->getMockBuilder( '\Parser' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$this->parser->expects( $this->any() )
+			->method( 'getTitle' )
+			->will( $this->returnValue( \Title::newFromText( 'Foo' ) ) );
+
+		$this->parser->expects( $this->any() )
+			->method( 'getOutput' )
+			->will( $this->returnValue( new \ParserOutput() ) );
+
+		$this->parser->expects( $this->any() )
+			->method( 'getTargetLanguage' )
+			->will( $this->returnValue( $language ) );
+	}
+
+	public function testCanConstruct() {
+
+		$this->assertInstanceOf(
+			'\SMW\Scribunto\LibraryFactory',
+			new LibraryFactory( $this->store )
+		);
+	}
+
+	public function testCanConstructQueryResult() {
+
+		$instance = new LibraryFactory(
+			$this->store
+		);
+
+		$this->assertInstanceOf(
+			'\SMWQueryResult',
+			$instance->newQueryResultFrom( array( '[[Foo::Bar]]' ) )
+		);
+	}
+
+	public function testCanConstructParserParameterProcessor() {
+
+		$instance = new LibraryFactory(
+			$this->store
+		);
+
+		$this->assertInstanceOf(
+			'\SMW\ParserParameterProcessor',
+			$instance->newParserParameterProcessorFrom( array( '' ) )
+		);
+	}
+
+	public function testCanConstructSetParserFunction() {
+
+		$instance = new LibraryFactory(
+			$this->store
+		);
+
+		$this->assertInstanceOf(
+			'\SMW\SetParserFunction',
+			$instance->newSetParserFunction( $this->parser )
+		);
+	}
+
+	public function testCanConstructSubobjectParserFunction() {
+
+		$instance = new LibraryFactory(
+			$this->store
+		);
+
+		$this->assertInstanceOf(
+			'\SMW\SubobjectParserFunction',
+			$instance->newSubobjectParserFunction( $this->parser )
+		);
+	}
+
+}

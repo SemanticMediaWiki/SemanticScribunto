@@ -4,11 +4,7 @@ namespace SMW\Scribunto;
 
 use Scribunto_LuaLibraryBase;
 use SMW\DIProperty;
-
-use SMWQueryProcessor as QueryProcessor;
 use SMW\ApplicationFactory;
-use SMW\ParameterProcessorFactory;
-use SMW\ParserFunctionFactory;
 use SMWOutputs;
 
 /**
@@ -18,6 +14,11 @@ use SMWOutputs;
  * @author mwjames
  */
 class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
+
+	/**
+	 * @var LibraryFactory
+	 */
+	private $libraryFactory;
 
 	/**
 	 * This is the name of the key for error messages
@@ -54,28 +55,17 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	 */
 	public function getQueryResult( $arguments = null ) {
 
-		$rawParameters = $this->processLuaArguments( $arguments );
-
-		list( $queryString, $parameters, $printouts ) = QueryProcessor::getComponentsFromFunctionParams(
-		    $rawParameters,
-		    false
+		$queryResult = $this->getLibraryFactory()->newQueryResultFrom(
+			$this->processLuaArguments( $arguments )
 		);
 
-		QueryProcessor::addThisPrintout( $printouts, $parameters );
+		$result = $queryResult->toArray();
 
-		$query = QueryProcessor::createQuery(
-		    $queryString,
-		    QueryProcessor::getProcessedParams( $parameters, $printouts ),
-		    QueryProcessor::SPECIAL_PAGE,
-		    '',
-		    $printouts
-		);
-
-		$queryResult = ApplicationFactory::getInstance()->getStore()->getQueryResult( $query )->toArray();
-		if(!empty($queryResult["results"])) {
-		    $queryResult["results"] = array_combine(range(1, count($queryResult["results"])), array_values($queryResult["results"]));
+		if( !empty( $result["results"] ) ) {
+		    $result["results"] = array_combine( range( 1, count( $result["results"] ) ), array_values( $result["results"] ) );
 		}
-		return array( $queryResult );
+
+		return array( $result );
 	}
 
 	/**
@@ -106,14 +96,13 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	}
 
 	/**
-	 * This mirrors the functionality of the parser function #info and makes it available to lua.
+	 * This mirrors the functionality of the parser function #info and makes it
+	 * available to lua.
 	 *
 	 * @since 1.0
 	 *
 	 * @param string $text text to show inside the info popup
 	 * @param string $icon identifier for the icon to use
-	 *
-	 * @uses \SMW\ParserFunctionFactory::__construct
 	 *
 	 * @return string[]
 	 */
@@ -143,17 +132,16 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 		// to have all necessary data committed to output, use SMWOutputs::commitToParser()
 		SMWOutputs::commitToParser( $parser );
 
-		return array( $this->getParsedResult( $result ) );
+		return array( $this->doPostProcessParserFunctionCallResult( $result ) );
 	}
 
 	/**
-	 * This mirrors the functionality of the parser function #set and makes it available in lua.
+	 * This mirrors the functionality of the parser function #set and makes it
+	 * available in lua.
 	 *
 	 * @since 1.0
 	 *
 	 * @param string|array $parameters parameters passed from lua, string or array depending on call
-	 *
-	 * @uses \SMW\ParserFunctionFactory::__construct, ParameterProcessorFactory::newFromArray
 	 *
 	 * @return null|array|array[]
 	 */
@@ -162,21 +150,18 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 		$parser = $this->getEngine()->getParser();
 
 		// if we have no arguments, do nothing
-		if ( !sizeof( $arguments = $this->processLuaArguments( $parameters ) ) ) {
+		if ( !count( $arguments = $this->processLuaArguments( $parameters ) ) ) {
 			return null;
 		}
 
-		// prepare setParserFunction object
-		$parserFunctionFactory = new ParserFunctionFactory( $parser );
-		$setParserFunction = $parserFunctionFactory->newSetParserFunction( $parser );
+		$setParserFunction = $this->getLibraryFactory()->newSetParserFunction( $parser );
 
-		// call parse on setParserFunction
 		$parserFunctionCallResult = $setParserFunction->parse(
-			ParameterProcessorFactory::newFromArray( $arguments )
+			$this->getLibraryFactory()->newParserParameterProcessorFrom( $arguments )
 		);
 
 		// get usable result
-		$result = $this->getParsedResult( $parserFunctionCallResult );
+		$result = $this->doPostProcessParserFunctionCallResult( $parserFunctionCallResult );
 
 		if ( strlen( $result ) ) {
 			// if result a non empty string, assume an error message
@@ -188,12 +173,11 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	}
 
 	/**
-	 * This mirrors the functionality of the parser function #subobject and makes it available to lua.
+	 * This mirrors the functionality of the parser function #subobject and
+	 * makes it available to lua.
 	 *
 	 * @param string|array $parameters parameters passed from lua, string or array depending on call
 	 * @param string $subobjectId if you need to manually assign an id, do this here
-	 *
-	 * @uses \SMW\ParserFunctionFactory::__construct, \SMW\ParameterProcessorFactory::newFromArray
 	 *
 	 * @return null|array|array[]
 	 */
@@ -202,34 +186,35 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 		$parser = $this->getEngine()->getParser();
 
 		// if we have no arguments, do nothing
-		if ( !sizeof( $arguments = $this->processLuaArguments( $parameters ) ) ) {
+		if ( !count( $arguments = $this->processLuaArguments( $parameters ) ) ) {
 			return null;
 		}
 
-		# parameters[0] would be the subobject id, so unshift
+		// parameters[0] would be the subobject id, so unshift
 		if ( isset( $arguments[0] ) ) {
 			array_unshift( $arguments, null );
 		}
 
-		# if subobject id was set, put it on position 0
+		// if subobject id was set, put it on position 0
 		if ( !is_null( $subobjectId ) && $subobjectId ) {
-			# user deliberately set an id for this subobject
+			// user deliberately set an id for this subobject
 			$arguments[0] = $subobjectId;
 
-			# we need to ksort, otherwise ParameterProcessorFactory doesn't recognize the id
+			// we need to ksort, otherwise ParameterProcessorFactory doesn't
+			// recognize the id
 			ksort( $arguments );
 		}
 
-		# prepare subobjectParserFunction object
-		$parserFunctionFactory = new ParserFunctionFactory( $parser );
-		$subobjectParserFunction = $parserFunctionFactory->newSubobjectParserFunction( $parser );
+		// prepare subobjectParserFunction object
+		$subobjectParserFunction = $this->getLibraryFactory()->newSubobjectParserFunction(
+			$parser
+		);
 
-		# pre-process the parameters for the subobject
-		$processedParameter = ParameterProcessorFactory::newFromArray( $arguments );
+		$parserFunctionCallResult = $subobjectParserFunction->parse(
+			 $this->getLibraryFactory()->newParserParameterProcessorFrom( $arguments )
+		);
 
-		$parserFunctionCallResult = $subobjectParserFunction->parse( $processedParameter );
-
-		if ( strlen( $result = $this->getParsedResult( $parserFunctionCallResult ) ) ) {
+		if ( strlen( $result = $this->doPostProcessParserFunctionCallResult( $parserFunctionCallResult ) ) ) {
 			// if result a non empty string, assume an error message
 			return array( [ 1 => false, self::SMW_ERROR_FIELD => preg_replace( '/<[^>]+>/', '', $result ) ] );
 		} else {
@@ -239,7 +224,8 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	}
 
 	/**
-	 * Takes a result returned from a parser function call and prepares it to be used as parsed string.
+	 * Takes a result returned from a parser function call and prepares it to be
+	 * used as parsed string.
 	 *
 	 * @since 1.0
 	 *
@@ -247,18 +233,18 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	 *
 	 * @return string
 	 */
-	private function getParsedResult( $parserFunctionResult ) {
+	private function doPostProcessParserFunctionCallResult( $parserFunctionResult ) {
 
 		// parser function call can return string or array
 		if ( is_array( $parserFunctionResult ) ) {
 			$result = $parserFunctionResult[0];
-			$noParse = isset($parserFunctionResult['noparse']) ? $parserFunctionResult['noparse'] : true;
+			$noParse = isset( $parserFunctionResult['noparse'] ) ? $parserFunctionResult['noparse'] : true;
 		} else {
 			$result = $parserFunctionResult;
 			$noParse = true;
 		}
 
-		if ( ! $noParse ) {
+		if ( !$noParse ) {
 			$result = $this->getEngine()->getParser()->recursiveTagParseFully( $result );
 		}
 
@@ -266,7 +252,8 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	}
 
 	/**
-	 * Takes the $arguments passed from lua and pre-processes them: make sure, we have a sequence array (not associative)
+	 * Takes the $arguments passed from lua and pre-processes them: make sure,
+	 * we have a sequence array (not associative)
 	 *
 	 * @since 1.0
 	 *
@@ -281,19 +268,34 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 			$arguments = preg_split( "/(?<=[^\|])\|(?=[^\|])/", $arguments );
 		}
 
-		// if $arguments were supplied as key => value pair (aka associative array), we rectify this here
+		// if $arguments were supplied as key => value pair (aka associative array),
+		// we rectify this here
 		$processedArguments = array();
 		foreach ( $arguments as $key => $value ) {
 			if ( !is_int( $key ) && !preg_match( '/[0-9]+/', $key ) ) {
 				$value = (string) $key . '=' . (string) $value;
 			}
 			if ( $value ) {
-				// only add, when value is set. could be empty, if lua function was called with no parameter or empty string
+				// only add, when value is set. could be empty, if lua function
+				// was called with no parameter or empty string
 				$processedArguments[] = $value;
 			}
 		}
 
 		return $processedArguments;
+	}
+
+	private function getLibraryFactory() {
+
+		if ( $this->libraryFactory !== null ) {
+			return $this->libraryFactory;
+		}
+
+		$this->libraryFactory = new LibraryFactory(
+			ApplicationFactory::getInstance()->getStore()
+		);
+
+		return $this->libraryFactory;
 	}
 
 }
