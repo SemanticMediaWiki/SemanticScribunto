@@ -16,11 +16,7 @@ if ( defined( 'SMW_SCRIBUNTO_VERSION' ) ) {
 	return 1;
 }
 
-SemanticScribunto::initExtension();
-
-$GLOBALS['wgExtensionFunctions'][] = function() {
-	SemanticScribunto::onExtensionFunction();
-};
+SemanticScribunto::load();
 
 /**
  * @codeCoverageIgnore
@@ -29,12 +25,30 @@ class SemanticScribunto {
 
 	/**
 	 * @since 1.0
+	 *
+	 * @note It is expected that this function is loaded before LocalSettings.php
+	 * to ensure that settings and global functions are available by the time
+	 * the extension is activated.
 	 */
-	public static function initExtension() {
+	public static function load() {
 
 		if ( is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
 			include_once __DIR__ . '/vendor/autoload.php';
 		}
+
+		// In case extension.json is being used, the the succeeding steps will
+		// be handled by the ExtensionRegistry
+		self::initExtension();
+
+		$GLOBALS['wgExtensionFunctions'][] = function() {
+			self::onExtensionFunction();
+		};
+	}
+
+	/**
+	 * @since 1.0
+	 */
+	public static function initExtension() {
 
 		define( 'SMW_SCRIBUNTO_VERSION', '1.0.0-alpha' );
 
