@@ -1,16 +1,22 @@
 ## mw.smw library functions
 
-
-### overview
 The following functions are available through the `mw.smw` package:
 
-- [`mw.smw.getQueryResult`](#mw.smw.getQueryResult)
-- [`mw.smw.getPropertyType`](#mw.smw.getPropertyType)
-- [`mw.smw.info`](#mw.smw.info)
-- [`mw.smw.set`](#mw.smw.set)
-- [`mw.smw.subobject`](#mw.smw.subobject)
+### Overview
 
-### data retrieval functions
+- Data retrieval functions
+
+    - [`mw.smw.getQueryResult`](#mwsmwgetQueryResult)
+    - [`mw.smw.getPropertyType`](#mwsmwgetPropertyType)
+
+- Data storage functions
+
+    - [`mw.smw.info`](#mwsmwinfo)
+    - [`mw.smw.set`](#mwsmwset)
+    - [`mw.smw.subobject`](#mwsmwsubobject)
+
+### Data retrieval functions
+
 #### mw.smw.getQueryResult
 
 With `mw.smw.getQueryResult` you can execute an smw query. It returns the result as a lua table for direct use in modules.
@@ -31,7 +37,7 @@ function p.ask(frame)
     if frame.args[1] == nil then
         return "no parameter found"
     end
-    
+
     local queryResult = mw.smw.getQueryResult( frame.args )
 
     if queryResult == nil then
@@ -178,7 +184,8 @@ return p
 
 `{{#invoke:smw|type|Modification date}}` can be used as it returns a simple string value such as `_dat`.
 
-### data storage functions
+### Data storage functions
+
 #### mw.smw.set
 This makes the smw parser function `#set` available in lua and allows you to store data in your smw store.
 The usage is similar to that of the [parser function][set], however be advised to read the notes under the example.
@@ -194,7 +201,7 @@ function p.set( frame )
     if not mw.smw then
         return "mw.smw module not found"
     end
-    
+
     if #frame.args == 0 then
         return "no parameters found"
     end
@@ -210,27 +217,27 @@ end
 function p.inlineSet( frame )
 
     local dataStoreTyp1 = {}
-    
+
     dataStoreTyp1['my property1'] = 'value1'
     dataStoreTyp1['my property2'] = 'value2'
     dataStoreTyp1['my property3'] = 'value3'
-    
+
     local result = mw.smw.set( dataStoreTyp1 )
-    
+
     if result == true then
         -- everything ok
     else
         -- error message to be found in result.error
     end
-    
+
     local dataStoreType2 = {
         'my property1=value1',
         'my property2=value2',
         'my property3=value3',
     }
-    
+
     local result = mw.smw.set( dataStoreType2 )
-    
+
     if result == true then
         -- everything ok
     else
@@ -265,7 +272,7 @@ function p.subobject( frame )
     if not mw.smw then
         return "mw.smw module not found"
     end
-    
+
     if #frame.args == 0 then
         return "no parameters found"
     end
@@ -280,41 +287,41 @@ end
 function p.inlineSubobject( frame )
 
     local dataStoreTyp1 = {}
-    
+
     dataStoreTyp1['my property1'] = 'value1'
     dataStoreTyp1['my property2'] = 'value2'
     dataStoreTyp1['my property3'] = 'value3'
-    
+
     local result = mw.smw.subobject( dataStoreTyp1 )
-    
+
     if result == true then
         -- everything ok
     else
         -- error message to be found in result.error
     end
-    
+
     local dataStoreType2 = {
         'my property1=value1',
         'my property2=value2',
         'my property3=value3',
     }
-    
+
     local result = mw.smw.subobject( dataStoreType2 )
-    
+
     if result == true then
         -- everything ok
     else
         -- error message to be found in result.error
     end
-    
+
     -- you can also manually set a subobject id. however, this is not recommended
-    
+
     local result = mw.smw.subobject( dataStoreType2, 'myPersonalId' )
     if result == true then
         -- everything ok
     else
         -- error message to be found in result.error
-    end    
+    end
 end
 
 return p
@@ -339,7 +346,7 @@ function p.info( frame )
     if frame.args[1] == nil then
         return "no parameter found"
     end
-    
+
     local tooltip
     if frame.args[2] then
         tooltip = mw.smw.info( frame.args[1], frame.args[2] )
@@ -353,13 +360,13 @@ end
 function p.inlineInfo( frame )
 
     local output = 'This is sample output'
-    
+
     -- so some stuff
-    
+
     output = output .. mw.smw.info( 'This is a warning', 'warning' )
-    
+
     -- some more stuff
-    
+
     return output
 end
 
