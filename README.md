@@ -34,8 +34,7 @@ The recommended way to install Semantic Scribunto is by using [Composer][compose
 
 ## Usage
 
-[functions.md](docs/functions.md) describes available `mw.smw` library functions
-provided by this extensions.
+A description of the `mw.smw` library functions can be found [here](docs/README.md).
 
 ## Contribution and support
 
