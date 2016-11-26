@@ -1,8 +1,8 @@
-## mw.smw library functions
+# mw.smw library functions
 
-The following functions are available through the `mw.smw` package.
+The following functions are available in the `mw.smw` package.
 
-### Overview
+## Overview
 
 - Data retrieval functions
 
@@ -18,9 +18,9 @@ The following functions are available through the `mw.smw` package.
 
     - [`mw.smw.info`](mw.smw.info.md)
 
-### Notes
+## Notes
 
-## Using #invoke
+### Using #invoke
 
 For a detailed description of the `#invoke` function, please have a look at the [Lua reference][lua] manual.
 
