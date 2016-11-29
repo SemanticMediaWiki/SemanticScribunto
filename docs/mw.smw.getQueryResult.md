@@ -74,7 +74,7 @@ local result = mw.smw.getQueryResult( '[[Modification date::+]]|?Modification da
             format = null
         },
     },
-    result = {
+    results = {
         {
             printouts = {
                 ['Modification date'] = {

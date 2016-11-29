@@ -4,7 +4,7 @@
 	@since 1.0
 
 	@licence GNU GPL v2+
-	@author oetterer
+	@author Tobias Oetterer
 ]]
 
 local testframework = require 'Module:TestFramework'

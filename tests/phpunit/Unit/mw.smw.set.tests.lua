@@ -4,7 +4,7 @@
 	@since 1.0
 
 	@licence GNU GPL v2+
-	@author oetterer
+	@author Tobias Oetterer
 ]]
 
 local testframework = require 'Module:TestFramework'
@@ -13,7 +13,7 @@ local testframework = require 'Module:TestFramework'
 local tests = {
 	{ name = 'set (no argument)', func = mw.smw.set,
 		args = { '' },
-		expect = { nil }
+		expect = { true }
 	},
 	{ name = 'set (matching input type to property type)', func = mw.smw.set,
 		args = { 'has type=page' },

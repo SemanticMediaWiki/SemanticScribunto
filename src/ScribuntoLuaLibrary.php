@@ -108,8 +108,6 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	 */
 	public function info( $text, $icon = 'info' ) {
 
-		$parser = $this->getEngine()->getParser();
-
 		// do some parameter processing
 		if ( ! trim( $text ) || ! is_string( $text ) ) {
 			// no info-text present, or wrong type. abort
@@ -130,7 +128,9 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 		);
 
 		// to have all necessary data committed to output, use SMWOutputs::commitToParser()
-		SMWOutputs::commitToParser( $parser );
+		SMWOutputs::commitToParser(
+			$this->getEngine()->getParser()
+		);
 
 		return array( $this->doPostProcessParserFunctionCallResult( $result ) );
 	}
@@ -141,20 +141,17 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	 *
 	 * @since 1.0
 	 *
-	 * @param string|array $parameters parameters passed from lua, string or array depending on call
+	 * @param string|array $arguments arguments passed from lua, string or array depending on call
 	 *
 	 * @return null|array|array[]
 	 */
-	public function set( $parameters ) {
+	public function set( $arguments ) {
 
-		$parser = $this->getEngine()->getParser();
+		$arguments = $this->processLuaArguments( $arguments );
 
-		// if we have no arguments, do nothing
-		if ( !count( $arguments = $this->processLuaArguments( $parameters ) ) ) {
-			return null;
-		}
-
-		$setParserFunction = $this->getLibraryFactory()->newSetParserFunction( $parser );
+		$setParserFunction = $this->getLibraryFactory()->newSetParserFunction(
+			$this->getEngine()->getParser()
+		);
 
 		$parserFunctionCallResult = $setParserFunction->parse(
 			$this->getLibraryFactory()->newParserParameterProcessorFrom( $arguments )
@@ -176,24 +173,17 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	 * This mirrors the functionality of the parser function #subobject and
 	 * makes it available to lua.
 	 *
-	 * @param string|array $parameters parameters passed from lua, string or array depending on call
+	 * @param string|array $arguments arguments passed from lua, string or array depending on call
 	 * @param string $subobjectId if you need to manually assign an id, do this here
 	 *
 	 * @return null|array|array[]
 	 */
-	public function subobject( $parameters, $subobjectId = null ) {
+	public function subobject( $arguments, $subobjectId = null ) {
 
-		$parser = $this->getEngine()->getParser();
-
-		// if we have no arguments, do nothing
-		if ( !count( $arguments = $this->processLuaArguments( $parameters ) ) ) {
-			return null;
-		}
+		$arguments = $this->processLuaArguments( $arguments );
 
 		// parameters[0] would be the subobject id, so unshift
-		if ( isset( $arguments[0] ) ) {
-			array_unshift( $arguments, null );
-		}
+		array_unshift( $arguments, null );
 
 		// if subobject id was set, put it on position 0
 		if ( !is_null( $subobjectId ) && $subobjectId ) {
@@ -207,7 +197,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 
 		// prepare subobjectParserFunction object
 		$subobjectParserFunction = $this->getLibraryFactory()->newSubobjectParserFunction(
-			$parser
+			$this->getEngine()->getParser()
 		);
 
 		$parserFunctionCallResult = $subobjectParserFunction->parse(
@@ -275,11 +265,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 			if ( !is_int( $key ) && !preg_match( '/[0-9]+/', $key ) ) {
 				$value = (string) $key . '=' . (string) $value;
 			}
-			if ( $value ) {
-				// only add, when value is set. could be empty, if lua function
-				// was called with no parameter or empty string
-				$processedArguments[] = $value;
-			}
+			$processedArguments[] = $value;
 		}
 
 		return $processedArguments;
@@ -297,5 +283,4 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 
 		return $this->libraryFactory;
 	}
-
 }
