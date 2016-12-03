@@ -9,7 +9,7 @@ namespace SMW\Scribunto\Tests;
  * @license GNU GPL v2+
  * @since 1.0
  *
- * @author oetterer
+ * @author Tobias Oetterer
  */
 class ScribuntoLuaLibrarySetTest extends ScribuntoLuaEngineTestBase {
 
@@ -28,4 +28,64 @@ class ScribuntoLuaLibrarySetTest extends ScribuntoLuaEngineTestBase {
 		);
 	}
 
+	/**
+	 * Tests method set through assertions based upon
+	 * dataProvider {@see \SMW\Scribunto\Tests\ScribuntoLuaLibraryTest::dataProviderSetTest}
+	 *
+	 * @dataProvider dataProviderSetTest
+	 * @param array $arguments arguments passed to function
+	 * @param mixed $expected expected return value
+	 */
+	public function testSet( $arguments, $expected) {
+		$this->assertEquals(
+			$expected,
+			$this->getScribuntoLuaLibrary()->set($arguments)
+		);
+	}
+
+	/**
+	 * Data provider for {@see testSet}
+	 *
+	 * @see testSet
+	 *
+	 * @return array
+	 */
+	public function dataProviderSetTest() {
+		$provider = array(
+			[
+				null,
+				[ 1 => true ]
+			],
+			[
+				'',
+				[ 1 => true ]
+			],
+			[
+				[ ],
+				[ 1 => true ]
+			],
+			[
+				[ '' ],
+				[ 1 => true ]
+			],
+			[
+				[ 'has type=page' ],
+				[ 1 => true ]
+			],
+			[
+				[ 'has type=test' ],
+				[ array( 1 => false, 'error' => wfMessage('smw_unknowntype')->inLanguage('en')->plain() ) ]
+			],
+			[
+				[ '1215623e790d918773db943232068a93b21c9f1419cb85666c6558e87f5b7d47=test' ],
+				[ 1 => true ]
+			],
+			[
+				[ '1215623e790d918773db943232068a93b21c9f1419cb85666c6558e87f5b7d47=test', 'foo' => 'bar' ],
+				[ 1 => true ]
+			]
+		);
+
+		return $provider;
+	}
 }

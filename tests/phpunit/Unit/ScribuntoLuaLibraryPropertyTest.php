@@ -28,4 +28,22 @@ class ScribuntoLuaLibraryPropertyTest extends ScribuntoLuaEngineTestBase {
 		);
 	}
 
+	/**
+	 * Tests method getPropertyType
+	 *
+	 * @return void
+	 */
+	public function testGetPropertyType() {
+		$this->assertEmpty(
+			$this->getScribuntoLuaLibrary()->getPropertyType( '' )[0]
+		);
+		$this->assertEquals(
+			'_dat',
+			$this->getScribuntoLuaLibrary()->getPropertyType( 'Modification date' )[0]
+		);
+		$this->assertEquals(
+			'_wpg',
+			$this->getScribuntoLuaLibrary()->getPropertyType( 'Foo' )[0]
+		);
+	}
 }
