@@ -31,11 +31,14 @@ class LibraryFactory {
 	}
 
 	/**
+	 * Creates a new SMWQueryResult from passed arguments,
+	 * utilizing the {@see SMWQueryProcessor}
+	 *
 	 * @since 1.0
 	 *
-	 * @param string|array $rawParameters
+	 * @param array $rawParameters
 	 *
-	 * @return QueryResult
+	 * @return \SMWQueryResult
 	 */
 	public function newQueryResultFrom( $rawParameters ) {
 
@@ -60,34 +63,50 @@ class LibraryFactory {
 	/**
 	 * @since 1.0
 	 *
+	 * @param QueryResult|string $queryResult
+	 *
+	 * @return LuaAskResultProcessor
+	 */
+	public function newLuaAskResultProcessor( $queryResult ) {
+		return new LuaAskResultProcessor( $queryResult );
+	}
+
+	/**
+	 * Creates a new ParserParameterProcessor from passed arguments
+	 *
+	 * @since 1.0
+	 *
 	 * @param array $arguments
 	 *
-	 * @return ParserParameterProcessor
+	 * @return \SMW\ParserParameterProcessor
 	 */
 	public function newParserParameterProcessorFrom( $arguments ) {
 		return ParameterProcessorFactory::newFromArray( $arguments );
 	}
 
 	/**
+	 * Creates a new SetParserFunction utilizing a Parser
+	 *
 	 * @since 1.0
 	 *
 	 * @param Parser $parser
 	 *
-	 * @return SetParserFunction
+	 * @return \SMW\SetParserFunction
 	 */
 	public function newSetParserFunction( Parser $parser ) {
 		return ApplicationFactory::getInstance()->newParserFunctionFactory( $parser )->newSetParserFunction( $parser );
 	}
 
 	/**
+	 * Creates a new SubobjectParserFunction utilizing a Parser
+	 *
 	 * @since 1.0
 	 *
 	 * @param Parser $parser
 	 *
-	 * @return SubobjectParserFunction
+	 * @return \SMW\SubobjectParserFunction
 	 */
 	public function newSubobjectParserFunction( Parser $parser ) {
 		return ApplicationFactory::getInstance()->newParserFunctionFactory( $parser )->newSubobjectParserFunction( $parser );
 	}
-
 }

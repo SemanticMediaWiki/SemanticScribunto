@@ -26,7 +26,7 @@ class LibraryFactoryTest extends \PHPUnit_Framework_TestCase {
 
 		$queryResult = $this->getMockBuilder( '\SMWQueryResult' )
 			->disableOriginalConstructor()
-			->getMockForAbstractClass();
+			->getMock();
 
 		$this->store = $this->getMockBuilder( '\SMW\Store' )
 			->disableOriginalConstructor()
@@ -106,6 +106,22 @@ class LibraryFactoryTest extends \PHPUnit_Framework_TestCase {
 		$this->assertInstanceOf(
 			'\SMW\SubobjectParserFunction',
 			$instance->newSubobjectParserFunction( $this->parser )
+		);
+	}
+
+	public function testCanConstructLuaAskResultProcessor() {
+
+		$queryResult = $this->getMockBuilder( '\SMWQueryResult' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$instance = new LibraryFactory(
+			$this->store
+		);
+
+		$this->assertInstanceOf(
+			'\SMW\Scribunto\LuaAskResultProcessor',
+			$instance->newLuaAskResultProcessor( $queryResult )
 		);
 	}
 

@@ -34,6 +34,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	public function register() {
 
 		$lib = array(
+			'ask'             => array( $this, 'ask' ),
 			'getPropertyType' => array( $this, 'getPropertyType' ),
 			'getQueryResult'  => array( $this, 'getQueryResult' ),
 			'info'            => array( $this, 'info' ),
@@ -45,24 +46,29 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	}
 
 	/**
-	 * Returns query results in for of the standard API return format
+	 * This mirrors the functionality of the parser function #ask and makes it
+	 * available in lua.
 	 *
 	 * @since 1.0
 	 *
-	 * @param string|array $arguments
+	 * @param string|array $arguments parameters passed from lua, string or array depending on call
 	 *
-	 * @return array
+	 * @return null|array[]
 	 */
-	public function getQueryResult( $arguments = null ) {
+	public function ask ( $arguments = null ) {
 
 		$queryResult = $this->getLibraryFactory()->newQueryResultFrom(
 			$this->processLuaArguments( $arguments )
 		);
 
-		$result = $queryResult->toArray();
+		$luaResultProcessor = $this->getLibraryFactory()->newLuaAskResultProcessor(
+			$queryResult
+		);
 
-		if( !empty( $result["results"] ) ) {
-		    $result["results"] = array_combine( range( 1, count( $result["results"] ) ), array_values( $result["results"] ) );
+		$result = $luaResultProcessor->getQueryResultAsTable();
+
+		if ( !empty( $result ) ) {
+			array_unshift( $result, null );
 		}
 
 		return array( $result );
@@ -93,6 +99,30 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 		}
 
 		return array( $property->findPropertyTypeID() );
+	}
+
+	/**
+	 * Returns query results in for of the standard API return format
+	 *
+	 * @since 1.0
+	 *
+	 * @param string|array $arguments
+	 *
+	 * @return array
+	 */
+	public function getQueryResult( $arguments = null ) {
+
+		$queryResult = $this->getLibraryFactory()->newQueryResultFrom(
+			$this->processLuaArguments( $arguments )
+		);
+
+		$result = $queryResult->toArray();
+
+		if( !empty( $result["results"] ) ) {
+		    $result["results"] = array_combine( range( 1, count( $result["results"] ) ), array_values( $result["results"] ) );
+		}
+
+		return array( $result );
 	}
 
 	/**
@@ -158,15 +188,17 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 		);
 
 		// get usable result
-		$result = $this->doPostProcessParserFunctionCallResult( $parserFunctionCallResult );
+		$result = $this->doPostProcessParserFunctionCallResult(
+			$parserFunctionCallResult
+		);
 
 		if ( strlen( $result ) ) {
-			// if result a non empty string, assume an error message
+			// if result is a non empty string, assume an error message
 			return array( [ 1 => false, self::SMW_ERROR_FIELD => preg_replace( '/<[^>]+>/', '', $result ) ] );
-		} else {
-			// on success, return true
-			return array( 1 => true );
 		}
+
+		// on success, return true
+		return array( 1 => true );
 	}
 
 	/**
@@ -207,10 +239,10 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 		if ( strlen( $result = $this->doPostProcessParserFunctionCallResult( $parserFunctionCallResult ) ) ) {
 			// if result a non empty string, assume an error message
 			return array( [ 1 => false, self::SMW_ERROR_FIELD => preg_replace( '/<[^>]+>/', '', $result ) ] );
-		} else {
-			// on success, return true
-			return array( 1 => true );
 		}
+
+		// on success, return true
+		return array( 1 => true );
 	}
 
 	/**
@@ -239,6 +271,26 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 		}
 
 		return trim( $result );
+	}
+
+	/**
+	 * Returns the LibraryFactory singleton (and creates it first, if not already present)
+	 *
+	 * @since 1.0
+	 *
+	 * @return LibraryFactory
+	 */
+	private function getLibraryFactory() {
+
+		if ( $this->libraryFactory !== null ) {
+			return $this->libraryFactory;
+		}
+
+		$this->libraryFactory = new LibraryFactory(
+			ApplicationFactory::getInstance()->getStore()
+		);
+
+		return $this->libraryFactory;
 	}
 
 	/**
@@ -271,16 +323,4 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 		return $processedArguments;
 	}
 
-	private function getLibraryFactory() {
-
-		if ( $this->libraryFactory !== null ) {
-			return $this->libraryFactory;
-		}
-
-		$this->libraryFactory = new LibraryFactory(
-			ApplicationFactory::getInstance()->getStore()
-		);
-
-		return $this->libraryFactory;
-	}
 }

@@ -24,11 +24,9 @@ function smw.setupInterface()
 	package.loaded['mw.smw'] = smw
 end
 
--- getQueryResult
-function smw.getQueryResult( queryString )
-	local queryResult = php.getQueryResult( queryString )
-	if queryResult == nil then return nil end
-	return queryResult
+-- ask
+function smw.ask( parameters )
+	return php.ask( parameters )
 end
 
 -- getPropertyType
@@ -36,6 +34,12 @@ function smw.getPropertyType( name )
 	return php.getPropertyType( name )
 end
 
+-- getQueryResult
+function smw.getQueryResult( queryString )
+	local queryResult = php.getQueryResult( queryString )
+	if queryResult == nil then return nil end
+	return queryResult
+end
 
 -- info
 function smw.info( text, icon )

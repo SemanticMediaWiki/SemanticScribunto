@@ -28,6 +28,19 @@ local tests = {
 		expect = { 'table' }
 	},
 	{
+		name = 'ask function registered and callable',
+		func = function ( args )
+			local result, returnVal =  pcall( mw.smw[args], '' )
+			if result then
+				return type( mw.smw[args] ), result
+			else
+				return type( mw.smw[args] ), result, returnVal
+			end
+		end,
+		args = { 'ask' },
+		expect = { 'function', true }
+	},
+	{
 		name = 'getPropertyType function registered and callable',
 		func = function ( args )
 			local result, returnVal =  pcall( mw.smw[args], '' )
