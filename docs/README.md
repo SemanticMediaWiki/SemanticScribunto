@@ -38,6 +38,15 @@ For more information see the sample results in [`mw.smw.ask`][doc.ask] and [`mw.
 
 For a detailed description of the `#invoke` function, please have a look at the [Lua reference][lua] manual.
 
+## mw.smw library extension
+
+`ScribuntoLuaLibrary` is the interface for functions that are made available in the `mw.smw` package and can be extended easily with the expectation that some guidelines are followed to ensure future maintainability and release stability.
+
+- Register the function with `ScribuntoLuaLibrary::register`
+- Isolate the processing and if necessary add an extra class (e.g. `LuaAskResultProcessor`, `LibraryFactory`) to separate necessary work steps
+- Add tests for `PHP` and `Lua` components to ensure that both parts are equally tested and correspond to each other in the expected outcome
+- Existing tests should not be altered unless those contain a bug, an unexpected behaviour, or an existing function has changed its behaviour and therefore the expected output
+
 [smwdoc]: https://www.semantic-mediawiki.org/wiki/Semantic_MediaWiki
 [api]: https://www.semantic-mediawiki.org/wiki/Serialization_%28JSON%29
 [lua]: https://www.mediawiki.org/wiki/Extension:Scribunto/Lua_reference_manual
