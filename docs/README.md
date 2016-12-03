@@ -6,18 +6,18 @@ The following functions are provided by the `mw.smw` package.
 
 - Data retrieval functions
 
-    - [`mw.smw.ask`][ask]
-    - [`mw.smw.getPropertyType`][getPropertyType]
-    - [`mw.smw.getQueryResult`][getQueryResult]
+    - [`mw.smw.ask`][doc.ask]
+    - [`mw.smw.getPropertyType`][doc.getPropertyType]
+    - [`mw.smw.getQueryResult`][doc.getQueryResult]
 
 - Data storage functions
 
-    - [`mw.smw.set`][set]
-    - [`mw.smw.subobject`][subobject]
+    - [`mw.smw.set`][doc.set]
+    - [`mw.smw.subobject`][doc.subobject]
 
 - Miscellaneous
 
-    - [`mw.smw.info`][info]
+    - [`mw.smw.info`][doc.info]
 
 ## Notes
 
@@ -32,7 +32,7 @@ In other words:
 (see [smwdoc] for more information)
 * `getQueryResult` gets you the full result set in the same format provided by the [api]
 
-For more information see the sample results in [`mw.smw.ask`](mw.smw.ask.md) and [`mw.smw.getQueryResult`](mw.smw.getQueryResult.md).
+For more information see the sample results in [`mw.smw.ask`][doc.ask] and [`mw.smw.getQueryResult`][doc.getQueryResult].
 
 ### Using #invoke
 
@@ -41,9 +41,9 @@ For a detailed description of the `#invoke` function, please have a look at the 
 [smwdoc]: https://www.semantic-mediawiki.org/wiki/Semantic_MediaWiki
 [api]: https://www.semantic-mediawiki.org/wiki/Serialization_%28JSON%29
 [lua]: https://www.mediawiki.org/wiki/Extension:Scribunto/Lua_reference_manual
-[ask]: https://github.com/SemanticMediaWiki/SemanticScribunto/blob/master/docs/mw.smw.ask.md
-[getPropertyType]: https://github.com/SemanticMediaWiki/SemanticScribunto/blob/master/docs/mw.smw.getPropertyType.md
-[getQueryResult]: https://github.com/SemanticMediaWiki/SemanticScribunto/blob/master/docs/mw.smw.getQueryResult.md
-[set]: https://github.com/SemanticMediaWiki/SemanticScribunto/blob/master/docs/mw.smw.set.md
-[subobject]: https://github.com/SemanticMediaWiki/SemanticScribunto/blob/master/docs/mw.smw.subobject.md
-[info]: https://github.com/SemanticMediaWiki/SemanticScribunto/blob/master/docs/mw.smw.info.md
+[doc.ask]: https://github.com/SemanticMediaWiki/SemanticScribunto/blob/master/docs/mw.smw.ask.md
+[doc.getPropertyType]: https://github.com/SemanticMediaWiki/SemanticScribunto/blob/master/docs/mw.smw.getPropertyType.md
+[doc.getQueryResult]: https://github.com/SemanticMediaWiki/SemanticScribunto/blob/master/docs/mw.smw.getQueryResult.md
+[doc.set]: https://github.com/SemanticMediaWiki/SemanticScribunto/blob/master/docs/mw.smw.set.md
+[doc.subobject]: https://github.com/SemanticMediaWiki/SemanticScribunto/blob/master/docs/mw.smw.subobject.md
+[doc.info]: https://github.com/SemanticMediaWiki/SemanticScribunto/blob/master/docs/mw.smw.info.md
