@@ -81,9 +81,15 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 
 		$result = $instance->getQueryResultAsTable();
 
-		$this->assertInternalType( 'array', $result );
+		$this->assertInternalType(
+			'array',
+			$result
+		);
 
-		$this->assertEquals( 1, count( $result ) );
+		$this->assertEquals(
+			1,
+			count( $result )
+		);
 	}
 
 	/**
@@ -166,13 +172,13 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * Tests the extraction of data from a SMWResultArray
 	 *
-	 * @see \SMW\Scribunto\LuaAskResultProcessor::getDataFromSMWResultArray
+	 * @see \SMW\Scribunto\LuaAskResultProcessor::getDataFromResultArray
 	 *
-	 * @uses $queryResult, constructResultArray, \SMW\Scribunto\LuaAskResultProcessor::getDataFromSMWResultArray
+	 * @uses $queryResult, constructResultArray, \SMW\Scribunto\LuaAskResultProcessor::getDataFromResultArray
 	 *
 	 * @return void
 	 */
-	public function testGetDataFromSMWResultArray() {
+	public function testGetDataFromResultArray() {
 
 		$instance = new LuaAskResultProcessor( $this->queryResult );
 
@@ -181,25 +187,25 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 		/** @noinspection PhpParamsInspection */
 		$this->assertInternalType(
 			'array',
-			$instance->getDataFromSMWResultArray( $resultArray )
+			$instance->getDataFromResultArray( $resultArray )
 		);
 	}
 
 	/**
-	 * Tests data value extraction. Uses data provider {@see dataProviderGetValueFromSMWDataValueTest}
-	 * @dataProvider dataProviderGetValueFromSMWDataValueTest
+	 * Tests data value extraction. Uses data provider {@see dataProvidergetValueFromDataValueTest}
+	 * @dataProvider dataProvidergetValueFromDataValueTest
 	 *
 	 * @param string $class name of data value class
 	 * @param string $type data value type
 	 * @param string $expects return value type
 	 *
-	 * @see \SMW\Scribunto\LuaAskResultProcessor::getValueFromSMWDataValue
+	 * @see \SMW\Scribunto\LuaAskResultProcessor::getValueFromDataValue
 	 *
-	 * @uses $queryResult, dataProviderGetValueFromSMWDataValueTest
+	 * @uses $queryResult, dataProvidergetValueFromDataValueTest
 	 *
 	 * @return void
 	 */
-	public function testGetValueFromSMWDataValue( $class, $type, $expects ) {
+	public function testgetValueFromDataValue( $class, $type, $expects ) {
 
 		$instance = new LuaAskResultProcessor( $this->queryResult );
 
@@ -215,10 +221,9 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 		/** @noinspection PhpParamsInspection */
 		$this->assertInternalType(
 			$expects,
-			$instance->getValueFromSMWDataValue( $dataValue )
+			$instance->getValueFromDataValue( $dataValue )
 		);
 	}
-
 
 	/**
 	 * Tests the conversion of a list of result values into a value, usable in lua.
@@ -269,13 +274,13 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Data provider for {@see testGetValueFromSMWDataValue}
+	 * Data provider for {@see testgetValueFromDataValue}
 	 *
-	 * @see testGetValueFromSMWDataValue
+	 * @see testgetValueFromDataValue
 	 *
 	 * @return array
 	 */
-	public function dataProviderGetValueFromSMWDataValueTest() {
+	public function dataProvidergetValueFromDataValueTest() {
 
 		return [
 			[ 'SMWNumberValue', '_num', 'integer' ],

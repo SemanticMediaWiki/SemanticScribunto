@@ -61,6 +61,17 @@ class LibraryFactory {
 	}
 
 	/**
+	 * @since 1.0
+	 *
+	 * @param QueryResult|string $queryResult
+	 *
+	 * @return LuaAskResultProcessor
+	 */
+	public function newLuaAskResultProcessor( $queryResult ) {
+		return new LuaAskResultProcessor( $queryResult );
+	}
+
+	/**
 	 * Creates a new ParserParameterProcessor from passed arguments
 	 *
 	 * @since 1.0

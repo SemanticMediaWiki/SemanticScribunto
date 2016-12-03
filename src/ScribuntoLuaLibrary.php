@@ -61,7 +61,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 			$this->processLuaArguments( $arguments )
 		);
 
-		$luaResultProcessor = new LuaAskResultProcessor(
+		$luaResultProcessor = $this->getLibraryFactory()->newLuaAskResultProcessor(
 			$queryResult
 		);
 
@@ -188,15 +188,17 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 		);
 
 		// get usable result
-		$result = $this->doPostProcessParserFunctionCallResult( $parserFunctionCallResult );
+		$result = $this->doPostProcessParserFunctionCallResult(
+			$parserFunctionCallResult
+		);
 
 		if ( strlen( $result ) ) {
 			// if result is a non empty string, assume an error message
 			return array( [ 1 => false, self::SMW_ERROR_FIELD => preg_replace( '/<[^>]+>/', '', $result ) ] );
-		} else {
-			// on success, return true
-			return array( 1 => true );
 		}
+
+		// on success, return true
+		return array( 1 => true );
 	}
 
 	/**
@@ -237,10 +239,10 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 		if ( strlen( $result = $this->doPostProcessParserFunctionCallResult( $parserFunctionCallResult ) ) ) {
 			// if result a non empty string, assume an error message
 			return array( [ 1 => false, self::SMW_ERROR_FIELD => preg_replace( '/<[^>]+>/', '', $result ) ] );
-		} else {
-			// on success, return true
-			return array( 1 => true );
 		}
+
+		// on success, return true
+		return array( 1 => true );
 	}
 
 	/**

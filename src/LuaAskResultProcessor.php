@@ -2,6 +2,11 @@
 
 namespace SMW\Scribunto;
 
+use SMWQueryResult as QueryResult;
+use SMWResultArray as ResultArray;
+use SMWDataValue as DataValue;
+use SMW\Query\PrintRequest;
+
 /**
  * Class LuaAskResultProcessor
  *
@@ -31,17 +36,16 @@ class LuaAskResultProcessor {
 	/**
 	 * Holds the query result for this object
 	 *
-	 * @var \SMWQueryResult
+	 * @var QueryResult
 	 */
 	private $queryResult;
 
 	/**
 	 * LuaAskResultProcessor constructor.
 	 *
-	 * @param \SMWQueryResult $queryResult
+	 * @param QueryResult $queryResult
 	 */
-	public function __construct( \SMWQueryResult $queryResult ) {
-
+	public function __construct( QueryResult $queryResult ) {
 		$this->queryResult = $queryResult;
 		$this->msgTrue = explode( ',', wfMessage( 'smw_true_words' )->text() . ',true,t,yes,y' );
 		$this->numericIndex = 1;
@@ -75,9 +79,9 @@ class LuaAskResultProcessor {
 	 * Extracts the data of a single result row in the {@see $queryResult}
 	 * and returns it as a table usable in lua context
 	 *
-	 * @param array $resultRow result row as an array of {@see SMWResultArray} objects
+	 * @param array $resultRow result row as an array of {@see ResultArray} objects
 	 *
-	 * @uses getDataFromSMWResultArray
+	 * @uses getDataFromResultArray
 	 *
 	 * @return array
 	 */
@@ -85,11 +89,11 @@ class LuaAskResultProcessor {
 
 		$rowData = array();
 
-		/** @var \SMWResultArray $resultArray */
+		/** @var ResultArray $resultArray */
 		foreach ( $resultRow as $resultArray ) {
 
 			// get key and data
-			list ( $key, $data ) = $this->getDataFromSMWResultArray( $resultArray );
+			list ( $key, $data ) = $this->getDataFromResultArray( $resultArray );
 
 			$rowData[$key] = $data;
 		}
@@ -100,13 +104,13 @@ class LuaAskResultProcessor {
 	/**
 	 * Extracts the data of a single printRequest / query field
 	 *
-	 * @param \SMWResultArray $resultArray
+	 * @param ResultArray $resultArray
 	 *
-	 * @uses getKeyFromPrintRequest, getValueFromSMWDataValue, extractLuaDataFromDVData
+	 * @uses getKeyFromPrintRequest, getValueFromDataValue, extractLuaDataFromDVData
 	 *
 	 * @return array array ( int|string, array )
 	 */
-	public function getDataFromSMWResultArray( \SMWResultArray $resultArray ) {
+	public function getDataFromResultArray( ResultArray $resultArray ) {
 
 		// first, extract the key (label), if any
 		$key = $this->getKeyFromPrintRequest( $resultArray->getPrintRequest() );
@@ -114,10 +118,10 @@ class LuaAskResultProcessor {
 		$resultArrayData = array();
 
 		// then get all data that is stored in this printRequest / query field
-		/** @var \SMWDataValue $dataValue */
+		/** @var DataValue $dataValue */
 		while ( ( $dataValue = $resultArray->getNextDataValue() ) !== false ) {
 
-			$resultArrayData[] = $this->getValueFromSMWDataValue( $dataValue );
+			$resultArrayData[] = $this->getValueFromDataValue( $dataValue );
 		}
 
 		$resultArrayData = $this->extractLuaDataFromDVData( $resultArrayData );
@@ -129,30 +133,30 @@ class LuaAskResultProcessor {
 	 * Takes an smw query print request and tries to retrieve the label
 	 * falls back to [@see getNumericIndex} if non found
 	 *
-	 * @param \SMW\Query\PrintRequest $printRequest
+	 * @param PrintRequest $printRequest
 	 *
 	 * @uses getNumericIndex
 	 *
 	 * @return int|string
 	 */
-	public function getKeyFromPrintRequest( \SMW\Query\PrintRequest $printRequest ) {
+	public function getKeyFromPrintRequest( PrintRequest $printRequest ) {
 
 		if ( $printRequest->getLabel() !== '' ) {
 			return $printRequest->getText( SMW_OUTPUT_WIKI );
-		} else {
-			return $this->getNumericIndex();
 		}
+
+		return $this->getNumericIndex();
 	}
 
 	/**
 	 * Extracts the data of a single value of the current printRequest / query field
 	 * The value is formatted according to the type of the property
 	 *
-	 * @param \SMWDataValue $dataValue
+	 * @param DataValue $dataValue
 	 *
 	 * @return mixed
 	 */
-	public function getValueFromSMWDataValue( \SMWDataValue $dataValue ) {
+	public function getValueFromDataValue( DataValue $dataValue ) {
 
 		switch ( $dataValue->getTypeID() ) {
 			case '_boo':
@@ -163,7 +167,7 @@ class LuaAskResultProcessor {
 				// number value found
 				/** @var \SMWNumberValue $dataValue */
 				$value = $dataValue->getNumber();
-				$value = ( $value == (int) $value ) ? intval( $value ) : $value;
+				$value = ( $value == (int)$value ) ? intval( $value ) : $value;
 				break;
 			default:
 				# FIXME ignores parameter link=none|subject
@@ -172,7 +176,6 @@ class LuaAskResultProcessor {
 
 		return $value;
 	}
-
 
 	/**
 	 * Takes an array of data fields and returns either null, a single value or a lua table.
@@ -207,4 +210,5 @@ class LuaAskResultProcessor {
 	public function getNumericIndex() {
 		return $this->numericIndex++;
 	}
+
 }
