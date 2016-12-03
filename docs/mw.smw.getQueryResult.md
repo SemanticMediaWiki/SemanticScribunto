@@ -3,6 +3,8 @@
 With `mw.smw.getQueryResult` you can execute an smw query. It returns the result as a lua table for direct use in modules.
 For available parameters, please consult the [Semantic Media Wiki documentation hub][smwdoc].
 
+Please see the [return format below](#result) for the difference between this and [`mw.smw.ask`](mw.smw.ask.md).
+
 This is a sample call:
 ```lua
 -- Module:SMW
@@ -43,10 +45,13 @@ end
 return p
 ```
 
+### <a name="result"></a>Return format
+
 The return format matches the data structure delivered by the [api]. You can see an example below:
+
 ```lua
 -- assuming sample call
-local result = mw.smw.getQueryResult( '[[Modification date::+]]|?Modification date|?Last editor is|limit=2|mainlabel=page' )
+local result = mw.smw.getQueryResult( '[[Modification date::+]]|?Modification date|?Last editor is=editor|limit=2|mainlabel=page' )
 -- your result would look something like
 {
     printrequests = {
@@ -134,3 +139,4 @@ Calling `{{#invoke:smw|ask|[[Modification date::+]]|?Modification date|limit=0|m
 makes sense in a template or another module that can handle `table` return values.
 
 [smwdoc]: https://www.semantic-mediawiki.org/wiki/Semantic_MediaWiki
+[api]: https://www.semantic-mediawiki.org/wiki/Serialization_%28JSON%29

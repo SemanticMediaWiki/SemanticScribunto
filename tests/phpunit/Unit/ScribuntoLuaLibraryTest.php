@@ -41,7 +41,7 @@ class ScribuntoLuaLibraryTest extends ScribuntoLuaEngineTestBase {
 	 *
 	 * @param string $method name of method to check
 	 *
-	 * @used \SMW\Scribunto\Tests\ScribuntoLuaLibraryTest::dataProviderFunctionTest
+	 * @uses dataProviderFunctionTest
 	 *
 	 * @return void
 	 */
@@ -63,6 +63,7 @@ class ScribuntoLuaLibraryTest extends ScribuntoLuaEngineTestBase {
 	public function dataProviderFunctionTest() {
 
 		return [
+			[ 'ask' ],
 			[ 'getPropertyType' ],
 			[ 'getQueryResult' ],
 			[ 'info' ],
