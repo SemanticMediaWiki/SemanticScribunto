@@ -1,23 +1,23 @@
 # mw.smw library functions
 
-The following functions are available in the `mw.smw` package.
+The following functions are provided by the `mw.smw` package.
 
 ## Overview
 
 - Data retrieval functions
 
-    - [`mw.smw.ask`](mw.smw.ask.md)
-    - [`mw.smw.getPropertyType`](mw.smw.getPropertyType.md)
-    - [`mw.smw.getQueryResult`](mw.smw.getQueryResult.md)
+    - [`mw.smw.ask`][ask]
+    - [`mw.smw.getPropertyType`][getPropertyType]
+    - [`mw.smw.getQueryResult`][getQueryResult]
 
 - Data storage functions
 
-    - [`mw.smw.set`](mw.smw.set.md)
-    - [`mw.smw.subobject`](mw.smw.subobject.md)
+    - [`mw.smw.set`][set]
+    - [`mw.smw.subobject`][subobject]
 
 - Miscellaneous
 
-    - [`mw.smw.info`](mw.smw.info.md)
+    - [`mw.smw.info`][info]
 
 ## Notes
 
@@ -41,3 +41,9 @@ For a detailed description of the `#invoke` function, please have a look at the 
 [smwdoc]: https://www.semantic-mediawiki.org/wiki/Semantic_MediaWiki
 [api]: https://www.semantic-mediawiki.org/wiki/Serialization_%28JSON%29
 [lua]: https://www.mediawiki.org/wiki/Extension:Scribunto/Lua_reference_manual
+[ask]: https://github.com/SemanticMediaWiki/SemanticScribunto/blob/master/docs/mw.smw.ask.md
+[getPropertyType]: https://github.com/SemanticMediaWiki/SemanticScribunto/blob/master/docs/mw.smw.getPropertyType.md
+[getQueryResult]: https://github.com/SemanticMediaWiki/SemanticScribunto/blob/master/docs/mw.smw.getQueryResult.md
+[set]: https://github.com/SemanticMediaWiki/SemanticScribunto/blob/master/docs/mw.smw.set.md
+[subobject]: https://github.com/SemanticMediaWiki/SemanticScribunto/blob/master/docs/mw.smw.subobject.md
+[info]: https://github.com/SemanticMediaWiki/SemanticScribunto/blob/master/docs/mw.smw.info.md
