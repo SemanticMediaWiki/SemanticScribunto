@@ -131,7 +131,7 @@ class LuaAskResultProcessor {
 
 	/**
 	 * Takes an smw query print request and tries to retrieve the label
-	 * falls back to [@see getNumericIndex} if non found
+	 * falls back to {@see getNumericIndex} if none found
 	 *
 	 * @param PrintRequest $printRequest
 	 *
