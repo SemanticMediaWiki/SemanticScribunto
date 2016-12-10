@@ -27,9 +27,8 @@ returns a very simplistic result set (its values are all pre-formatted and alrea
 you with full control over your returned data, giving you abundant information but delegates all the data processing to you.
 
 In other words:
-* `ask` is a quick and easy way to get data which is already pre-processed and may not suite your needs entirely
-(e.g. it does not link page properties). However it utilizes native SMW functionality like printout formatting
-(see [smwdoc] for more information)
+* `ask` is a quick and easy way to get data which is already pre-processed and may not suite your needs entirely.
+However it utilizes native SMW functionality like printout formatting (see [smwdoc] for more information)
 * `getQueryResult` gets you the full result set in the same format provided by the [api]
 
 For more information see the sample results in [`mw.smw.ask`][doc.ask] and [`mw.smw.getQueryResult`][doc.getQueryResult].

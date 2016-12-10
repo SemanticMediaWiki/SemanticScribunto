@@ -112,7 +112,7 @@ local result = mw.smw.ask{
         page = 'User:Oetterer'
     },
 }
--- please note the unlinking of properties 'page authors', and mainlage '?' by using the #- operator
+-- please note the unlinking of properties 'page authors', and mainlabel '?' by using the #- operator
 -- note also: unlinking via parameter link is not supported at this point
 ```
 

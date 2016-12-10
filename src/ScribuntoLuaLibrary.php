@@ -5,6 +5,7 @@ namespace SMW\Scribunto;
 use Scribunto_LuaLibraryBase;
 use SMW\DIProperty;
 use SMW\ApplicationFactory;
+use SMWQueryResult as QueryResult;
 use SMWOutputs;
 
 /**
@@ -53,13 +54,17 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	 *
 	 * @param string|array $arguments parameters passed from lua, string or array depending on call
 	 *
-	 * @return null|array[]
+	 * @return array    array( null ) or array[]
 	 */
-	public function ask ( $arguments = null ) {
+	public function ask( $arguments = null ) {
 
 		$queryResult = $this->getLibraryFactory()->newQueryResultFrom(
 			$this->processLuaArguments( $arguments )
 		);
+
+		if ( !$this->isAQueryResult( $queryResult ) ) {
+			return array( $queryResult );
+		}
 
 		$luaResultProcessor = $this->getLibraryFactory()->newLuaAskResultProcessor(
 			$queryResult
@@ -115,6 +120,10 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 		$queryResult = $this->getLibraryFactory()->newQueryResultFrom(
 			$this->processLuaArguments( $arguments )
 		);
+
+		if ( !$this->isAQueryResult( $queryResult ) ) {
+			return array( $queryResult );
+		}
 
 		$result = $queryResult->toArray();
 
@@ -291,6 +300,19 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 		);
 
 		return $this->libraryFactory;
+	}
+
+	/**
+	 * Tests, if supplied parameter `$queryResult` is a valid {@see QueryResult}
+	 *
+	 * @since 1.0
+	 *
+	 * @param mixed $queryResult
+	 *
+	 * @return bool
+	 */
+	private function isAQueryResult( $queryResult ) {
+		return is_a( $queryResult, QueryResult::class );
 	}
 
 	/**
