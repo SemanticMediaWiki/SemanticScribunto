@@ -54,6 +54,8 @@
 	},
 	"scripts":{
 		"phpunit": "php ../../tests/phpunit/phpunit.php -c phpunit.xml.dist",
+		"unit": "composer phpunit -- --testsuite semantic-scribunto-unit",
+		"integration": "composer phpunit -- --testsuite semantic-scribunto-integration",
 		"cs": [
 			"vendor/bin/phpcs src/* tests/* --standard=phpcs.xml --extensions=php -sp",
 			"vendor/bin/phpmd src/,tests/ text phpmd.xml"

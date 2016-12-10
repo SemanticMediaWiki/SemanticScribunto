@@ -29,6 +29,15 @@ class HookRegistry {
 	/**
 	 * @since  1.0
 	 */
+	public function clear() {
+		foreach ( $this->handlers as $name => $callback ) {
+			Hooks::clear( $name );
+		}
+	}
+
+	/**
+	 * @since  1.0
+	 */
 	public function register() {
 		foreach ( $this->handlers as $name => $callback ) {
 			Hooks::register( $name, $callback );
