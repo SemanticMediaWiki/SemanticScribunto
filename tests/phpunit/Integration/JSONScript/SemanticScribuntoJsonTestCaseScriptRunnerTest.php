@@ -82,8 +82,8 @@ class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JsonTestCaseScriptRu
 		$this->checkEnvironmentToSkipCurrentTest( $jsonTestCaseFileHandler );
 
 		// Defines settings that can be altered during a test run with each test
-		// having the possibility to change those value, settings will be reset to
-		// original value after the test has finished.
+		// having the possibility to change those values, settings will be reset to
+		// the original value (from before the test) after the test has finished.
 		$permittedSettings = array(
 			'smwgNamespacesWithSemanticLinks',
 			'smwgPageSpecialProperties',
@@ -120,8 +120,8 @@ class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JsonTestCaseScriptRu
 	}
 
 	/**
-	 * Assert the SemanticData object available after a entity/page has been
-	 * stored.
+	 * Assert the SemanticData object if available after a entity/page has been
+	 * created.
 	 *
 	 * ```
 	 * "assert-store": {
@@ -184,8 +184,8 @@ class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JsonTestCaseScriptRu
 	}
 
 	/**
-	 * Assert the text content which is available after the parse in the
-	 * ParserOutput object.
+	 * Assert the text content if available from the parse process and
+	 * accessible using the ParserOutput object.
 	 *
 	 * ```
 	 * "assert-output": {
