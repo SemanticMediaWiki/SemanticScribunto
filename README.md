@@ -49,7 +49,11 @@ have a look at the contribution guideline.
 ## Tests
 
 This extension provides unit and integration tests that are run by a [continues integration platform][travis]
-but can also be executed using `composer phpunit` from the extension base directory.
+but can also be executed using the `composer phpunit` command from the extension base directory that will
+run all tests. In order to run only a specific test suit, the following commands are provided for convenience:
+
+- `composer unit` to run all unit tests
+- `composer integration` to run all integration tests (which requires an active MediaWiki, DB connection)
 
 ## License
 

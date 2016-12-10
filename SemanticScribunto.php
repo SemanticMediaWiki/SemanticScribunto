@@ -82,7 +82,7 @@ class SemanticScribunto {
 	/**
 	 * @since 1.0
 	 */
-	public static function checkRequirements() {
+	public static function doCheckRequirements() {
 
 		if ( version_compare( $GLOBALS[ 'wgVersion' ], '1.26', 'lt' ) ) {
 			die( '<b>Error:</b> <a href="https://github.com/SemanticMediaWiki/SemanticScribunto/">Semantic Scribunto</a> is only compatible with MediaWiki 1.26 or above. You need to upgrade MediaWiki first.' );
@@ -104,7 +104,7 @@ class SemanticScribunto {
 	public static function onExtensionFunction() {
 
 		// Check requirements after LocalSetting.php has been processed
-		self::checkRequirements();
+		self::doCheckRequirements();
 
 		$hookRegistry = new HookRegistry();
 		$hookRegistry->register();
@@ -113,10 +113,25 @@ class SemanticScribunto {
 	/**
 	 * @since 1.0
 	 *
+	 * @param string|null $dependency
+	 *
 	 * @return string|null
 	 */
-	public static function getVersion() {
-		return SMW_SCRIBUNTO_VERSION;
+	public static function getVersion( $dependency = null ) {
+
+		if ( $dependency === null && defined( 'SMW_SCRIBUNTO_VERSION' ) ) {
+			return SMW_SCRIBUNTO_VERSION;
+		}
+
+		if ( $dependency === 'SMW' && defined( 'SMW_VERSION' ) ) {
+			return SMW_VERSION;
+		}
+
+		if ( $dependency === 'Lua' && method_exists( 'Scribunto_LuaStandaloneInterpreter', 'getLuaVersion' ) ) {
+			return Scribunto_LuaStandaloneInterpreter::getLuaVersion( array( 'luaPath' => null ) );
+		}
+
+		return null;
 	}
 
 }
