@@ -63,7 +63,7 @@ class LibraryFactory {
 	/**
 	 * @since 1.0
 	 *
-	 * @param QueryResult|string $queryResult
+	 * @param \SMWQueryResult|string $queryResult
 	 *
 	 * @return LuaAskResultProcessor
 	 */
@@ -91,7 +91,7 @@ class LibraryFactory {
 	 *
 	 * @param Parser $parser
 	 *
-	 * @return \SMW\SetParserFunction
+	 * @return \SMW\ParserFunctions\SetParserFunction
 	 */
 	public function newSetParserFunction( Parser $parser ) {
 		return ApplicationFactory::getInstance()->newParserFunctionFactory( $parser )->newSetParserFunction( $parser );
@@ -104,7 +104,7 @@ class LibraryFactory {
 	 *
 	 * @param Parser $parser
 	 *
-	 * @return \SMW\SubobjectParserFunction
+	 * @return \SMW\ParserFunctions\SubobjectParserFunction
 	 */
 	public function newSubobjectParserFunction( Parser $parser ) {
 		return ApplicationFactory::getInstance()->newParserFunctionFactory( $parser )->newSubobjectParserFunction( $parser );
