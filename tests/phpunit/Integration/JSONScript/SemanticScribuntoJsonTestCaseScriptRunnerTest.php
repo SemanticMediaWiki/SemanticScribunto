@@ -3,9 +3,12 @@
 namespace SMW\Scribunto\Integration\JSONScript;
 
 use SMW\Scribunto\HookRegistry;
+use SMW\SemanticData;
 use SMW\Tests\JsonTestCaseScriptRunner;
 use SMW\Tests\JsonTestCaseFileHandler;
 use SMW\DIWikiPage;
+use SMW\Tests\Utils\Validators\SemanticDataValidator;
+use SMW\Tests\Utils\Validators\StringValidator;
 
 /**
  * @see https://github.com/SemanticMediaWiki/SemanticMediaWiki/tree/master/tests#write-integration-tests-using-json-script
@@ -30,8 +33,19 @@ use SMW\DIWikiPage;
  */
 class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JsonTestCaseScriptRunner {
 
+	/**
+	 * @var SemanticDataValidator
+	 */
 	private $semanticDataValidator;
+
+	/**
+	 * @var StringValidator
+	 */
 	private $stringValidator;
+
+	/**
+	 * @var HookRegistry
+	 */
 	private $hookRegistry;
 
 	protected function setUp() {
