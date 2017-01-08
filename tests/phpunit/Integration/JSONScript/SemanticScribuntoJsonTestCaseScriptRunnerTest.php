@@ -2,10 +2,13 @@
 
 namespace SMW\Scribunto\Integration\JSONScript;
 
-use SMW\Scribunto\HookRegistry;
-use SMW\Tests\JsonTestCaseScriptRunner;
-use SMW\Tests\JsonTestCaseFileHandler;
 use SMW\DIWikiPage;
+use SMW\Scribunto\HookRegistry;
+use SMW\Tests\JsonTestCaseFileHandler;
+use SMW\Tests\JsonTestCaseScriptRunner;
+use SMW\Tests\Utils\Validators\SemanticDataValidator;
+use SMW\Tests\Utils\Validators\StringValidator;
+
 
 /**
  * @see https://github.com/SemanticMediaWiki/SemanticMediaWiki/tree/master/tests#write-integration-tests-using-json-script
@@ -30,8 +33,19 @@ use SMW\DIWikiPage;
  */
 class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JsonTestCaseScriptRunner {
 
+	/**
+	 * @var SemanticDataValidator
+	 */
 	private $semanticDataValidator;
+
+	/**
+	 * @var StringValidator
+	 */
 	private $stringValidator;
+
+	/**
+	 * @var HookRegistry
+	 */
 	private $hookRegistry;
 
 	protected function setUp() {
@@ -50,6 +64,7 @@ class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JsonTestCaseScriptRu
 
 	/**
 	 * @see JsonTestCaseScriptRunner::getRequiredJsonTestCaseMinVersion
+	 * @return string
 	 */
 	protected function getRequiredJsonTestCaseMinVersion() {
 		return '1';
@@ -57,6 +72,7 @@ class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JsonTestCaseScriptRu
 
 	/**
 	 * @see JsonTestCaseScriptRunner::getTestCaseLocation
+	 * @return string
 	 */
 	protected function getTestCaseLocation() {
 		return __DIR__ . '/TestCases';
@@ -81,30 +97,17 @@ class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JsonTestCaseScriptRu
 
 		$this->checkEnvironmentToSkipCurrentTest( $jsonTestCaseFileHandler );
 
-		// Defines settings that can be altered during a test run with each test
-		// having the possibility to change those values, settings will be reset to
-		// the original value (from before the test) after the test has finished.
-		$permittedSettings = array(
-			'smwgNamespacesWithSemanticLinks',
-			'smwgPageSpecialProperties',
-			'wgLanguageCode',
-			'wgContLang',
-			'wgLang'
-		);
+		// Setup
+		$this->prepareTest( $jsonTestCaseFileHandler );
 
-		foreach ( $permittedSettings as $key ) {
-			$this->changeGlobalSettingTo(
-				$key,
-				$jsonTestCaseFileHandler->getSettingsFor( $key )
-			);
-		}
+		// Run test cases
+		$this->doRunParserTests( $jsonTestCaseFileHandler );
+	}
 
-		// Pages defined in the JSON setup: { ... } are processed and created
-		// before the actual assertion
-		$this->createPagesFor(
-			$jsonTestCaseFileHandler->getPageCreationSetupList(),
-			NS_MAIN
-		);
+	/**
+	 * @param JsonTestCaseFileHandler $jsonTestCaseFileHandler
+	 */
+	private function doRunParserTests( JsonTestCaseFileHandler $jsonTestCaseFileHandler ) {
 
 		foreach ( $jsonTestCaseFileHandler->findTestCasesByType( 'parser' ) as $case ) {
 
@@ -120,33 +123,75 @@ class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JsonTestCaseScriptRu
 	}
 
 	/**
+	 * Prepares the test case: setting of global configuration changes (json section "settings",
+	 * creation of defined pages (json section "setup")
+	 *
+	 * @param JsonTestCaseFileHandler $jsonTestCaseFileHandler
+	 */
+	private function prepareTest( JsonTestCaseFileHandler $jsonTestCaseFileHandler ) {
+
+		// Defines settings that can be altered during a test run with each test
+		// having the possibility to change those values, settings will be reset to
+		// the original value (from before the test) after the test has finished.
+		$permittedSettings = array(
+			'smwgNamespacesWithSemanticLinks',
+			'smwgPageSpecialProperties',
+			'smwgMaxNonExpNumber',
+			'wgLanguageCode',
+			'wgContLang',
+			'wgLang'
+		);
+
+		foreach ( $permittedSettings as $key ) {
+			$this->changeGlobalSettingTo(
+				$key,
+				$jsonTestCaseFileHandler->getSettingsFor( $key )
+			);
+		}
+
+		$this->createPagesFrom(
+			$jsonTestCaseFileHandler->getPageCreationSetupList(),
+			NS_MAIN
+		);
+	}
+
+	/**
 	 * Assert the SemanticData object if available after a entity/page has been
 	 * created.
 	 *
 	 * ```
 	 * "assert-store": {
-	 * 	"semantic-data": {
-	 * 		"strictPropertyValueMatch": false,
-	 * 		"propertyCount": 4,
-	 * 		"propertyKeys": [
-	 * 			"Testproperty1",
-	 * 			"Testproperty2",
-	 * 			"_SKEY",
-	 * 			"_MDAT"
-	 * 		],
-	 * 		"propertyValues": [
-	 * 			"200"
-	 * 		]
-	 * 	}
+	 *    "semantic-data": {
+	 *        "strictPropertyValueMatch": false,
+	 *        "propertyCount": 4,
+	 *        "propertyKeys": [
+	 *            "Testproperty1",
+	 *            "Testproperty2",
+	 *            "_SKEY",
+	 *            "_MDAT"
+	 *        ],
+	 *        "propertyValues": [
+	 *            "200"
+	 *        ],
+	 *     "inproperty-keys": [
+	 *         "roperty1",
+	 *         "EY",
+	 *     ],
+	 *     "inproperty-values": [
+	 *         "Test Ca",
+	 *         "00",
+	 *     ]
 	 * }
 	 * ```
+	 * @param array $case
+	 * @param bool $debugMode
 	 */
-	private function assertSemanticDataForCase( $case, $debugMode ) {
+	private function assertSemanticDataForCase( array $case, $debugMode ) {
 
 		// Allows for data to be re-read from the DB instead of being fetched
 		// from the store-id-cache
 		if ( isset( $case['store']['clear-cache'] ) && $case['store']['clear-cache'] ) {
-			$this->store->clear();
+			$this->getStore()->clear();
 		}
 
 		if ( !isset( $case['assert-store'] ) || !isset( $case['assert-store']['semantic-data'] ) ) {
@@ -158,7 +203,8 @@ class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JsonTestCaseScriptRu
 			isset( $case['namespace'] ) ? constant( $case['namespace'] ) : NS_MAIN
 		);
 
-		$semanticData = $this->store->getSemanticData( $subject );
+		/** @var \SMW\SemanticData $semanticData */
+		$semanticData = $this->getStore()->getSemanticData( $subject );
 
 		if ( $debugMode ) {
 			print_r( $semanticData );
@@ -197,8 +243,9 @@ class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JsonTestCaseScriptRu
 	 * 	]
 	 * }
 	 * ```
+	 * @param array $case
 	 */
-	private function assertParserOutputForCase( $case ) {
+	private function assertParserOutputForCase( array $case ) {
 
 		if ( !isset( $case['assert-output'] ) ) {
 			return;
@@ -209,6 +256,7 @@ class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JsonTestCaseScriptRu
 			isset( $case['namespace'] ) ? constant( $case['namespace'] ) : NS_MAIN
 		);
 
+		/** @var \ParserOutput $parserOutput */
 		$parserOutput = $this->testEnvironment->getUtilityFactory()->newPageReader()->getEditInfo( $subject->getTitle() )->output;
 
 		if ( isset( $case['assert-output']['to-contain'] ) ) {
@@ -228,4 +276,52 @@ class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JsonTestCaseScriptRu
 		}
 	}
 
-}
+	/**
+	 * @param DIWikiPage $subject
+	 * @param array $semanticdata
+	 * @param string $about
+	 */
+	private function assertInProperties( DIWikiPage $subject, array $semanticdata, $about ) {
+
+		if ( !isset( $semanticdata['inproperty-keys'] ) ) {
+			return;
+		}
+
+		$inProperties = $this->getStore()->getInProperties( $subject );
+
+		$this->assertCount(
+			count( $semanticdata['inproperty-keys'] ),
+			$inProperties,
+			'Failed asserting count for "inproperty-keys" in ' . $about . ' ' . implode( ',', $inProperties )
+		);
+
+		$inpropertyValues = array();
+
+		/** @var \SMW\DIProperty $property */
+		foreach ( $inProperties as $property ) {
+
+			$this->assertContains(
+				$property->getKey(),
+				$semanticdata['inproperty-keys'],
+				'Failed asserting key for "inproperty-keys" in ' . $about
+			);
+
+			if ( !isset( $semanticdata['inproperty-values'] ) ) {
+				continue;
+			}
+
+			$values = $this->getStore()->getPropertySubjects( $property, $subject );
+
+			foreach ( $values as $value ) {
+				$inpropertyValues[] = $value->getSerialization();
+			}
+		}
+
+		foreach ( $inpropertyValues as $value ) {
+			$this->assertContains(
+				$value,
+				$semanticdata['inproperty-values'],
+				'Failed asserting values for "inproperty-values" in ' . $about
+			);
+		}
+	}}

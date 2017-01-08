@@ -15,9 +15,6 @@ function p.set( frame )
         return "mw.smw module not found"
     end
 
-    if #frame.args == 0 then
-        return "no parameters found"
-    end
     local result = mw.smw.set( frame.args )
     if result == true then
         return 'Your data was stored successfully'

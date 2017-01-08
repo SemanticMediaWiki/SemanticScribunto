@@ -33,8 +33,12 @@ function p.ask(frame)
         local myResult = ""
         for num, row in pairs( queryResult ) do
             myResult = myResult .. '* This is result #' .. num .. '\n'
-            for k, v in pairs( row ) do
-                myResult = myResult .. '** ' .. k .. ': ' .. v .. '\n'
+            for property, data in pairs( row ) do
+                local dataOutput = data
+                if type( data ) == 'table' then
+                    dataOutput = mw.text.listToText( data, ', ', ' and ')
+                end
+                myResult = myResult .. '** ' .. property .. ': ' .. dataOutput .. '\n'
             end
         end
         return myResult

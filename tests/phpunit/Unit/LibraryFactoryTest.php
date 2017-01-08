@@ -92,7 +92,7 @@ class LibraryFactoryTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		$this->assertInstanceOf(
-			'\SMW\SetParserFunction',
+			'\SMW\ParserFunctions\SetParserFunction',
 			$instance->newSetParserFunction( $this->parser )
 		);
 	}
@@ -104,7 +104,7 @@ class LibraryFactoryTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		$this->assertInstanceOf(
-			'\SMW\SubobjectParserFunction',
+			'\SMW\ParserFunctions\SubobjectParserFunction',
 			$instance->newSubobjectParserFunction( $this->parser )
 		);
 	}
