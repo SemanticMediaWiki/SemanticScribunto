@@ -51,20 +51,20 @@ class ScribuntoLuaLibraryResultsTest extends ScribuntoLuaEngineTestBase {
 			$this->getScribuntoLuaLibrary()->getQueryResult( '[[Modification date::+]]|?Modification date|limit=0|mainlabel=-' )[0]
 		);
 		$this->assertArrayHasKey(
-			0,
+			1,
 			$this->getScribuntoLuaLibrary()->getQueryResult( '[[Modification date::+]]|?Modification date|limit=0|mainlabel=-' )[0]['printrequests']
 		);
 		$this->assertArrayHasKey(
 			'label',
-			$this->getScribuntoLuaLibrary()->getQueryResult( '[[Modification date::+]]|?Modification date|limit=0|mainlabel=-' )[0]['printrequests'][0]
+			$this->getScribuntoLuaLibrary()->getQueryResult( '[[Modification date::+]]|?Modification date|limit=0|mainlabel=-' )[0]['printrequests'][1]
 		);
 		$this->assertEquals(
 			'Modification date',
-			$this->getScribuntoLuaLibrary()->getQueryResult( '[[Modification date::+]]|?Modification date|limit=0|mainlabel=-' )[0]['printrequests'][0]['label']
+			$this->getScribuntoLuaLibrary()->getQueryResult( '[[Modification date::+]]|?Modification date|limit=0|mainlabel=-' )[0]['printrequests'][1]['label']
 		);
 		$this->assertEquals(
 			'Modification date',
-			$this->getScribuntoLuaLibrary()->getQueryResult( [ '[[Modification date::+]]', '?Modification date', 'limit' => 0, 'mainlabel=-' ] )[0]['printrequests'][0]['label']
+			$this->getScribuntoLuaLibrary()->getQueryResult( [ '[[Modification date::+]]', '?Modification date', 'limit' => 0, 'mainlabel=-' ] )[0]['printrequests'][1]['label']
 		);
 	}
 }

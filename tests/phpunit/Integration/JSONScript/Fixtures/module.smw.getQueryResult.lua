@@ -55,13 +55,13 @@ function convertResultTableToString( queryResult )
 
     local queryResult = queryResult
 
-    if queryResult == nil then
+    if queryResult == nil or #queryResult == 0 then
         return "(no values)"
     end
 
     if type( queryResult ) == "table" then
         local myResult = ""
-        for num, row in pairs( queryResult ) do
+        for num, row in ipairs( queryResult ) do
             myResult = myResult .. '* This is result #' .. num .. '\n'
             for property, data in pairs( row ) do
                 local dataOutput = data
@@ -79,17 +79,17 @@ end
 
 function filterForMainLabelOnly( queryResult, keepPrintouts )
 
-    local queryResult = queryResult
+    local qr = queryResult
     if queryResult.results then
-        queryResult = queryResult.results
+        qr = queryResult.results
     end
 
-    if type( queryResult ) ~= 'table' then
-        return queryResult
+    if type( qr ) ~= 'table' then
+        return qr
     end
 
     local filteredResult = {}
-    for num, row in pairs( queryResult ) do
+    for num, row in pairs( qr ) do
         if type( row ) == 'table' then
             local printOuts = row.printouts
             for field, _ in pairs( row ) do
@@ -163,7 +163,7 @@ function varDump( entity, indent )
         local output = '(table)[' .. #entity .. ']:'
         indent = indent .. '  '
         for k, v in pairs( entity ) do
-            output = output .. '\n' .. indent .. k .. ': ' .. varDump( v, indent )
+			output = output .. '\n' .. indent .. '(' .. type(k) .. ') ' .. k .. ': ' .. varDump( v, indent )
         end
         return output
     elseif type( entity ) == 'function' then

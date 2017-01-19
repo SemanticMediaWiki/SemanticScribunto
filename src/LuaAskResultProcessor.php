@@ -193,8 +193,9 @@ class LuaAskResultProcessor {
 			// there was only one semantic value found. reduce the array to this value
 			$resultArrayData = array_shift( $resultArrayData );
 		} else {
-			// $key has multiple values. keep the array, but un-shift it (remember: lua array counting starts with 1)
-			array_unshift( $resultArrayData, null );
+			// $key has multiple values. keep the array
+			// Note: we do not un-shift it (remember: lua array counting starts with 1), but the defer to
+			// conversion to a lua table to a later step
 		}
 
 		return $resultArrayData;
