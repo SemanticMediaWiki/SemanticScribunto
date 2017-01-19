@@ -28,7 +28,20 @@ function p.getQueryResult( frame )
 
     local queryResult = mw.smw.getQueryResult( frame.args )
 
+    --return mw.dumpObject( queryResult )
     return convertResultTableToString( queryResult.results )
+end
+
+function p.info( frame )
+    if not mw.smw then
+        return "mw.smw module not found"
+    end
+
+    if frame.args[1] == nil then
+        return "no parameter found"
+    end
+
+    return mw.smw.info( frame.args[1], frame.args[2] )
 end
 
 function p.set( frame )
@@ -67,17 +80,42 @@ function p.setWithSeparator( frame )
     end
 end
 
+function p.subobject( frame )
+
+    if not mw.smw then
+        return "mw.smw module not found"
+    end
+
+    local args = {}
+    for arg, value in pairs(frame.args) do
+		args[arg] = mw.text.trim(value)
+	end
+
+    local subobjectId
+    if args.subobjectId or args.SubobjectId then
+        subobjectId = args.subobjectId or args.SubobjectId
+        args.subobjectId = nil
+		args.SubobjectId = nil
+    end
+    local result = mw.smw.subobject( args, subobjectId )
+    if result == true then
+        return 'Your data was stored successfully in a subobject'
+    else
+        return 'An error occurred during the subobject storage process. Message reads ' .. result.error
+    end
+end
+
 function convertResultTableToString( queryResult )
 
     local queryResult = queryResult
 
-    if queryResult == nil then
+    if queryResult == nil or #queryResult == 0 then
         return "(no values)"
     end
 
     if type( queryResult ) == "table" then
         local myResult = ""
-        for num, row in pairs( queryResult ) do
+        for num, row in ipairs( queryResult ) do
             myResult = myResult .. '* This is result #' .. num .. '\n'
             for property, data in pairs( row ) do
                 local dataOutput = data
@@ -100,7 +138,7 @@ function varDump( entity, indent )
         local output = '(table)[' .. #entity .. ']:'
         indent = indent .. '  '
         for k, v in pairs( entity ) do
-            output = output .. '\n' .. indent .. k .. ': ' .. varDump( v, indent )
+            output = output .. '\n' .. indent .. '(' .. type(k) .. ') ' .. k .. ': ' .. varDump( v, indent )
         end
         return output
     elseif type( entity ) == 'function' then
