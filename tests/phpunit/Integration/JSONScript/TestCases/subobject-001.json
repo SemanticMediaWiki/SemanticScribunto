@@ -18,11 +18,6 @@
 				"import-from": "/../Fixtures/module.smw.lua"
 			}
 		},
-
-		{
-			"p-0301.json;p-0302.json;" :""
-		},
-
 		{
 			"page": "Scribunto/subobject/001/0",
 			"contents": "{{#invoke:smw|subobject|Has text=Is a Scribunto example subobject test|Has number=1}}"
@@ -51,7 +46,7 @@
 	"tests": [
 		{
 			"type": "parser",
-			"about": "#0>0 storing of one subobject (text output)",
+			"about": "#0, sub-test #0 storing of one subobject (text output)",
 			"subject": "Scribunto/subobject/001/0",
 			"store": {
 				"clear-cache": true
@@ -67,7 +62,7 @@
 		},
 		{
 			"type": "parser",
-			"about": "#0>1 storing of one subobject (has subobject query)",
+			"about": "#0, sub-test #1 storing of one subobject (has subobject query)",
 			"subject": "Scribunto/subobject/001/0/Q.0",
 			"store": {
 				"clear-cache": true
@@ -80,7 +75,7 @@
 		},
 		{
 			"type": "parser",
-			"about": "#0>2 storing of one subobject (subobject smw data)",
+			"about": "#0, sub-test #2 storing of one subobject (subobject smw data)",
 			"subject": "Scribunto/subobject/001/0#_86e73ba4007c05bcb66e9a6824567241",
 			"store": {
 				"clear-cache": true
@@ -103,7 +98,7 @@
 		},
 		{
 			"type": "parser",
-			"about": "#1>0 storing of two subobjects (text output)",
+			"about": "#1, sub-test #0 storing of two subobjects (text output)",
 			"subject": "Scribunto/subobject/001/1",
 			"store": {
 				"clear-cache": true
@@ -119,7 +114,7 @@
 		},
 		{
 			"type": "parser",
-			"about": "#1>1 storing of two subobjects (has subobject query)",
+			"about": "#1, sub-test #1 storing of two subobjects (has subobject query)",
 			"subject": "Scribunto/subobject/001/1/Q.0",
 			"store": {
 				"clear-cache": true
@@ -133,7 +128,7 @@
 		},
 		{
 			"type": "parser",
-			"about": "#1>2 storing of two subobjects (subobject#1 smw data)",
+			"about": "#1, sub-test #2 storing of two subobjects (subobject#1 smw data)",
 			"subject": "Scribunto/subobject/001/1#_752345ba7643e7b56fbaf5ca045efbdd",
 			"store": {
 				"clear-cache": true
@@ -156,7 +151,7 @@
 		},
 		{
 			"type": "parser",
-			"about": "#1>3 storing of two subobjects (subobject#2 smw data)",
+			"about": "#1, sub-test #3 storing of two subobjects (subobject#2 smw data)",
 			"subject": "Scribunto/subobject/001/1#_b0edeea70a7d0208259ef103503230b3",
 			"store": {
 				"clear-cache": true
@@ -179,7 +174,7 @@
 		},
 		{
 			"type": "parser",
-			"about": "#2>0 storing of one subobject with id (text output)",
+			"about": "#2, sub-test #0 storing of one subobject with id (text output)",
 			"subject": "Scribunto/subobject/001/2",
 			"store": {
 				"clear-cache": true
@@ -195,7 +190,7 @@
 		},
 		{
 			"type": "parser",
-			"about": "#2>1 storing of one subobject (has subobject query)",
+			"about": "#2, sub-test #1 storing of one subobject (has subobject query)",
 			"subject": "Scribunto/subobject/001/2/Q.0",
 			"store": {
 				"clear-cache": true
@@ -208,7 +203,7 @@
 		},
 		{
 			"type": "parser",
-			"about": "#2>1 storing of one subobject with id (subobject smw data)",
+			"about": "#2, sub-test #2 storing of one subobject with id (subobject smw data)",
 			"subject": "Scribunto/subobject/001/2#1234567890baz",
 			"store": {
 				"clear-cache": true
