@@ -37,7 +37,7 @@
 			"subject": "Scribunto/ask/003/Q.0",
 			"assert-output": {
 				"to-contain": [
-					"&#x5b;&#x5b;Category:Ask-003]] &#x5b;&#x5b;Has text::+]]"
+					"&#91;&#91;Category:Ask-003]] &#91;&#91;Has text::+]]"
 				]
 			}
 		},
