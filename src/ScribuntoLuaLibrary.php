@@ -72,11 +72,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 
 		$result = $luaResultProcessor->getQueryResultAsTable();
 
-		if ( !empty( $result ) ) {
-			array_unshift( $result, null );
-		}
-
-		return array( $result );
+		return array( $this->convertArrayToLuaTable( $result ) );
 	}
 
 	/**
@@ -128,10 +124,12 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 		$result = $queryResult->toArray();
 
 		if( !empty( $result["results"] ) ) {
-		    $result["results"] = array_combine( range( 1, count( $result["results"] ) ), array_values( $result["results"] ) );
+			// as of now, "results" has page names as keys. lua is not very good, keeping non-number keys in order
+			// so replace string keys with the corresponding number, starting with 0.
+		    $result["results"] = array_combine( range( 0, count( $result["results"] ) - 1 ), array_values( $result["results"] ) );
 		}
 
-		return array( $result );
+		return array( $this->convertArrayToLuaTable( $result ) );
 	}
 
 	/**
@@ -252,6 +250,25 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 
 		// on success, return true
 		return array( 1 => true );
+	}
+
+	/**
+	 * This takes an array and converts it so, that the result is a viable lua table.
+	 * I.e. the resulting table has its numerical indices start with 1
+	 * If `$ar` is not an array, it is simply returned
+	 * @param mixed $ar
+	 * @return mixed array
+	 */
+	private function convertArrayToLuaTable( $ar ) {
+
+		if ( is_array( $ar) ) {
+			foreach ( $ar as $key => $value ) {
+				$ar[$key] = $this->convertArrayToLuaTable( $value );
+			}
+			array_unshift( $ar, '' );
+			unset( $ar[0] );
+		}
+		return $ar;
 	}
 
 	/**

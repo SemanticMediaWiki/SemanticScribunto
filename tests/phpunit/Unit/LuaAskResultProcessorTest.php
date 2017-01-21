@@ -301,7 +301,7 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 		return [
 			[ null, [] ],
 			[ 42, [ 42 ] ],
-			[ [ null, 'foo', 'bar' ], [ 'foo', 'bar' ] ]
+			[ [ 'foo', 'bar' ], [ 'foo', 'bar' ] ]
 		];
 	}
 
