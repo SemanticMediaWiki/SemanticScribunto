@@ -1,7 +1,7 @@
 {
 	"name": "mediawiki/semantic-scribunto",
 	"type": "mediawiki-extension",
-	"description": "A Semantic Mediawiki extension to natively support the Scribunto extension.",
+	"description": "A Semantic Mediawiki extension to natively support the Scribunto extension",
 	"keywords": [
 		"smw",
 		"semantic mediawiki",
@@ -10,11 +10,15 @@
 		"Scribunto",
 		"Lua"
 	],
-	"homepage": "https://semantic-mediawiki.org/wiki/Extension:SemanticScribunto",
+	"homepage": "https://www.semantic-mediawiki.org/wiki/Extension:SemanticScribunto",
 	"license": "GPL-2.0+",
 	"authors": [
 		{
-			"name": "mwjames",
+			"name": "James Hong Kong",
+			"role": "Creator"
+		},
+		{
+			"name": "Tobias Oetterer",
 			"role": "Developer"
 		}
 	],
@@ -22,8 +26,8 @@
 		"email": "semediawiki-user@lists.sourceforge.net",
 		"issues": "https://github.com/SemanticMediaWiki/SemanticScribunto/issues",
 		"irc": "irc://irc.freenode.net/semantic-mediawiki",
-		"forum": "https://semantic-mediawiki.org/wiki/semantic-mediawiki.org_talk:Community_portal",
-		"wiki": "https://semantic-mediawiki.org/wiki/",
+		"forum": "https://www.semantic-mediawiki.org/wiki/semantic-mediawiki.org_talk:Community_portal",
+		"wiki": "https://www.semantic-mediawiki.org/wiki/",
 		"source": "https://github.com/SemanticMediaWiki/SemanticScribunto"
 	},
 	"require": {
