@@ -3,6 +3,7 @@
 namespace SMW\Scribunto;
 
 use SMWQueryProcessor as QueryProcessor;
+use SMWQuery as Query;
 use SMW\Store;
 use SMW\ApplicationFactory;
 use SMW\ParameterProcessorFactory;
@@ -56,6 +57,10 @@ class LibraryFactory {
 			'',
 			$printouts
 		);
+
+		if ( defined( 'SMWQuery::PROC_CONTEXT' ) ) {
+			$query->setOption( Query::PROC_CONTEXT, 'SSC.LibraryFactory' );
+		}
 
 		return $this->store->getQueryResult( $query );
 	}
