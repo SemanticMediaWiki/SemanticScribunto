@@ -45,8 +45,8 @@
 			"assert-output": {
 				"to-contain": [
 					"Your data was stored successfully",
-					"&quot;a&quot; can not be assigned to a declared number type with value 32.",
-					"&quot;b&quot; can not be assigned to a declared number type with value 88."
+					"\"a\" can not be assigned to a declared number type with value 32.",
+					"\"b\" can not be assigned to a declared number type with value 88."
 				]
 			}
 		}
