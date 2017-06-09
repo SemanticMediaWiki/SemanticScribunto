@@ -23,9 +23,9 @@ class ScribuntoLuaLibraryAskTest extends ScribuntoLuaEngineTestBase {
 	 * ScribuntoLuaEngineTestBase::getTestModules
 	 */
 	public function getTestModules() {
-		return parent::getTestModules() + array(
+		return parent::getTestModules() + [
 			self::$moduleName => __DIR__ . '/' . 'mw.smw.ask.tests.lua',
-		);
+		];
 	}
 
 

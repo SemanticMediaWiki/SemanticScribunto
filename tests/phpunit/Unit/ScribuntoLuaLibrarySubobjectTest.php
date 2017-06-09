@@ -23,9 +23,9 @@ class ScribuntoLuaLibrarySubobjectTest extends ScribuntoLuaEngineTestBase {
 	 * ScribuntoLuaEngineTestBase::getTestModules
 	 */
 	public function getTestModules() {
-		return parent::getTestModules() + array(
+		return parent::getTestModules() + [
 			self::$moduleName => __DIR__ . '/' . 'mw.smw.subobject.tests.lua',
-		);
+		];
 	}
 
 	/**
@@ -39,7 +39,7 @@ class ScribuntoLuaLibrarySubobjectTest extends ScribuntoLuaEngineTestBase {
 	public function testSubobject( $arguments, $expected ) {
 		$this->assertEquals(
 			$expected,
-			call_user_func_array( array( $this->getScribuntoLuaLibrary(), 'subobject' ), $arguments )
+			call_user_func_array( [ $this->getScribuntoLuaLibrary(), 'subobject' ], $arguments )
 		);
 	}
 
@@ -52,7 +52,7 @@ class ScribuntoLuaLibrarySubobjectTest extends ScribuntoLuaEngineTestBase {
 	 */
 	public function dataProviderSubobjectTest()
 	{
-		$provider = array(
+		$provider = [
 			[
 				[ [] ],
 				[ 1 => true ]
@@ -71,7 +71,7 @@ class ScribuntoLuaLibrarySubobjectTest extends ScribuntoLuaEngineTestBase {
 			],
 			[
 				[ [ 'has type=test', 'Allows value=test' ] ],
-				[ array( 1 => false, 'error' => wfMessage('smw_unknowntype')->inLanguage('en')->plain() ) ]
+				[ [ 1 => false, 'error' => wfMessage('smw_unknowntype')->inLanguage('en')->plain() ] ]
 			],
 			[
 				[ [ 'has type=page', 'Allows value=test','1215623e790d918773db943232068a93b21c9f1419cb85666c6558e87f5b7d47=test' ] ],
@@ -95,13 +95,13 @@ class ScribuntoLuaLibrarySubobjectTest extends ScribuntoLuaEngineTestBase {
 			],
 			[
 				[ [ 'has type=test', 'Allows value=test' ], '01234567890_testStringAsId' ],
-				[ array( 1 => false, 'error' => wfMessage('smw_unknowntype')->inLanguage('en')->plain() ) ]
+				[ [ 1 => false, 'error' => wfMessage('smw_unknowntype')->inLanguage('en')->plain() ] ]
 			],
 			[
 				[ [ 'has type=page', 'Allows value' => 'test','1215623e790d918773db943232068a93b21c9f1419cb85666c6558e87f5b7d47=test' ], '01234567890_testStringAsId' ],
 				[ 1 => true ]
 			],
-		);
+		];
 
 		return $provider;
 	}

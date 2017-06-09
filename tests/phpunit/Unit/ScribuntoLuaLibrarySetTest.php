@@ -23,9 +23,9 @@ class ScribuntoLuaLibrarySetTest extends ScribuntoLuaEngineTestBase {
 	 * ScribuntoLuaEngineTestBase::getTestModules
 	 */
 	public function getTestModules() {
-		return parent::getTestModules() + array(
+		return parent::getTestModules() + [
 			self::$moduleName => __DIR__ . '/' . 'mw.smw.set.tests.lua',
-		);
+		];
 	}
 
 	/**
@@ -51,7 +51,7 @@ class ScribuntoLuaLibrarySetTest extends ScribuntoLuaEngineTestBase {
 	 * @return array
 	 */
 	public function dataProviderSetTest() {
-		$provider = array(
+		$provider = [
 			[
 				null,
 				[ 1 => true ]
@@ -74,7 +74,7 @@ class ScribuntoLuaLibrarySetTest extends ScribuntoLuaEngineTestBase {
 			],
 			[
 				[ 'has type=test' ],
-				[ array( 1 => false, 'error' => wfMessage('smw_unknowntype')->inLanguage('en')->plain() ) ]
+				[ [ 1 => false, 'error' => wfMessage('smw_unknowntype')->inLanguage('en')->plain() ] ]
 			],
 			[
 				[ '1215623e790d918773db943232068a93b21c9f1419cb85666c6558e87f5b7d47=test' ],
@@ -84,7 +84,7 @@ class ScribuntoLuaLibrarySetTest extends ScribuntoLuaEngineTestBase {
 				[ '1215623e790d918773db943232068a93b21c9f1419cb85666c6558e87f5b7d47=test', 'foo' => 'bar' ],
 				[ 1 => true ]
 			]
-		);
+		];
 
 		return $provider;
 	}

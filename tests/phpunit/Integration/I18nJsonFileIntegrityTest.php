@@ -35,14 +35,14 @@ class I18nJsonFileIntegrityTest extends \PHPUnit_Framework_TestCase {
 
 	public function i18nFileProvider() {
 
-		$provider = array();
+		$provider = [];
 		$location = $GLOBALS['wgMessagesDirs']['SemanticScribunto'];
 
 		$bulkFileProvider = UtilityFactory::getInstance()->newBulkFileProvider( $location );
 		$bulkFileProvider->searchByFileExtension( 'json' );
 
 		foreach ( $bulkFileProvider->getFiles() as $file ) {
-			$provider[] = array( $file );
+			$provider[] = [ $file ];
 		}
 
 		return $provider;

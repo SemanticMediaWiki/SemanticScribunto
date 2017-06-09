@@ -34,16 +34,16 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	 */
 	public function register() {
 
-		$lib = array(
-			'ask'             => array( $this, 'ask' ),
-			'getPropertyType' => array( $this, 'getPropertyType' ),
-			'getQueryResult'  => array( $this, 'getQueryResult' ),
-			'info'            => array( $this, 'info' ),
-			'set'             => array( $this, 'set' ),
-			'subobject'       => array( $this, 'subobject' ),
-		);
+		$lib = [
+			'ask'             => [ $this, 'ask' ],
+			'getPropertyType' => [ $this, 'getPropertyType' ],
+			'getQueryResult'  => [ $this, 'getQueryResult' ],
+			'info'            => [ $this, 'info' ],
+			'set'             => [ $this, 'set' ],
+			'subobject'       => [ $this, 'subobject' ],
+		];
 
-		$this->getEngine()->registerInterface( __DIR__ . '/' . 'mw.smw.lua', $lib, array() );
+		$this->getEngine()->registerInterface( __DIR__ . '/' . 'mw.smw.lua', $lib, [] );
 	}
 
 	/**
@@ -63,7 +63,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 		);
 
 		if ( !$this->isAQueryResult( $queryResult ) ) {
-			return array( $queryResult );
+			return [ $queryResult ];
 		}
 
 		$luaResultProcessor = $this->getLibraryFactory()->newLuaAskResultProcessor(
@@ -72,7 +72,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 
 		$result = $luaResultProcessor->getQueryResultAsTable();
 
-		return array( $this->convertArrayToLuaTable( $result ) );
+		return [ $this->convertArrayToLuaTable( $result ) ];
 	}
 
 	/**
@@ -90,16 +90,16 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 		$propertyName = trim( $propertyName );
 
 		if ( $propertyName === '' ) {
-			return array( null );
+			return [ null ];
 		}
 
 		$property = DIProperty::newFromUserLabel( $propertyName );
 
 		if ( $property === null ) {
-			return array( null );
+			return [ null ];
 		}
 
-		return array( $property->findPropertyTypeID() );
+		return [ $property->findPropertyTypeID() ];
 	}
 
 	/**
@@ -118,7 +118,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 		);
 
 		if ( !$this->isAQueryResult( $queryResult ) ) {
-			return array( $queryResult );
+			return [ $queryResult ];
 		}
 
 		$result = $queryResult->toArray();
@@ -129,7 +129,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 		    $result["results"] = array_combine( range( 0, count( $result["results"] ) - 1 ), array_values( $result["results"] ) );
 		}
 
-		return array( $this->convertArrayToLuaTable( $result ) );
+		return [ $this->convertArrayToLuaTable( $result ) ];
 	}
 
 	/**
@@ -158,7 +158,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 
 		// the actual info message is easy to create:
 		$result = smwfEncodeMessages(
-			array( $text ),
+			[ $text ],
 			$icon,
 			' <!--br-->',
 			false // No escaping.
@@ -169,7 +169,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 			$this->getEngine()->getParser()
 		);
 
-		return array( $this->doPostProcessParserFunctionCallResult( $result ) );
+		return [ $this->doPostProcessParserFunctionCallResult( $result ) ];
 	}
 
 	/**
@@ -201,11 +201,11 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 
 		if ( strlen( $result ) ) {
 			// if result is a non empty string, assume an error message
-			return array( [ 1 => false, self::SMW_ERROR_FIELD => preg_replace( '/<[^>]+>/', '', $result ) ] );
+			return [ [ 1 => false, self::SMW_ERROR_FIELD => preg_replace( '/<[^>]+>/', '', $result ) ] ];
 		}
 
 		// on success, return true
-		return array( 1 => true );
+		return [ 1 => true ];
 	}
 
 	/**
@@ -245,11 +245,11 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 
 		if ( strlen( $result = $this->doPostProcessParserFunctionCallResult( $parserFunctionCallResult ) ) ) {
 			// if result a non empty string, assume an error message
-			return array( [ 1 => false, self::SMW_ERROR_FIELD => preg_replace( '/<[^>]+>/', '', $result ) ] );
+			return [ [ 1 => false, self::SMW_ERROR_FIELD => preg_replace( '/<[^>]+>/', '', $result ) ] ];
 		}
 
 		// on success, return true
-		return array( 1 => true );
+		return [ 1 => true ];
 	}
 
 	/**
@@ -351,7 +351,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 
 		// if $arguments were supplied as key => value pair (aka associative array),
 		// we rectify this here
-		$processedArguments = array();
+		$processedArguments = [];
 		foreach ( $arguments as $key => $value ) {
 			if ( !is_int( $key ) && !preg_match( '/[0-9]+/', $key ) ) {
 				$value = (string) $key . '=' . (string) $value;

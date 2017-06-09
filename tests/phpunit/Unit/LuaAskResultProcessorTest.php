@@ -105,7 +105,7 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 
 		$instance = new LuaAskResultProcessor( $this->queryResult );
 
-		$resultRow = array( $this->constructResultArray() );
+		$resultRow = [ $this->constructResultArray() ];
 
 		$result = $instance->getDataFromQueryResultRow( $resultRow );
 
@@ -210,7 +210,7 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 		$instance = new LuaAskResultProcessor( $this->queryResult );
 
 		$dataValue = $this->getMockBuilder( '\\' . $class )
-			->setConstructorArgs( array( $type ) )
+			->setConstructorArgs( [ $type ] )
 			->getMock();
 
 		$dataValue->expects( $this->any() )
@@ -355,7 +355,7 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 	private function constructSMWNumberValue() {
 
 		$printRequest = $this->getMockBuilder( SMWNumberValue::class )
-			->setConstructorArgs( array( '_num' ) )
+			->setConstructorArgs( [ '_num' ] )
 			->getMock();
 
 		return $printRequest;
