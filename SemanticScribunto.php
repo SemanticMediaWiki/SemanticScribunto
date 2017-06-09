@@ -53,18 +53,18 @@ class SemanticScribunto {
 		define( 'SMW_SCRIBUNTO_VERSION', '1.0.0' );
 
 		// Register extension info
-		$GLOBALS['wgExtensionCredits']['semantic'][] = array(
+		$GLOBALS['wgExtensionCredits']['semantic'][] = [
 			'path'           => __FILE__,
 			'name'           => 'Semantic Scribunto',
-			'author'         => array(
+			'author'         => [
 				'James Hong Kong',
 				'[https://www.semantic-mediawiki.org/wiki/User:Oetterer Tobias Oetterer]',
-			),
+			],
 			'url'            => 'https://github.com/SemanticMediaWiki/SemanticScribunto/',
 			'descriptionmsg' => 'smw-scribunto-desc',
 			'version'        => SMW_SCRIBUNTO_VERSION,
 			'license-name'   => 'GPL-2.0+',
-		);
+		];
 
 		// MW 1.26+
 		if ( !function_exists( 'wfGlobalCacheKey' ) ) {
@@ -128,7 +128,7 @@ class SemanticScribunto {
 		}
 
 		if ( $dependency === 'Lua' && method_exists( 'Scribunto_LuaStandaloneInterpreter', 'getLuaVersion' ) ) {
-			return Scribunto_LuaStandaloneInterpreter::getLuaVersion( array( 'luaPath' => null ) );
+			return Scribunto_LuaStandaloneInterpreter::getLuaVersion( [ 'luaPath' => null ] );
 		}
 
 		return null;

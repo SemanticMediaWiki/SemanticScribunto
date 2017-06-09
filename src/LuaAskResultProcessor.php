@@ -65,7 +65,7 @@ class LuaAskResultProcessor {
 
 		if ( $this->queryResult->getCount() ) {
 
-			$result = array();
+			$result = [];
 
 			while ( $resultRow = $this->queryResult->getNext() ) {
 				$result[] = $this->getDataFromQueryResultRow( $resultRow );
@@ -87,7 +87,7 @@ class LuaAskResultProcessor {
 	 */
 	public function getDataFromQueryResultRow( array $resultRow ) {
 
-		$rowData = array();
+		$rowData = [];
 
 		/** @var ResultArray $resultArray */
 		foreach ( $resultRow as $resultArray ) {
@@ -115,7 +115,7 @@ class LuaAskResultProcessor {
 		// first, extract the key (label), if any
 		$key = $this->getKeyFromPrintRequest( $resultArray->getPrintRequest() );
 
-		$resultArrayData = array();
+		$resultArrayData = [];
 
 		// then get all data that is stored in this printRequest / query field
 		/** @var DataValue $dataValue */
@@ -126,7 +126,7 @@ class LuaAskResultProcessor {
 
 		$resultArrayData = $this->extractLuaDataFromDVData( $resultArrayData );
 
-		return array( $key, $resultArrayData );
+		return [ $key, $resultArrayData ];
 	}
 
 	/**

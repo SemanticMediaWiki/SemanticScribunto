@@ -85,7 +85,7 @@ class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JsonTestCaseScriptRu
 	 * @see JsonTestCaseScriptRunner::getListOfAllowedTestCaseFiles
 	 */
 	protected function getAllowedTestCaseFiles() {
-		return array();
+		return [];
 	}
 
 	/**
@@ -133,14 +133,14 @@ class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JsonTestCaseScriptRu
 		// Defines settings that can be altered during a test run with each test
 		// having the possibility to change those values, settings will be reset to
 		// the original value (from before the test) after the test has finished.
-		$permittedSettings = array(
+		$permittedSettings = [
 			'smwgNamespacesWithSemanticLinks',
 			'smwgPageSpecialProperties',
 			'smwgMaxNonExpNumber',
 			'wgLanguageCode',
 			'wgContLang',
 			'wgLang'
-		);
+		];
 
 		foreach ( $permittedSettings as $key ) {
 			$this->changeGlobalSettingTo(
@@ -210,7 +210,7 @@ class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JsonTestCaseScriptRu
 			print_r( $semanticData );
 		}
 
-		if ( isset( $case['errors'] ) && $case['errors'] !== array() ) {
+		if ( isset( $case['errors'] ) && $case['errors'] !== [] ) {
 			$this->assertNotEmpty(
 				$semanticData->getErrors()
 			);
@@ -295,7 +295,7 @@ class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JsonTestCaseScriptRu
 			'Failed asserting count for "inproperty-keys" in ' . $about . ' ' . implode( ',', $inProperties )
 		);
 
-		$inpropertyValues = array();
+		$inpropertyValues = [];
 
 		/** @var \SMW\DIProperty $property */
 		foreach ( $inProperties as $property ) {

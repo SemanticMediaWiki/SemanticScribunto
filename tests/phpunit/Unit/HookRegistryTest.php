@@ -36,7 +36,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 		$handler = 'ScribuntoExternalLibraries';
 
 		$engine = '';
-		$extraLibraries = array();
+		$extraLibraries = [];
 
 		$this->assertTrue(
 			$instance->isRegistered( $handler )
@@ -44,7 +44,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertThatHookIsExcutable(
 			$instance->getHandlerFor( $handler ),
-			array( $engine, &$extraLibraries )
+			[ $engine, &$extraLibraries ]
 		);
 
 		$this->assertArrayHasKey(

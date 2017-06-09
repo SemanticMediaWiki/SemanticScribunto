@@ -69,7 +69,7 @@ class LibraryFactoryTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertInstanceOf(
 			'\SMWQueryResult',
-			$instance->newQueryResultFrom( array( '[[Foo::Bar]]' ) )
+			$instance->newQueryResultFrom( [ '[[Foo::Bar]]' ] )
 		);
 	}
 
@@ -81,7 +81,7 @@ class LibraryFactoryTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertInstanceOf(
 			'\SMW\ParserParameterProcessor',
-			$instance->newParserParameterProcessorFrom( array( '' ) )
+			$instance->newParserParameterProcessorFrom( [ '' ] )
 		);
 	}
 

@@ -23,9 +23,9 @@ class ScribuntoLuaLibraryPropertyTest extends ScribuntoLuaEngineTestBase {
 	 * ScribuntoLuaEngineTestBase::getTestModules
 	 */
 	public function getTestModules() {
-		return parent::getTestModules() + array(
+		return parent::getTestModules() + [
 			'SMW\Scribunto\Tests\ScribuntoLuaLibraryPropertyTest' => __DIR__ . '/' . 'mw.smw.property.tests.lua',
-		);
+		];
 	}
 
 	/**
