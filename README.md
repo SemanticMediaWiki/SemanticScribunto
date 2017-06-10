@@ -13,8 +13,8 @@ Semantic Scribunto (a.k.a. SSC) is a [Semantic Mediawiki][smw] extension to prov
 ## Requirements
 
 - PHP 5.5 or later
-- MediaWiki 1.26 or later
-- [Semantic MediaWiki][smw] 2.3 or later
+- MediaWiki 1.27 or later
+- [Semantic MediaWiki][smw] 2.4 or later
 
 ## Installation
 
