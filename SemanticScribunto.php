@@ -50,7 +50,7 @@ class SemanticScribunto {
 	 */
 	public static function initExtension() {
 
-		define( 'SMW_SCRIBUNTO_VERSION', '1.0.0' );
+		define( 'SMW_SCRIBUNTO_VERSION', '1.1.0-alpha' );
 
 		// Register extension info
 		$GLOBALS['wgExtensionCredits']['semantic'][] = [
@@ -66,15 +66,6 @@ class SemanticScribunto {
 			'license-name'   => 'GPL-2.0+',
 		];
 
-		// MW 1.26+
-		if ( !function_exists( 'wfGlobalCacheKey' ) ) {
-			function wfGlobalCacheKey( /*...*/ ) {
-				$args = func_get_args();
-				$key = 'global:' . implode( ':', $args );
-				return strtr( $key, ' ', '_' );
-			}
-		}
-
 		// Register message files
 		$GLOBALS['wgMessagesDirs']['SemanticScribunto'] = __DIR__ . '/i18n';
 	}
@@ -84,7 +75,7 @@ class SemanticScribunto {
 	 */
 	public static function doCheckRequirements() {
 
-		if ( version_compare( $GLOBALS[ 'wgVersion' ], '1.26', 'lt' ) ) {
+		if ( version_compare( $GLOBALS[ 'wgVersion' ], '1.27', 'lt' ) ) {
 			die( '<b>Error:</b> <a href="https://github.com/SemanticMediaWiki/SemanticScribunto/">Semantic Scribunto</a> is only compatible with MediaWiki 1.26 or above. You need to upgrade MediaWiki first.' );
 		}
 
