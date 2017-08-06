@@ -89,6 +89,22 @@ class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JsonTestCaseScriptRu
 	}
 
 	/**
+	 * @see JsonTestCaseScriptRunner::getPermittedSettings
+	 */
+	protected function getPermittedSettings() {
+		parent::getPermittedSettings();
+
+		return [
+			'smwgNamespacesWithSemanticLinks',
+			'smwgPageSpecialProperties',
+			'smwgMaxNonExpNumber',
+			'wgLanguageCode',
+			'wgContLang',
+			'wgLang'
+		];
+	}
+
+	/**
 	 * @see JsonTestCaseScriptRunner::runTestCaseFile
 	 *
 	 * @param JsonTestCaseFileHandler $jsonTestCaseFileHandler
@@ -133,19 +149,10 @@ class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JsonTestCaseScriptRu
 		// Defines settings that can be altered during a test run with each test
 		// having the possibility to change those values, settings will be reset to
 		// the original value (from before the test) after the test has finished.
-		$permittedSettings = [
-			'smwgNamespacesWithSemanticLinks',
-			'smwgPageSpecialProperties',
-			'smwgMaxNonExpNumber',
-			'wgLanguageCode',
-			'wgContLang',
-			'wgLang'
-		];
-
-		foreach ( $permittedSettings as $key ) {
+		foreach ( $this->getPermittedSettings() as $key ) {
 			$this->changeGlobalSettingTo(
 				$key,
-				$jsonTestCaseFileHandler->getSettingsFor( $key )
+				$jsonTestCaseFileHandler->getSettingsFor( $key, $this->getConfigValueCallback( $key ) )
 			);
 		}
 
