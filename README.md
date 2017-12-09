@@ -5,7 +5,6 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticScribunto/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticScribunto/?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/mediawiki/semantic-scribunto/version.png)](https://packagist.org/packages/mediawiki/semantic-scribunto)
 [![Packagist download count](https://poser.pugx.org/mediawiki/semantic-scribunto/d/total.png)](https://packagist.org/packages/mediawiki/semantic-scribunto)
-[![Dependency Status](https://www.versioneye.com/php/mediawiki:semantic-scribunto/badge.png)](https://www.versioneye.com/php/mediawiki:semantic-scribunto)
 
 Semantic Scribunto (a.k.a. SSC) is a [Semantic Mediawiki][smw] extension to provide native support for the
 [Scribunto][scri] extension.
@@ -43,7 +42,7 @@ have a look at the contribution guideline.
 
 * [File an issue](https://github.com/SemanticMediaWiki/SemanticScribunto/issues)
 * [Submit a pull request](https://github.com/SemanticMediaWiki/SemanticScribunto/pulls)
-* Ask a question on [the mailing list](https://semantic-mediawiki.org/wiki/Mailing_list)
+* Ask a question on [the mailing list](https://www.semantic-mediawiki.org/wiki/Mailing_list)
 * Ask a question on the #semantic-mediawiki IRC channel on Freenode.
 
 ## Tests
