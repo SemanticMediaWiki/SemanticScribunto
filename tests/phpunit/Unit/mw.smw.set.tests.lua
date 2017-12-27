@@ -16,7 +16,7 @@ local tests = {
 		expect = { true }
 	},
 	{ name = 'set (matching input type to property type)', func = mw.smw.set,
-		args = { 'has type=page' },
+		args = { 'has text=test' },
 		expect = { true }
 	},
 	{ name = 'set (supplying wrong input type to property type)', func = mw.smw.set,
@@ -24,7 +24,7 @@ local tests = {
 		expect = {
 			{
 				false,
-				error = mw.message.new('smw_unknowntype'):inLanguage('en'):plain()
+				error = mw.message.new('smw-datavalue-property-restricted-declarative-use', 'Has type'):inLanguage('en'):plain()
 			}
 		}
 	},

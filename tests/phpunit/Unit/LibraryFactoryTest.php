@@ -40,6 +40,11 @@ class LibraryFactoryTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
+		$mStripState = $this->getMockBuilder( '\StripState' )
+			->disableOriginalConstructor()
+			->getMock();
+		$this->parser->mStripState = $mStripState;
+
 		$this->parser->expects( $this->any() )
 			->method( 'getTitle' )
 			->will( $this->returnValue( \Title::newFromText( 'Foo' ) ) );

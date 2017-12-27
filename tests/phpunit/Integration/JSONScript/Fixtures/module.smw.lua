@@ -117,10 +117,14 @@ function convertResultTableToString( queryResult )
         local myResult = ""
         for num, row in ipairs( queryResult ) do
             myResult = myResult .. '* This is result #' .. num .. '\n'
+--			myResult = myResult .. '** elements are:' .. table.concat ( getKeys( row ), ',' )  .. '\n'
+--			myResult = myResult .. '** num elements:' .. getNum( row )  .. '\n'
             for property, data in pairs( row ) do
                 local dataOutput = data
                 if type( data ) == 'table' then
                     dataOutput = mw.text.listToText( data, ', ', ' and ')
+				elseif type( data ) == 'boolean' then
+					dataOutput = data and 'true' or 'false'
                 end
                 myResult = myResult .. '** ' .. property .. ': ' .. dataOutput .. '\n'
             end
@@ -129,6 +133,19 @@ function convertResultTableToString( queryResult )
     end
 
     return queryResult
+end
+
+function getNum( t )
+	local keys = getKeys( t );
+	return #keys
+end
+
+function getKeys( t )
+	local keys = {}
+	for k, v in pairs( t ) do
+		table.insert( keys, k )
+	end
+	return keys
 end
 
 function varDump( entity, indent )

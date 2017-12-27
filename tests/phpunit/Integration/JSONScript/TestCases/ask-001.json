@@ -12,6 +12,21 @@
 			"contents": "[[Has type::Number]]"
 		},
 		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Has boolean",
+			"contents": "[[Has type::Boolean]]"
+		},
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Has date",
+			"contents": "[[Has type::Date]]"
+		},
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Has url",
+			"contents": "[[Has type::Url]]"
+		},
+		{
 			"namespace": "NS_MODULE",
 			"page": "smw",
 			"contents": {
@@ -19,12 +34,24 @@
 			}
 		},
 		{
-			"page": "Scribunto/ask/001/1",
+			"page": "Scribunto/ask/001/0",
 			"contents": "[[Has text::Is a Scribunto example text]] [[Category:ask-001]]"
 		},
 		{
-			"page": "Scribunto/ask/001/2",
+			"page": "Scribunto/ask/001/1",
 			"contents": "[[Has number::42]] [[Category:ask-001]]"
+		},
+		{
+			"page": "Scribunto/ask/001/2",
+			"contents": "[[Has boolean::true]] [[Category:ask-001]]"
+		},
+		{
+			"page": "Scribunto/ask/001/3",
+			"contents": "[[Has date::2017-12-24]] [[Category:ask-001]]"
+		},
+		{
+			"page": "Scribunto/ask/001/4",
+			"contents": "[[Has url::https://www.semantic-mediawiki.org/]] [[Category:ask-001]]"
 		},
 		{
 			"page": "Scribunto/ask/001/Q.0",
@@ -33,6 +60,18 @@
 		{
 			"page": "Scribunto/ask/001/Q.1",
 			"contents": "{{#invoke:smw|ask|[[Category:ask-001]] [[Has number::+]]|?#-=page|?Has number |limit=3 }}"
+		},
+		{
+			"page": "Scribunto/ask/001/Q.2",
+			"contents": "{{#invoke:smw|ask|[[Category:ask-001]] [[Has boolean::+]]|?#-=page|?Has boolean |limit=3 |mainlabel=-}}"
+		},
+		{
+			"page": "Scribunto/ask/001/Q.3",
+			"contents": "{{#invoke:smw|ask|[[Category:ask-001]] [[Has date::+]]|?#-=page|?Has date#-F[d.m.Y] |limit=3 |mainlabel=-}}"
+		},
+		{
+			"page": "Scribunto/ask/001/Q.4",
+			"contents": "{{#invoke:smw|ask|[[Category:ask-001]] [[Has url::+]]|?#-=page|?Has url |limit=3 |mainlabel=-}}"
 		}
 	],
 	"tests": [
@@ -42,8 +81,8 @@
 			"subject": "Scribunto/ask/001/Q.0",
 			"assert-output": {
 				"to-contain": [
-					"<ul><li> page: Scribunto/ask/001/1</li>",
-					"<li> Has text: Is a Scribunto example text</li></ul></li></ul>"
+					"<li> page: Scribunto/ask/001/0</li>",
+					"<li> Has text: Is a Scribunto example text</li>"
 				]
 			}
 		},
@@ -53,9 +92,42 @@
 			"subject": "Scribunto/ask/001/Q.1",
 			"assert-output": {
 				"to-contain": [
-					"title=\"Scribunto/ask/001/2\">Scribunto/ask/001/2</a></li>",
+					"title=\"Scribunto/ask/001/1\">Scribunto/ask/001/1</a></li>",
+					"<li> page: Scribunto/ask/001/1</li>",
+					"<li> Has number: 42</li>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#2 verify output for the `[[Category:ask-001]] [[Has boolean::+]]` query",
+			"subject": "Scribunto/ask/001/Q.2",
+			"assert-output": {
+				"to-contain": [
 					"<li> page: Scribunto/ask/001/2</li>",
-					"<li> Has number: 42</li></ul></li></ul>"
+					"<li> Has boolean: true</li>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#3 verify output for the `[[Category:ask-001]] [[Has date::+]]` query",
+			"subject": "Scribunto/ask/001/Q.3",
+			"assert-output": {
+				"to-contain": [
+					"<li> page: Scribunto/ask/001/3</li>",
+					"<li> Has date: 24.12.2017</li>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#4 verify output for the `[[Category:ask-001]] [[Has url::+]]` query",
+			"subject": "Scribunto/ask/001/Q.4",
+			"assert-output": {
+				"to-contain": [
+					"<li> page: Scribunto/ask/001/4</li>",
+					"<li> Has url: <a rel=\"nofollow\" class=\"external free\" href=\"https://www.semantic-mediawiki.org/\">https://www.semantic-mediawiki.org/</a></li>"
 				]
 			}
 		}

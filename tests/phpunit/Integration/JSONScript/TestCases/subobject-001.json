@@ -69,14 +69,14 @@
 			},
 			"assert-output": {
 				"to-contain": [
-					"Scribunto/subobject/001/0#_86e73ba4007c05bcb66e9a6824567241"
+					"Scribunto/subobject/001/0#_632434fc58dfec64d856fa76661794e8"
 				]
 			}
 		},
 		{
 			"type": "parser",
 			"about": "#0, sub-test #2 storing of one subobject (subobject smw data)",
-			"subject": "Scribunto/subobject/001/0#_86e73ba4007c05bcb66e9a6824567241",
+			"subject": "Scribunto/subobject/001/0#_632434fc58dfec64d856fa76661794e8",
 			"store": {
 				"clear-cache": true
 			},
@@ -121,15 +121,15 @@
 			},
 			"assert-output": {
 				"to-contain": [
-					"Scribunto/subobject/001/1#_752345ba7643e7b56fbaf5ca045efbdd",
-					"Scribunto/subobject/001/1#_b0edeea70a7d0208259ef103503230b3"
+					"Scribunto/subobject/001/1#_f6deea740677460455e132e3366f41c6",
+					"Scribunto/subobject/001/1#_967a45fddee88545cd3f44599bad1a92"
 				]
 			}
 		},
 		{
 			"type": "parser",
 			"about": "#1, sub-test #2 storing of two subobjects (subobject#1 smw data)",
-			"subject": "Scribunto/subobject/001/1#_752345ba7643e7b56fbaf5ca045efbdd",
+			"subject": "Scribunto/subobject/001/1#_f6deea740677460455e132e3366f41c6",
 			"store": {
 				"clear-cache": true
 			},
@@ -152,7 +152,7 @@
 		{
 			"type": "parser",
 			"about": "#1, sub-test #3 storing of two subobjects (subobject#2 smw data)",
-			"subject": "Scribunto/subobject/001/1#_b0edeea70a7d0208259ef103503230b3",
+			"subject": "Scribunto/subobject/001/1#_967a45fddee88545cd3f44599bad1a92",
 			"store": {
 				"clear-cache": true
 			},

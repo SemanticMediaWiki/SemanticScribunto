@@ -109,7 +109,7 @@ class LibraryFactory {
 	 *
 	 * @param Parser $parser
 	 *
-	 * @return \SMW\ParserFunctions\SubobjectParserFunction
+	 * @return \SMW\SubobjectParserFunction
 	 */
 	public function newSubobjectParserFunction( Parser $parser ) {
 		return ApplicationFactory::getInstance()->newParserFunctionFactory( $parser )->newSubobjectParserFunction( $parser );
