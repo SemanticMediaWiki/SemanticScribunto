@@ -31,7 +31,7 @@
 			"subject": "Info-warning",
 			"assert-output": {
 				"to-contain": [
-					"<span class=\"smw-highlighter\" data-type=\"4\" data-state=\"inline\" data-title=\"Error\" title=\"an error text\">",
+					"<span class=\"smw-highlighter\" data-type=\"4\" data-state=\"inline\" data-title=\"Warning\" title=\"an error text\">",
 					"<span class=\"smwtticon warning\">",
 					"<div class=\"smwttcontent\">an error text</div>"
 				]
@@ -43,7 +43,7 @@
 			"subject": "Info-note",
 			"assert-output": {
 				"to-contain": [
-					"<span class=\"smw-highlighter\" data-type=\"7\" data-state=\"inline\" data-title=\"Note\" title=\"a note\">",
+					"<span class=\"smw-highlighter\" data-type=\"8\" data-state=\"inline\" data-title=\"Note\" title=\"a note\">",
 					"<span class=\"smwtticon note\">",
 					"<div class=\"smwttcontent\">a note</div>"
 				]
@@ -55,7 +55,7 @@
 			"subject": "Info-info",
 			"assert-output": {
 				"to-contain": [
-					"<span class=\"smw-highlighter\" data-type=\"5\" data-state=\"persistent\" data-title=\"Information\" title=\"an info text\">",
+					"<span class=\"smw-highlighter\" data-type=\"6\" data-state=\"persistent\" data-title=\"Information\" title=\"an info text\">",
 					"<span class=\"smwtticon info\">",
 					"<div class=\"smwttcontent\">an info text</div>"
 				]

@@ -16,22 +16,23 @@ local tests = {
 		expect = { true }
 	},
 	{ name = 'subobject (matching input types to property types)', func = mw.smw.subobject,
-		args = { { 'Has type=page', ['Allows value'] = 'test' } },
+		args = { { 'Has text=test', ['Is bool'] = 'true' } },
 		expect = { true }
 	},
 
 	{ name = 'subobject (supplying a wrong input type to property type)', func = mw.smw.subobject,
-		args = { { 'Has type=test', ['Allows value'] = 'test' } },
+		args = { { 'Has type=test', ['Is bool'] = 'true' } },
 		expect = {
 			{
 				false,
-				error = mw.message.new('smw_unknowntype'):inLanguage('en'):plain()
+				error = mw.message.new('smw-datavalue-property-restricted-declarative-use', 'Has type'):inLanguage('en'):plain()
+				--error = mw.message.new('smw_unknowntype'):inLanguage('en'):plain()
 				-- should be error = mw.message.new('smw_unknowntype'):inLanguage(mw.getContentLanguage()):plain()
 			}
 		}
 	},
 	{ name = 'subobject (assigning data to non existing property)', func = mw.smw.subobject,
-		args = { { 'Has type=page', ['Allows value'] = 'test' , 'foo=test' } },
+		args = { { 'Has text=test', ['Is bool'] = 'true' , 'foo=test' } },
 		expect = { true }
 	},
 	{ name = 'subobject (no argument, supplying id)', func = mw.smw.subobject,
@@ -39,7 +40,7 @@ local tests = {
 		expect = { true }
 	},
 	{ name = 'subobject (matching input types to property types, supplying id)', func = mw.smw.subobject,
-		args = { { 'Has type=page', ['Allows value'] = 'test' }, '0123456780_teststringAsId' },
+		args = { { 'Has text=test', ['Is bool'] = 'true' }, '0123456780_teststringAsId' },
 		expect = { true }
 	},
 
@@ -48,13 +49,15 @@ local tests = {
 		expect = {
 			{
 				false,
-				error = mw.message.new('smw_unknowntype'):inLanguage('en'):plain()
+				error = mw.message.new('smw-datavalue-property-restricted-declarative-use', 'Has type'):inLanguage('en'):plain()
+					.. ' ' .. mw.message.new('smw-datavalue-property-restricted-declarative-use', 'Allows value'):inLanguage('en'):plain()
+				-- error = mw.message.new('smw_unknowntype'):inLanguage('en'):plain()
 				-- should be error = mw.message.new('smw_unknowntype'):inLanguage(mw.getContentLanguage()):plain()
 			}
 		}
 	},
 	{ name = 'subobject (assigning data to non existing property, supplying id)', func = mw.smw.subobject,
-		args = { { 'Has type=page', ['Allows value'] = 'test' , 'foo=test' }, '0123456780_teststringAsId' },
+		args = { { 'Has text=test', ['Is bool'] = 'true' , 'foo=test' }, '0123456780_teststringAsId' },
 		expect = { true }
 	},
 }

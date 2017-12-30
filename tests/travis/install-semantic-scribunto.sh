@@ -8,6 +8,13 @@ MW_INSTALL_PATH=$BASE_PATH/../mw
 function installToMediaWikiRoot {
 	echo -e "Running MW root composer install build on $TRAVIS_BRANCH \n"
 
+	SCRIB="dev-$MW"
+
+	if [ "$MW" = "master" ]
+	then
+	    SCRIB="dev-REL1_30"
+	fi
+
 	cd $MW_INSTALL_PATH
 
 	if [ "$PHPUNIT" != "" ]
@@ -19,11 +26,11 @@ function installToMediaWikiRoot {
 
 	if [ "$SSC" != "" ]
 	then
-		composer require 'mediawiki/scribunto=*' --update-with-dependencies
-		composer require 'mediawiki/semantic-scribunto='$SSC --update-with-dependencies
+		composer require mediawiki/scribunto "$SCRIB" --update-with-dependencies
+		composer require mediawiki/semantic-scribunto "$SSC" --update-with-dependencies
 	else
 		composer init --stability dev
-		composer require mediawiki/scribunto "dev-master" --dev --update-with-dependencies
+		composer require mediawiki/scribunto "$SCRIB" --dev --update-with-dependencies
 		composer require mediawiki/semantic-scribunto "dev-master" --dev --update-with-dependencies
 
 		cd extensions
