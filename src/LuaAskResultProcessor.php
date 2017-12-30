@@ -59,7 +59,7 @@ class LuaAskResultProcessor {
 	 *
 	 * @return array|null
 	 */
-	public function getQueryResultAsTable() {
+	public function getProcessedResult() {
 
 		$result = null;
 
@@ -97,7 +97,6 @@ class LuaAskResultProcessor {
 
 			$rowData[$key] = $data;
 		}
-
 		return $rowData;
 	}
 
@@ -131,7 +130,7 @@ class LuaAskResultProcessor {
 
 	/**
 	 * Takes an smw query print request and tries to retrieve the label
-	 * falls back to {@see getNumericIndex} if none found
+	 * falls back to {@see getNumericIndex} if none was found
 	 *
 	 * @param PrintRequest $printRequest
 	 *
@@ -161,7 +160,7 @@ class LuaAskResultProcessor {
 		switch ( $dataValue->getTypeID() ) {
 			case '_boo':
 				// boolean value found, convert it
-				$value = in_array( strtolower( $dataValue->getShortText( SMW_OUTPUT_WIKI ) ), $this->msgTrue );
+				$value = in_array( strtolower( $dataValue->getWikiValue() ), $this->msgTrue );
 				break;
 			case '_num':
 				// number value found
@@ -188,17 +187,16 @@ class LuaAskResultProcessor {
 
 		if ( empty( $resultArrayData ) ) {
 			// this key has no value(s). set to null
-			$resultArrayData = null;
+			return null;
 		} elseif ( count( $resultArrayData ) == 1 ) {
 			// there was only one semantic value found. reduce the array to this value
-			$resultArrayData = array_shift( $resultArrayData );
+			return array_shift( $resultArrayData );
 		} else {
 			// $key has multiple values. keep the array
-			// Note: we do not un-shift it (remember: lua array counting starts with 1), but the defer to
-			// conversion to a lua table to a later step
+			// Note: we do not un-shift it (remember: lua array counting starts with 1), but we defer
+			// conversion into a lua table to a later step
+			return $resultArrayData;
 		}
-
-		return $resultArrayData;
 	}
 
 	/**
@@ -211,5 +209,4 @@ class LuaAskResultProcessor {
 	public function getNumericIndex() {
 		return $this->numericIndex++;
 	}
-
 }

@@ -69,17 +69,17 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * Tests the conversion of a {@see \SMWQueryResult} in a lua table
 	 *
-	 * @see \SMW\Scribunto\LuaAskResultProcessor::getQueryResultAsTable
+	 * @see \SMW\Scribunto\LuaAskResultProcessor::getProcessedResult
 	 *
-	 * @uses $queryResult, \SMW\Scribunto\LuaAskResultProcessor::getQueryResultAsTable
+	 * @uses $queryResult, \SMW\Scribunto\LuaAskResultProcessor::getProcessedResult
 	 *
 	 * @return void
 	 */
-	public function testGetQueryResultAsTable() {
+	public function testGetProcessedResult() {
 
 		$instance = new LuaAskResultProcessor( $this->queryResult );
 
-		$result = $instance->getQueryResultAsTable();
+		$result = $instance->getProcessedResult();
 
 		$this->assertInternalType(
 			'array',
@@ -205,7 +205,7 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 * @return void
 	 */
-	public function testgetValueFromDataValue( $class, $type, $expects ) {
+	public function testGetValueFromDataValue( $class, $type, $expects ) {
 
 		$instance = new LuaAskResultProcessor( $this->queryResult );
 
