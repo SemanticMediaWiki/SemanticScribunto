@@ -70,7 +70,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 			$queryResult
 		);
 
-		$result = $luaResultProcessor->getQueryResultAsTable();
+		$result = $luaResultProcessor->getProcessedResult();
 
 		return [ $this->convertArrayToLuaTable( $result ) ];
 	}
