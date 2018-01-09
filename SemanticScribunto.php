@@ -63,7 +63,7 @@ class SemanticScribunto {
 			'url'            => 'https://github.com/SemanticMediaWiki/SemanticScribunto/',
 			'descriptionmsg' => 'smw-scribunto-desc',
 			'version'        => SMW_SCRIBUNTO_VERSION,
-			'license-name'   => 'GPL-2.0+',
+			'license-name'   => 'GPL-2.0-or-later',
 		];
 
 		// Register message files
