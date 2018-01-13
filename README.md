@@ -17,17 +17,17 @@ Semantic Scribunto (a.k.a. SSC) is a [Semantic Mediawiki][smw] extension to prov
 
 ## Installation
 
-The recommended way to install Semantic Scribunto is by using [Composer][composer] with:
+The recommended way to install Semantic Scribunto is by using [Composer][composer] with an entry in MediaWiki's "composer.json" or preferably "composer.local.json" file:
 
 ```json
 {
 	"require": {
-		"mediawiki/semantic-scribunto": "~1.0"
+		"mediawiki/semantic-scribunto": "~1.1"
 	}
 }
 ```
 1. From your MediaWiki installation directory, execute
-   `composer require mediawiki/semantic-scribunto:~1.0`
+   `composer require mediawiki/semantic-scribunto:~1.1`
 2. Navigate to _Special:Version_ on your wiki and verify that the package
    have been successfully installed.
 
