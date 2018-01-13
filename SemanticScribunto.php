@@ -8,7 +8,7 @@ use SMW\Scribunto\HookRegistry;
  * @defgroup SemanticScribunto Semantic Scribunto
  */
 if ( !defined( 'MEDIAWIKI' ) ) {
-	die( 'This file is part of the Semantic Scribunto extension, it is not a valid entry point.' );
+	die( 'This file is part of the Semantic Scribunto extension. It is not a valid entry point.' );
 }
 
 if ( defined( 'SMW_SCRIBUNTO_VERSION' ) ) {
@@ -50,7 +50,7 @@ class SemanticScribunto {
 	 */
 	public static function initExtension() {
 
-		define( 'SMW_SCRIBUNTO_VERSION', '1.1.0-alpha' );
+		define( 'SMW_SCRIBUNTO_VERSION', '1.1.0' );
 
 		// Register extension info
 		$GLOBALS['wgExtensionCredits']['semantic'][] = [
@@ -63,7 +63,7 @@ class SemanticScribunto {
 			'url'            => 'https://github.com/SemanticMediaWiki/SemanticScribunto/',
 			'descriptionmsg' => 'smw-scribunto-desc',
 			'version'        => SMW_SCRIBUNTO_VERSION,
-			'license-name'   => 'GPL-2.0-or-later',
+			'license-name'   => 'GPL-2.0-or-later'
 		];
 
 		// Register message files
@@ -81,11 +81,11 @@ class SemanticScribunto {
 
 		// Using the constant as indicator to avoid class_exists
 		if ( !defined( 'CONTENT_MODEL_SCRIBUNTO' ) ) {
-			die( '<b>Error:</b> <a href="https://github.com/SemanticMediaWiki/SemanticScribunto/">Semantic Scribunto</a> requires <a href="https://www.mediawiki.org/wiki/Extension:Scribunto">Scribunto</a>, please enable or install the extension first.' );
+			die( '<b>Error:</b> <a href="https://github.com/SemanticMediaWiki/SemanticScribunto/">Semantic Scribunto</a> requires <a href="https://www.mediawiki.org/wiki/Extension:Scribunto">Scribunto</a>. Please enable or install the extension first.' );
 		}
 
 		if ( !defined( 'SMW_VERSION' ) ) {
-			die( '<b>Error:</b> <a href="https://github.com/SemanticMediaWiki/SemanticScribunto/">Semantic Scribunto</a> requires <a href="https://github.com/SemanticMediaWiki/SemanticMediaWiki/">Semantic MediaWiki</a>, please enable or install the extension first.' );
+			die( '<b>Error:</b> <a href="https://github.com/SemanticMediaWiki/SemanticScribunto/">Semantic Scribunto</a> requires <a href="https://github.com/SemanticMediaWiki/SemanticMediaWiki/">Semantic MediaWiki</a>. Please enable or install the extension first.' );
 		}
 	}
 
