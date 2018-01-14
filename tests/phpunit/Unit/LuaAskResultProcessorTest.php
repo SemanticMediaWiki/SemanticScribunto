@@ -52,8 +52,6 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 * @see \SMW\Scribunto\LuaAskResultProcessor::__construct
 	 *
-	 * @uses $queryResult
-	 *
 	 * @return void
 	 */
 	public function testCanConstruct() {
@@ -70,8 +68,6 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 	 * Tests the conversion of a {@see \SMWQueryResult} in a lua table
 	 *
 	 * @see \SMW\Scribunto\LuaAskResultProcessor::getProcessedResult
-	 *
-	 * @uses $queryResult, \SMW\Scribunto\LuaAskResultProcessor::getProcessedResult
 	 *
 	 * @return void
 	 */
@@ -97,8 +93,6 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 * @see \SMW\Scribunto\LuaAskResultProcessor::getDataFromQueryResultRow
 	 *
-	 * @uses $queryResult, constructResultArray, \SMW\Scribunto\LuaAskResultProcessor::getDataFromQueryResultRow
-	 *
 	 * @return void
 	 */
 	public function testGetDataFromQueryResultRow() {
@@ -119,8 +113,6 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 	 * a print request
 	 *
 	 * @see \SMW\Scribunto\LuaAskResultProcessor::getKeyFromPrintRequest
-	 *
-	 * @uses $queryResult
 	 *
 	 * @return void
 	 */
@@ -174,8 +166,6 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 * @see \SMW\Scribunto\LuaAskResultProcessor::getDataFromResultArray
 	 *
-	 * @uses $queryResult, constructResultArray, \SMW\Scribunto\LuaAskResultProcessor::getDataFromResultArray
-	 *
 	 * @return void
 	 */
 	public function testGetDataFromResultArray() {
@@ -200,8 +190,6 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 	 * @param string $expects return value type
 	 *
 	 * @see \SMW\Scribunto\LuaAskResultProcessor::getValueFromDataValue
-	 *
-	 * @uses $queryResult, dataProvidergetValueFromDataValueTest
 	 *
 	 * @return void
 	 */
@@ -235,8 +223,6 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 * @see \SMW\Scribunto\LuaAskResultProcessor::extractLuaDataFromDVData
 	 *
-	 * @uses $queryResult
-	 *
 	 * @return void
 	 */
 	public function testExtractLuaDataFromDVData( $expects, $input ) {
@@ -253,8 +239,6 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 	 * Tests the generation of a numeric index key
 	 *
 	 * @see \SMW\Scribunto\LuaAskResultProcessor::getNumericIndex
-	 *
-	 * @uses $queryResult
 	 *
 	 * @return void
 	 */
