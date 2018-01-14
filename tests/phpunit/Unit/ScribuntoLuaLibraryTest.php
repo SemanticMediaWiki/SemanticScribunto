@@ -41,8 +41,6 @@ class ScribuntoLuaLibraryTest extends ScribuntoLuaEngineTestBase {
 	 *
 	 * @param string $method name of method to check
 	 *
-	 * @uses dataProviderFunctionTest
-	 *
 	 * @return void
 	 */
 	public function testMethodsExist( $method ) {
