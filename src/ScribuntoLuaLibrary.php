@@ -353,7 +353,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 		// we rectify this here
 		$processedArguments = [];
 		foreach ( $arguments as $key => $value ) {
-			if ( !is_int( $key ) && !preg_match( '/[0-9]+/', $key ) ) {
+			if ( !is_int( $key ) && !preg_match( '/^[0-9]+$/', $key ) ) {
 				$value = (string) $key . '=' . (string) $value;
 			}
 			$processedArguments[] = $value;
