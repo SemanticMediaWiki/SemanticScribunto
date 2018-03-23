@@ -1,4 +1,4 @@
--- Module:SMWgqrOrderTest
+-- Module:getQueryResult
 local p = {}
 
 function p.getQueryResultMainLabels( frame )
@@ -6,7 +6,6 @@ function p.getQueryResultMainLabels( frame )
     local queryResult = getQueryResult( frame.args )
 
     return convertResultTableToString( filterForMainLabelOnly( queryResult ) )
---    return varDump( filterForMainLabelOnly( queryResult ) )
 end
 
 function p.getQueryResultPrintRequests( frame )
@@ -28,7 +27,6 @@ function p.getQueryResultPrintRequests( frame )
         end
     end
 
---    return varDump( queryResult )
     return convertResultTableToString( queryResult )
 end
 
@@ -60,20 +58,21 @@ function convertResultTableToString( queryResult )
     end
 
     if type( queryResult ) == "table" then
-        local myResult = ""
+        local myResult = "<ul>"
         for num, row in ipairs( queryResult ) do
-            myResult = myResult .. '* This is result #' .. num .. '\n'
+            myResult = myResult .. '<li> This is result #' .. num .. '\n<ul>'
             for property, data in pairs( row ) do
                 local dataOutput = data
                 if type( data ) == 'table' then
                     dataOutput = mw.text.listToText( data, ', ', ' and ')
                 end
-                myResult = myResult .. '** ' .. property .. ': ' .. dataOutput .. '\n'
+                myResult = myResult .. '<li> ' .. property .. ': ' .. dataOutput .. '</li>'
             end
+            myResult = myResult .. '</ul></li>\n'
         end
+        myResult = myResult .. '</ul>\n'
         return myResult
     end
-
     return queryResult
 end
 
@@ -154,25 +153,6 @@ function getQueryResult( arguments )
     end
 
     return mw.smw.getQueryResult( arguments )
-end
-
-function varDump( entity, indent )
-    local entity = entity
-    local indent = indent and indent or ''
-    if type( entity ) == 'table' then
-        local output = '(table)[' .. #entity .. ']:'
-        indent = indent .. '  '
-        for k, v in pairs( entity ) do
-			output = output .. '\n' .. indent .. '(' .. type(k) .. ') ' .. k .. ': ' .. varDump( v, indent )
-        end
-        return output
-    elseif type( entity ) == 'function' then
-        return '(function)'
-    elseif type( entity ) == 'bool' then
-        return '(bool)' .. ( entity and 'TRUE' or 'FALSE' )
-    else
-        return '(' .. type( entity ) .. ') ' .. entity
-    end
 end
 
 return p

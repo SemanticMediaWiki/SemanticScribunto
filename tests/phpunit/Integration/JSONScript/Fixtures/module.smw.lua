@@ -114,11 +114,9 @@ function convertResultTableToString( queryResult )
     end
 
     if type( queryResult ) == "table" then
-        local myResult = ""
+        local myResult = "<ul>"
         for num, row in ipairs( queryResult ) do
-            myResult = myResult .. '* This is result #' .. num .. '\n'
---			myResult = myResult .. '** elements are:' .. table.concat ( getKeys( row ), ',' )  .. '\n'
---			myResult = myResult .. '** num elements:' .. getNum( row )  .. '\n'
+            myResult = myResult .. '<li> This is result #' .. num .. '\n<ul>'
             for property, data in pairs( row ) do
                 local dataOutput = data
                 if type( data ) == 'table' then
@@ -126,9 +124,11 @@ function convertResultTableToString( queryResult )
 				elseif type( data ) == 'boolean' then
 					dataOutput = data and 'true' or 'false'
                 end
-                myResult = myResult .. '** ' .. property .. ': ' .. dataOutput .. '\n'
+                myResult = myResult .. '<li> ' .. property .. ': ' .. dataOutput .. '</li>'
             end
+	        myResult = myResult .. '</ul></li>\n'
         end
+	    myResult = myResult .. '</ul>\n'
         return myResult
     end
 
@@ -146,25 +146,6 @@ function getKeys( t )
 		table.insert( keys, k )
 	end
 	return keys
-end
-
-function varDump( entity, indent )
-    local entity = entity
-    local indent = indent and indent or ''
-    if type( entity ) == 'table' then
-        local output = '(table)[' .. #entity .. ']:'
-        indent = indent .. '  '
-        for k, v in pairs( entity ) do
-            output = output .. '\n' .. indent .. '(' .. type(k) .. ') ' .. k .. ': ' .. varDump( v, indent )
-        end
-        return output
-    elseif type( entity ) == 'function' then
-        return '(function)'
-    elseif type( entity ) == 'bool' then
-        return '(bool)' .. ( entity and 'TRUE' or 'FALSE' )
-    else
-        return '(' .. type( entity ) .. ') ' .. entity
-    end
 end
 
 return p

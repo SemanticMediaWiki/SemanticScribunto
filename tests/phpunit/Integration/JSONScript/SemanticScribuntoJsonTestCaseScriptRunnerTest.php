@@ -131,6 +131,10 @@ class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JsonTestCaseScriptRu
 				break;
 			}
 
+			if ( $jsonTestCaseFileHandler->requiredToSkipFor( $case, $this->connectorId ) ) {
+				continue;
+			}
+
 			// Assert function are defined individually by each TestCaseRunner
 			// to ensure a wide range of scenarios can be supported.
 			$this->assertSemanticDataForCase( $case, $jsonTestCaseFileHandler->getDebugMode() );
