@@ -123,11 +123,28 @@
 		{
 			"type": "parser",
 			"about": "#4 verify output for the `[[Category:ask-001]] [[Has url::+]]` query",
+			"skip-on": {
+				"mediawiki": [ ">1.30.x", "MediaWiki changed handling of free links in 65fcb7a" ]
+			},
 			"subject": "Scribunto/ask/001/Q.4",
 			"assert-output": {
 				"to-contain": [
 					"<li> page: Scribunto/ask/001/4</li>",
 					"<li> Has url: <a rel=\"nofollow\" class=\"external free\" href=\"https://www.semantic-mediawiki.org/\">https://www.semantic-mediawiki.org/</a></li>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#4 verify output for the `[[Category:ask-001]] [[Has url::+]]` query (for 1.31+)",
+			"skip-on": {
+				"mediawiki": [ "<1.31.x", "MediaWiki changed handling of free links in 65fcb7a" ]
+			},
+			"subject": "Scribunto/ask/001/Q.4",
+			"assert-output": {
+				"to-contain": [
+					"<li> page: Scribunto/ask/001/4</li>",
+					"<li> Has url: <a rel=\"nofollow\" class=\"external text\" href=\"https://www.semantic-mediawiki.org/\">https://www.semantic-mediawiki.org/</a></li>"
 				]
 			}
 		}
