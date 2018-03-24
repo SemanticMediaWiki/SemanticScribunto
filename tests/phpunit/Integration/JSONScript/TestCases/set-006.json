@@ -1,0 +1,106 @@
+{
+	"description": "Test issue #48: smw.set drops properties with numbers when using key-value pair method",
+	"setup": [
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "HELL0",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "HELLO",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Hello",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Hell0",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"namespace": "NS_MODULE",
+			"page": "SetTest",
+			"contents": {
+				"import-from": "/../Fixtures/module.i48.lua"
+			}
+		},
+		{
+			"page": "Scribunto/set/006/0",
+			"contents": "{{#set: HELLO=WORLD|HELL0=WORLD|hello=world|hell0=world}}"
+		},
+		{
+			"page": "Scribunto/set/006/1",
+			"contents": "{{#invoke:SetTest|setup}}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 semantic data manually",
+			"subject": "Scribunto/set/006/0",
+			"store": {
+				"clear-cache": true
+			},
+			"assert-store": {
+				"semantic-data": {
+					"strictPropertyValueMatch": false,
+					"propertyCount": 6,
+					"propertyKeys": [
+						"_MDAT",
+						"_SKEY",
+						"HELL0",
+						"HELLO",
+						"Hello",
+						"Hell0"
+					],
+					"propertyValues": [
+						"WORLD",
+						"world"
+					]
+				}
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#1 semantic data via mw.smw.set",
+			"subject": "Scribunto/set/006/1",
+			"store": {
+				"clear-cache": true
+			},
+			"assert-store": {
+				"semantic-data": {
+					"strictPropertyValueMatch": false,
+					"propertyCount": 6,
+					"propertyKeys": [
+						"_MDAT",
+						"_SKEY",
+						"HELL0",
+						"HELLO",
+						"Hello",
+						"Hell0"
+					],
+					"propertyValues": [
+						"WORLD",
+						"world"
+					]
+				}
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgPageSpecialProperties": [
+			"_MDAT"
+		]
+	},
+	"meta": {
+		"version": "1",
+		"is-incomplete": false,
+		"debug": false
+	}
+}
