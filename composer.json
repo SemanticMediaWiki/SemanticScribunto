@@ -37,7 +37,7 @@
 	},
 	"require-dev": {
 		"mediawiki/semantic-media-wiki": "@dev",
-		"squizlabs/php_codesniffer": "~2.1",
+		"squizlabs/php_codesniffer": "~2.1|~3.0",
 		"phpmd/phpmd": "~2.1"
 	},
 	"extra": {
