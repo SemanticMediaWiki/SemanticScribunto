@@ -1,5 +1,13 @@
 This file contains the RELEASE-NOTES of the Semantic Scribunto (a.k.a. SSC) extension.
 
+### 1.1.1
+
+Released on March 27, 2018.
+
+* #48 Fixes issue with `mw.set` dropping property names with numbers in key-value mode (by Tobias Oetterer)
+* #50 Fixes failing tests due to changes in MediaWiki master (by Tobias Oetterer)
+* Localization updates from https://translatewiki.net
+
 ### 1.1.0
 
 Released on January 13, 2018.
