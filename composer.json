@@ -36,7 +36,7 @@
 		"mediawiki/semantic-media-wiki": "~2.4|~3.0"
 	},
 	"require-dev": {
-		"mediawiki/semantic-media-wiki": "@dev",
+		"mediawiki/semantic-media-wiki": "master@dev",
 		"squizlabs/php_codesniffer": "~2.1",
 		"phpmd/phpmd": "~2.1"
 	},
