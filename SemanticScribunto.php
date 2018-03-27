@@ -50,7 +50,7 @@ class SemanticScribunto {
 	 */
 	public static function initExtension() {
 
-		define( 'SMW_SCRIBUNTO_VERSION', '1.1.1' );
+		define( 'SMW_SCRIBUNTO_VERSION', '1.2.0-alpha' );
 
 		// Register extension info
 		$GLOBALS['wgExtensionCredits']['semantic'][] = [
