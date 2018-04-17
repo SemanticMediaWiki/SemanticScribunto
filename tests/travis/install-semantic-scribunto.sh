@@ -74,6 +74,9 @@ function updateConfiguration {
 	echo '$wgShowExceptionDetails = true;' >> LocalSettings.php
 	echo '$wgDevelopmentWarnings = true;' >> LocalSettings.php
 	echo "putenv( 'MW_INSTALL_PATH=$(pwd)' );" >> LocalSettings.php
+	
+	# SMW#1732
+	echo 'wfLoadExtension( "SemanticMediaWiki" );' >> LocalSettings.php
 
 	php maintenance/update.php --quick
 }
