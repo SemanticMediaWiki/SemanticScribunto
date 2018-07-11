@@ -53,11 +53,28 @@ function p.inlineSet( frame )
     else
         -- error message to be found in result.error
     end
+    
+    local dataStoreType3 = {
+        ['my property'] = {
+            'value1',
+            'value2',
+            'value3'
+        }
+    }
+
+    local result = mw.smw.set( dataStoreType3 )
+
+    if result == true then
+        -- everything ok
+    else
+        -- error message to be found in result.error
+    end
 end
 
 return p
 ```
 As you can see, you can supply arguments to `mw.smw.set` as either an associative array and as lua table.
+Also, if you want to supply multiple values for a property, you can use a subtable for the values (see example using _dataStoreType3_).
 
 **Note** however: lua does not maintain the order in an associative array. Using parameters for `set` like the [separator](https://www.semantic-mediawiki.org/wiki/Help:Setting_values/Working_with_the_separator_parameter)
 or the [template parameter](https://www.semantic-mediawiki.org/wiki/Help:Setting_values/Working_with_the_template_parameter) requires a strict parameter order

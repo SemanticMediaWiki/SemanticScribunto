@@ -64,6 +64,22 @@ function p.inlineSubobject( frame )
     else
         -- error message to be found in result.error
     end
+
+    local dataStoreType3 = {
+        ['my property'] = {
+            'value1',
+            'value2',
+            'value3'
+        }
+    }
+
+    local result = mw.smw.subobject( dataStoreType3 )
+
+    if result == true then
+        -- everything ok
+    else
+        -- error message to be found in result.error
+    end
 end
 
 return p
