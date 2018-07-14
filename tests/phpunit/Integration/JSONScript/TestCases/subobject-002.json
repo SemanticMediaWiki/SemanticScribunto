@@ -1,0 +1,67 @@
+{
+	"description": "Test issue #55: mw.smw.set should recognize multiple values for one property given in a sub-table",
+	"setup": [
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Has text",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Has number",
+			"contents": "[[Has type::Number]]"
+		},
+		{
+			"namespace": "NS_MODULE",
+			"page": "Issue55",
+			"contents": {
+				"import-from": "/../Fixtures/module.i55.lua"
+			}
+		},
+		{
+			"page": "Scribunto/subobject/002/0",
+			"contents": "{{#invoke:Issue55|subobject}}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 semantic data via mw.smw.subobject",
+			"subject": "Scribunto/subobject/002/0#_c419777ba88abda7d4dac27c3f704519",
+			"store": {
+				"clear-cache": true
+			},
+			"assert-store": {
+				"semantic-data": {
+					"strictPropertyValueMatch": false,
+					"propertyCount": 3,
+					"propertyKeys": [
+						"_SKEY",
+						"Has_number",
+						"Has_text"
+					],
+					"propertyValues": [
+						"value1",
+						"value2",
+						"value3",
+						13,
+						23,
+						42
+					]
+				}
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgPageSpecialProperties": [
+			"_MDAT"
+		]
+	},
+	"meta": {
+		"version": "1",
+		"is-incomplete": false,
+		"debug": false
+	}
+}
