@@ -69,11 +69,14 @@ function updateConfiguration {
 	echo 'require_once "$IP/extensions/Scribunto/Scribunto.php";' >> LocalSettings.php
 	echo '$wgScribuntoDefaultEngine = "luastandalone";' >> LocalSettings.php
 
+	# Error reporting
 	echo 'error_reporting(E_ALL| E_STRICT);' >> LocalSettings.php
 	echo 'ini_set("display_errors", 1);' >> LocalSettings.php
 	echo '$wgShowExceptionDetails = true;' >> LocalSettings.php
 	echo '$wgDevelopmentWarnings = true;' >> LocalSettings.php
-	echo "putenv( 'MW_INSTALL_PATH=$(pwd)' );" >> LocalSettings.php
+	echo '$wgShowSQLErrors = true;' >> LocalSettings.php
+	echo '$wgDebugDumpSql = false;' >> LocalSettings.php
+	echo '$wgShowDBErrorBacktrace = true;' >> LocalSettings.php
 	
 	# SMW#1732
 	echo 'wfLoadExtension( "SemanticMediaWiki" );' >> LocalSettings.php
