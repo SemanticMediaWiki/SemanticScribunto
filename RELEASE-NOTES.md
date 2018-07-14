@@ -1,5 +1,9 @@
 This file contains the RELEASE-NOTES of the Semantic Scribunto (a.k.a. SSC) extension.
 
+### 1.2.0
+
+Not a release.
+
 ### 1.1.1
 
 Released on March 27, 2018.
@@ -26,7 +30,7 @@ Released on January 23, 2017.
 * Added the `mw.smw.lua` library with support for:
  * `smw.ask` to execute `#ask` queries (by Tobias Oetterer)
  * `smw.getQueryResult` to execute `#ask` queries
- * `smw.getPropertyType` to get the type of a property 
+ * `smw.getPropertyType` to get the type of a property
  * `smw.info` to output tooltips equivalent to `#info` (by Tobias Oetterer)
  * `smw.set` to store data to the SMW store equivalent to `#set` (by Tobias Oetterer)
  * `smw.subobject` to store data to the SMW store equivalent to `#subobject` (by Tobias Oetterer)
