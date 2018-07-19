@@ -22,7 +22,7 @@ The recommended way to install Semantic Scribunto is by using [Composer][compose
 ```json
 {
 	"require": {
-		"mediawiki/semantic-scribunto": "~1.1"
+		"mediawiki/semantic-scribunto": "~1.2"
 	}
 }
 ```
