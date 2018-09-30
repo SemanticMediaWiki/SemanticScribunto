@@ -77,9 +77,10 @@ function updateConfiguration {
 	echo '$wgShowSQLErrors = true;' >> LocalSettings.php
 	echo '$wgDebugDumpSql = false;' >> LocalSettings.php
 	echo '$wgShowDBErrorBacktrace = true;' >> LocalSettings.php
-	
+
 	# SMW#1732
 	echo 'wfLoadExtension( "SemanticMediaWiki" );' >> LocalSettings.php
+	echo 'wfLoadExtension( "SemanticScribunto" );' >> LocalSettings.php
 
 	php maintenance/update.php --quick
 }
