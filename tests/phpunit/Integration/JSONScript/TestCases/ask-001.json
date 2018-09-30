@@ -92,7 +92,6 @@
 			"subject": "Scribunto/ask/001/Q.1",
 			"assert-output": {
 				"to-contain": [
-					"title=\"Scribunto/ask/001/1\">Scribunto/ask/001/1</a></li>",
 					"<li> page: Scribunto/ask/001/1</li>",
 					"<li> Has number: 42</li>"
 				]
