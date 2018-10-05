@@ -1,5 +1,9 @@
 This file contains the RELEASE-NOTES of the Semantic Scribunto (a.k.a. SSC) extension.
 
+### 2.1.0
+
+This is not a release yet.
+
 ### 2.0.0
 
 Released on October, 05, 2018
