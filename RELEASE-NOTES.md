@@ -1,8 +1,15 @@
 This file contains the RELEASE-NOTES of the Semantic Scribunto (a.k.a. SSC) extension.
 
-### 1.3.0
+### 2.0.0
 
-This is not a release yet.
+Released on October, 05, 2018
+
+* #61 Adds support for `extension.json`
+* Adds requirement to use `wfLoadExtension( 'SemanticScribunto' );` in the `LocalSettings.php`
+* Bumps PHP min requirement to 5.6
+* Fixes div/span issue in info/highlighter (SMW 3.0+)
+* Fixes some typos (zoranzoki21)
+* Translation updates from https://translatewiki.net
 
 ### 1.2.0
 

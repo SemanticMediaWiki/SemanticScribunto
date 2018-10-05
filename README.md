@@ -21,13 +21,13 @@ The recommended way to install Semantic Scribunto is by using [Composer][compose
 
 1. Installing the sources via composer can be done in one of two ways:
     - Either execute from your MediaWiki installation directory:
-   `composer require mediawiki/semantic-scribunto:~1.2`
+   `composer require mediawiki/semantic-scribunto:~2.0`
     - (recommended) Or add an entry to MediaWiki's "composer.json" or preferably "composer.local.json" file.
     Afterwards run `composer update --no-dev`.
 ```json
 {
 	"require": {
-		"mediawiki/semantic-scribunto": "~1.2"
+		"mediawiki/semantic-scribunto": "~2.0"
 	}
 }
 ```
