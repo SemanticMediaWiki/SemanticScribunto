@@ -6,18 +6,18 @@ This is not a release yet.
 
 ### 2.0.0
 
-Released on October, 05, 2018
+Released on October 5, 2018.
 
-* #61 Adds support for `extension.json`
-* Adds requirement to use `wfLoadExtension( 'SemanticScribunto' );` in the `LocalSettings.php`
-* Bumps PHP min requirement to 5.6
-* Fixes div/span issue in info/highlighter (SMW 3.0+)
-* Fixes some typos (zoranzoki21)
+* Minimum requirement for PHP changed to version 5.6 and later
+* #61 Adds support for extension registration via "extension.json"  
+    Now you have to use `wfLoadExtension( 'SemanticScribunto' );` in the "LocalSettings.php" file to invoke the extension
+* Fixes div/span issue in info/highlighter for Semantic MediaWiki 3.0.0 and later
+* Fixes some typos (by zoranzoki21)
 * Translation updates from https://translatewiki.net
 
 ### 1.2.0
 
-Released on July, 19, 2018.
+Released on July 19, 2018.
 
 * #56 Support the use of subtables for values in `mw.smw.set/mw.smw.subobject`
 * Translation updates from https://translatewiki.net
