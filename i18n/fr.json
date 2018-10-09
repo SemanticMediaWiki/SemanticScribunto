@@ -2,8 +2,10 @@
 	"@metadata": {
 		"authors": [
 			"Gomoko",
-			"Urhixidur"
+			"Urhixidur",
+			"Wladek92"
 		]
 	},
-	"smw-scribunto-desc": "Une extension MédiaWiki Sémantique pour prendre en charge de façon native l’extension Scribunto"
+	"smw-scribunto-desc": "Une extension MédiaWiki Sémantique pour prendre en charge de façon native l’extension Scribunto",
+	"smw-scribunto-title": "Sémantique Scribunto"
 }

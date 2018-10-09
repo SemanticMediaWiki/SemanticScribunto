@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"!Silent"
+			"!Silent",
+			"Eduardo Addad de Oliveira"
 		]
 	},
-	"smw-scribunto-desc": "Uma extensão da MediaWiki Semantic para suportar nativamente a extensão Scribunto"
+	"smw-scribunto-desc": "Uma extensão da MediaWiki Semantic para suportar nativamente a extensão Scribunto",
+	"smw-scribunto-title": "Scribunto Semântico"
 }

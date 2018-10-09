@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Facenapalm"
+			"Facenapalm",
+			"Vlad5250"
 		]
 	},
-	"smw-scribunto-desc": "Расширение Semantic MediaWiki для встроенной поддержки расширения Scribunto"
+	"smw-scribunto-desc": "Расширение Semantic MediaWiki для встроенной поддержки расширения Scribunto",
+	"smw-scribunto-title": "Semantic Scribunto"
 }
