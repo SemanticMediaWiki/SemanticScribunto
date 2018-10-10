@@ -31,7 +31,7 @@ class SemanticScribunto {
 	/**
 	 * @since 1.0
 	 */
-	public static function initExtension( $credits = array() ) {
+	public static function initExtension( $credits = [] ) {
 
 		// See https://phabricator.wikimedia.org/T151136
 		define( 'SMW_SCRIBUNTO_VERSION', isset( $credits['version'] ) ? $credits['version'] : 'UNKNOWN' );
