@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Liuxinyu970226"
+			"Liuxinyu970226",
+			"A Chinese Wikipedian"
 		]
 	},
-	"smw-scribunto-desc": "原生支持Scribunto扩展的语义MediaWiki扩展"
+	"smw-scribunto-desc": "原生支持Scribunto扩展的语义MediaWiki扩展",
+	"smw-scribunto-title": "语义脚本"
 }
