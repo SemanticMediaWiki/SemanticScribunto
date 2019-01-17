@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Base"
+			"Base",
+			"Piramidion"
 		]
 	},
-	"smw-scribunto-desc": "Розширення Семантичного Медіавікі для нативної підтримки розширення Скрибунто"
+	"smw-scribunto-desc": "Розширення Семантичного Медіавікі для нативної підтримки розширення Скрибунто",
+	"smw-scribunto-title": "Semantic Scribunto"
 }
