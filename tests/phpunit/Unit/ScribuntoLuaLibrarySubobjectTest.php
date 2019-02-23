@@ -95,7 +95,7 @@ class ScribuntoLuaLibrarySubobjectTest extends ScribuntoLuaEngineTestBase {
 			],
 			[
 				[ [ 'has type=test', 'Allows value=test' ], '01234567890_testStringAsId' ],
-				[ [ 1 => false, 'error' => wfMessage('smw-datavalue-property-restricted-declarative-use', 'Has type')->inLanguage('en')->plain() . ' ' . wfMessage('smw-datavalue-property-restricted-declarative-use', 'Allows value')->inLanguage('en')->plain() ] ]
+				[ [ 1 => false, 'error' => '&lt;ul&gt;&lt;li&gt;' . wfMessage('smw-datavalue-property-restricted-declarative-use', 'Has type')->inLanguage('en')->plain() . '&lt;/li&gt; &lt;!--br--&gt;&lt;li&gt;' . wfMessage('smw-datavalue-property-restricted-declarative-use', 'Allows value')->inLanguage('en')->plain() . '&lt;/li&gt;&lt;/ul&gt;' ] ]
 			],
 			[
 				[ [ 'has text=test', 'Is bool=true' => 'test','1215623e790d918773db943232068a93b21c9f1419cb85666c6558e87f5b7d47=test' ], '01234567890_testStringAsId' ],
