@@ -49,8 +49,8 @@ local tests = {
 		expect = {
 			{
 				false,
-				error = mw.message.new('smw-datavalue-property-restricted-declarative-use', 'Has type'):inLanguage('en'):plain()
-					.. ' ' .. mw.message.new('smw-datavalue-property-restricted-declarative-use', 'Allows value'):inLanguage('en'):plain()
+				error = '&lt;ul&gt;&lt;li&gt;' .. mw.message.new('smw-datavalue-property-restricted-declarative-use', 'Has type'):inLanguage('en'):plain()
+					.. '&lt;/li&gt; &lt;!--br--&gt;&lt;li&gt;' .. mw.message.new('smw-datavalue-property-restricted-declarative-use', 'Allows value'):inLanguage('en'):plain() .. '&lt;/li&gt;&lt;/ul&gt;'
 				-- error = mw.message.new('smw_unknowntype'):inLanguage('en'):plain()
 				-- should be error = mw.message.new('smw_unknowntype'):inLanguage(mw.getContentLanguage()):plain()
 			}
