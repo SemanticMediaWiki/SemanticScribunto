@@ -66,7 +66,7 @@ function updateConfiguration {
 		echo '$wgLanguageCode = "'$SITELANG'";' >> LocalSettings.php
 	fi
 
-	echo 'require_once "$IP/extensions/Scribunto/Scribunto.php";' >> LocalSettings.php
+	echo 'wfLoadExtension( "Scribunto" );' >> LocalSettings.php
 	echo '$wgScribuntoDefaultEngine = "luastandalone";' >> LocalSettings.php
 
 	# Error reporting
