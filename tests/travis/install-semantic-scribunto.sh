@@ -24,13 +24,14 @@ function installToMediaWikiRoot {
 		composer require 'phpunit/phpunit=3.7.*' --update-with-dependencies
 	fi
 
+
 	if [ "$SSC" != "" ]
 	then
-		composer require mediawiki/scribunto "$SCRIB" --update-with-dependencies
+	#	composer require mediawiki/scribunto "$SCRIB" --update-with-dependencies
 		composer require mediawiki/semantic-scribunto "$SSC" --update-with-dependencies
 	else
 		composer init --stability dev
-		composer require mediawiki/scribunto "$SCRIB" --dev --update-with-dependencies
+	#	composer require mediawiki/scribunto "$SCRIB" --dev --update-with-dependencies
 		composer require mediawiki/semantic-scribunto "dev-master" --dev --update-with-dependencies
 
 		cd extensions
@@ -52,6 +53,15 @@ function installToMediaWikiRoot {
 		cd ../..
 	fi
 
+	cd extensions
+
+	wget https://github.com/wikimedia/mediawiki-extensions-Scribunto/archive/$MW.tar.gz
+
+	tar -zxf $MW.tar.gz
+	mv mediawiki-extensions-Scribunto* Scribunto
+
+	cd ..
+
 	# Rebuild the class map for added classes during git fetch
 	composer dump-autoload
 }
@@ -66,7 +76,6 @@ function updateConfiguration {
 		echo '$wgLanguageCode = "'$SITELANG'";' >> LocalSettings.php
 	fi
 
-	echo 'require_once "$IP/extensions/Scribunto/Scribunto.php";' >> LocalSettings.php
 	echo '$wgScribuntoDefaultEngine = "luastandalone";' >> LocalSettings.php
 
 	# Error reporting
@@ -81,6 +90,7 @@ function updateConfiguration {
 	# SMW#1732
 	echo 'wfLoadExtension( "SemanticMediaWiki" );' >> LocalSettings.php
 	echo 'wfLoadExtension( "SemanticScribunto" );' >> LocalSettings.php
+	echo 'wfLoadExtension( "Scribunto" );' >> LocalSettings.php
 
 	php maintenance/update.php --quick
 }
