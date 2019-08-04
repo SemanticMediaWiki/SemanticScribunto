@@ -267,8 +267,8 @@ class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JsonTestCaseScriptRu
 			isset( $case['namespace'] ) ? constant( $case['namespace'] ) : NS_MAIN
 		);
 
-		/** @var \ParserOutput $parserOutput */
-		$parserOutput = $this->testEnvironment->getUtilityFactory()->newPageReader()->getEditInfo( $subject->getTitle() )->output;
+		$pageReader = UtilityFactory::getInstance()->newPageReader();
+		$parserOutput = $pageReader->getEditInfo( $subject->getTitle() )->getOutput();
 
 		if ( isset( $case['assert-output']['to-contain'] ) ) {
 			$this->stringValidator->assertThatStringContains(
