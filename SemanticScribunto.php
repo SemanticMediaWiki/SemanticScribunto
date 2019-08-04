@@ -49,7 +49,11 @@ class SemanticScribunto {
 			if ( PHP_SAPI === 'cli' || PHP_SAPI === 'phpdbg' ) {
 				die( "\nThe 'Semantic Scribunto' extension requires 'Semantic MediaWiki' to be installed and enabled.\n" );
 			} else {
-				die( '<b>Error:</b> The <a href="https://github.com/SemanticMediaWiki/SemanticScribunto/">Semantic Scribunto</a> extension requires <a href="https://www.semantic-mediawiki.org/wiki/Semantic_MediaWiki">Semantic MediaWiki</a> to be installed and enabled.<br />' );
+				die(
+					'<b>Error:</b> The <a href="https://github.com/SemanticMediaWiki/SemanticScribunto/">Semantic Scribunto</a> ' .
+					'extension requires <a href="https://www.semantic-mediawiki.org/wiki/Semantic_MediaWiki">Semantic MediaWiki</a> '.
+					'to be installed and enabled.<br />'
+				);
 			}
 		}
 
@@ -58,36 +62,16 @@ class SemanticScribunto {
 			if ( PHP_SAPI === 'cli' || PHP_SAPI === 'phpdbg' ) {
 				die( "\nThe 'Semantic Scribunto' extension requires the 'Scribunto' extension to be installed and enabled.\n" );
 			} else {
-				die( '<b>Error:</b> <a href="https://github.com/SemanticMediaWiki/SemanticScribunto/">Semantic Scribunto</a> requires <a href="https://www.mediawiki.org/wiki/Extension:Scribunto">Scribunto</a>. Please install and enable the extension first.<br />' );
+				die(
+					'<b>Error:</b> <a href="https://github.com/SemanticMediaWiki/SemanticScribunto/">Semantic Scribunto</a> ' .
+					'requires <a href="https://www.mediawiki.org/wiki/Extension:Scribunto">Scribunto</a>. Please install and ' .
+					'enable the extension first.<br />'
+				);
 			}
 		}
 
 		$hookRegistry = new HookRegistry();
 		$hookRegistry->register();
-	}
-
-	/**
-	 * @since 1.0
-	 *
-	 * @param string|null $dependency
-	 *
-	 * @return string|null
-	 */
-	public static function getVersion( $dependency = null ) {
-
-		if ( $dependency === null && defined( 'SMW_SCRIBUNTO_VERSION' ) ) {
-			return SMW_SCRIBUNTO_VERSION;
-		}
-
-		if ( $dependency === 'SMW' && defined( 'SMW_VERSION' ) ) {
-			return SMW_VERSION;
-		}
-
-		if ( $dependency === 'Lua' && method_exists( 'Scribunto_LuaStandaloneInterpreter', 'getLuaVersion' ) ) {
-			return Scribunto_LuaStandaloneInterpreter::getLuaVersion( [ 'luaPath' => null ] );
-		}
-
-		return null;
 	}
 
 }
