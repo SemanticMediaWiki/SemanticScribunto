@@ -1,4 +1,14 @@
+# http://docs.travis-ci.com/user/workers/container-based-infrastructure/
+sudo: false
+
 language: php
+
+# Travis support wrote "Ubuntu 14.04 reached EOL on April 30th, 2019,
+# ... we've been slowly rolling out changes to make Xenial builds ..."
+# https://blog.travis-ci.com/2019-04-15-xenial-default-build-environment
+# https://docs.travis-ci.com/user/reference/xenial/#services-disabled-by-default.
+services:
+  - mysql
 
 matrix:
   fast_finish: true
@@ -13,12 +23,6 @@ matrix:
       php: 7.2
     - env: DB=mysql; MW=master; PHPUNIT=6.5.*
       php: 7.3
-  allow_failures:
-    # Use of UtfNormal::cleanUp was deprecated in MediaWiki 1.25.
-    # [Called from ScribuntoHooks::invokeHook
-    - env: DB=mysql; MW=master; PHPUNIT=6.5.*
-    # SQLite failure
-    - env: DB=sqlite; MW=REL1_33; PHPUNIT=6.5.*
 
 install:
   - bash ./tests/travis/install-mediawiki.sh
