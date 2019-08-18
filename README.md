@@ -11,32 +11,64 @@ Semantic Scribunto (a.k.a. SSC) is a [Semantic Mediawiki][smw] extension to prov
 
 ## Requirements
 
-- PHP 5.6 or later
-- MediaWiki 1.27 or later
-- [Semantic MediaWiki][smw] 2.4 or later
+- PHP 7.0 or later
+- MediaWiki 1.31 or later
+- [Semantic MediaWiki][smw] 3.0 or later
 
 ## Installation
 
-The recommended way to install Semantic Scribunto is by using [Composer][composer].
+The recommended way to install Semantic Scribunto is using [Composer](https://getcomposer.org) with
+[MediaWiki's built-in support for Composer](https://www.mediawiki.org/wiki/Composer).
 
-1. Installing the sources via composer can be done in one of two ways:
-    - Either execute from your MediaWiki installation directory:
-   `composer require mediawiki/semantic-scribunto:~2.0`
-    - (recommended) Or add an entry to MediaWiki's "composer.json" or preferably "composer.local.json" file.
-    Afterwards run `composer update --no-dev`.
+Note that the required extensions Semantic MediaWiki and Scribunto must be installed first according to
+the installation instructions provided.
+
+### Step 1
+
+Change to the base directory of your MediaWiki installation. This is where the "LocalSettings.php"
+file is located. If you have not yet installed Composer do it now by running the following command
+in your shell:
+
+    wget https://getcomposer.org/composer.phar
+
+### Step 2
+    
+If you do not have a "composer.local.json" file yet, create one and add the following content to it:
+
 ```json
 {
 	"require": {
-		"mediawiki/semantic-scribunto": "~2.0"
+		"mediawiki/semantic-scribunto": "~2.1"
 	}
 }
 ```
-2. Edit your LocalSettings.php and add the line
-```php
-   wfLoadExtension( 'SemanticScribunto' );
-```
-3. Navigate to _Special:Version_ on your wiki and verify that the extension
-   has been successfully installed.
+
+If you already have a "composer.local.json" file add the following line to the end of the "require"
+section in your file:
+
+    "mediawiki/semantic-scribunto": "~2.1"
+
+Remember to add a comma to the end of the preceding line in this section.
+
+### Step 3
+
+Run the following command in your shell:
+
+    php composer.phar update --no-dev
+
+Note if you have Git installed on your system add the `--prefer-source` flag to the above command. Also
+note that it may be necessary to run this command twice. If unsure do it twice right away.
+
+### Step 4
+
+Add the following line to the end of your "LocalSettings.php" file:
+
+    wfLoadExtension( 'SemanticScribunto' );
+
+### Verify installation success
+
+As final step, you can verify Modern Timeline got installed by looking at the "Special:Version" page on your
+wiki and check that it is listed in the semantic extensions section.
 
 ## Usage
 

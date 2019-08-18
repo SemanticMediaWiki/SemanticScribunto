@@ -1,10 +1,18 @@
-This file contains the RELEASE-NOTES of the Semantic Scribunto (a.k.a. SSC) extension.
+This file contains the RELEASE-NOTES of the **Semantic Scribunto** (a.k.a. SSC) extension.
 
-### 2.1.0
+## 2.1.0
 
-This is not a release yet.
+Released on August 18, 2019.
 
-### 2.0.0
+* Minimum requirement for
+  * PHP changed to version 7.0 and later
+  * MediaWiki changed to version 1.31 and later
+  * Semantic MediaWiki changed to version 3.0 and later
+* Added support for Semantic MediaWiki 3.1 and later
+* Improved release testing
+* Localization updates from https://translatewiki.net
+
+## 2.0.0
 
 Released on October 5, 2018.
 
@@ -15,14 +23,14 @@ Released on October 5, 2018.
 * Fixes some typos (by zoranzoki21)
 * Translation updates from https://translatewiki.net
 
-### 1.2.0
+## 1.2.0
 
 Released on July 19, 2018.
 
 * #56 Support the use of subtables for values in `mw.smw.set/mw.smw.subobject`
 * Translation updates from https://translatewiki.net
 
-### 1.1.1
+## 1.1.1
 
 Released on March 27, 2018.
 
@@ -30,7 +38,7 @@ Released on March 27, 2018.
 * #50 Fixes failing tests due to changes in MediaWiki master (by Tobias Oetterer)
 * Translation updates from https://translatewiki.net
 
-### 1.1.0
+## 1.1.0
 
 Released on January 13, 2018.
 
@@ -40,7 +48,7 @@ Released on January 13, 2018.
 * Adds `Query::PROC_CONTEXT` (by James Hong Kong)
 * Translation updates from https://translatewiki.net
 
-### 1.0.0
+## 1.0.0
 
 Released on January 23, 2017.
 
