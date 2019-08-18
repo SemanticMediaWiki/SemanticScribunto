@@ -25,7 +25,8 @@ the installation instructions provided.
 
 ### Step 1
     
-If you do not have a "composer.local.json" file yet, create one and add the following content to it:
+Change to the base directory of your MediaWiki installation. If you do not have a "composer.local.json" file yet,
+create one and add the following content to it:
 
 ```json
 {
