@@ -49,8 +49,7 @@ Run the following command in your shell:
 
     php composer.phar update --no-dev
 
-Note if you have Git installed on your system add the `--prefer-source` flag to the above command. Also
-note that it may be necessary to run this command twice. If unsure do it twice right away.
+Note if you have Git installed on your system add the `--prefer-source` flag to the above command.
 
 ### Step 3
 
@@ -70,7 +69,6 @@ have a look at the contribution guideline.
 * [File an issue](https://github.com/SemanticMediaWiki/SemanticScribunto/issues)
 * [Submit a pull request](https://github.com/SemanticMediaWiki/SemanticScribunto/pulls)
 * Ask a question on [the mailing list](https://www.semantic-mediawiki.org/wiki/Mailing_list)
-* Ask a question on the #semantic-mediawiki IRC channel on Freenode.
 
 ## Tests
 
