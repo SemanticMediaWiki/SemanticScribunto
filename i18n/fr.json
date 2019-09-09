@@ -3,9 +3,10 @@
 		"authors": [
 			"Gomoko",
 			"Urhixidur",
-			"Wladek92"
+			"Wladek92",
+			"Thibaut120094"
 		]
 	},
-	"smw-scribunto-desc": "Une extension MédiaWiki Sémantique pour prendre en charge de façon native l’extension Scribunto",
+	"smw-scribunto-desc": "Une extension MediaWiki Sémantique pour prendre en charge de façon native l’extension Scribunto",
 	"smw-scribunto-title": "Sémantique Scribunto"
 }
