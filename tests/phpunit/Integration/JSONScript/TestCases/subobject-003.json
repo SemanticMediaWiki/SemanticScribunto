@@ -1,0 +1,61 @@
+{
+	"description": "Test issue #75: mw.smw.subobject stops execution when encountering invalid input",
+	"setup": [
+		{
+			"namespace": "NS_MODULE",
+			"page": "Issue75",
+			"contents": {
+				"import-from": "/../Fixtures/module.i75.lua"
+			}
+		},
+		{
+			"page": "Scribunto/subobject/008/0",
+			"contents": "{{#invoke:Issue75|subobject}}"
+		},
+		{
+			"page": "Scribunto/subobject/008/1",
+			"contents": "{{#invoke:Issue75|subobjectId}}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 semantic data foobar to mw.smw.subobject",
+			"subject": "Scribunto/subobject/008/0",
+			"store": {
+				"clear-cache": true
+			},
+			"assert-output": {
+				"to-contain": [
+					"class=\"mw-parser-output\"",
+					"class=\"scribunto-error\"",
+					"Lua error in mw.smw.lua at line 93: Invalid parameter type supplied to smw.subobject()."
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#1 subobject id foobar to mw.smw.subobject",
+			"subject": "Scribunto/subobject/008/1",
+			"store": {
+				"clear-cache": true
+			},
+			"assert-output": {
+				"to-contain": [
+					"class=\"mw-parser-output\"",
+					"class=\"scribunto-error\"",
+					"Lua error in mw.smw.lua at line 96: Invalid type for subobject id supplied to smw.subobject()."
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en"
+	},
+	"meta": {
+		"version": "1",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

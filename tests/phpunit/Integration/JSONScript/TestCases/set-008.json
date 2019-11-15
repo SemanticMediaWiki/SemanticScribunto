@@ -1,0 +1,42 @@
+{
+	"description": "Test issue #75: mw.smw.set stops execution when encountering invalid input",
+	"setup": [
+		{
+			"namespace": "NS_MODULE",
+			"page": "Issue75",
+			"contents": {
+				"import-from": "/../Fixtures/module.i75.lua"
+			}
+		},
+		{
+			"page": "Scribunto/set/008/0",
+			"contents": "{{#invoke:Issue75|set}}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 semantic data foobar to mw.smw.set",
+			"subject": "Scribunto/set/008/0",
+			"store": {
+				"clear-cache": true
+			},
+			"assert-output": {
+				"to-contain": [
+					"class=\"mw-parser-output\"",
+					"class=\"scribunto-error\"",
+					"Lua error in mw.smw.lua at line 85: Invalid parameter type supplied to smw.set()."
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en"
+	},
+	"meta": {
+		"version": "1",
+		"is-incomplete": false,
+		"debug": false
+	}
+}
