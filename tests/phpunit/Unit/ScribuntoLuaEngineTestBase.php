@@ -19,7 +19,7 @@ abstract class ScribuntoLuaEngineTestBase extends \Scribunto_LuaEngineTestBase
 	 */
 	private $scribuntoLuaLibrary;
 
-	protected function setUp() : void {
+	protected function setUp() {
 		parent::setUp();
 
 		/** @noinspection PhpParamsInspection */
