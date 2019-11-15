@@ -50,7 +50,7 @@ abstract class ScribuntoLuaEngineTestBase extends \Scribunto_LuaEngineTestBase
 	/**
 	 * @see Scribunto_LuaEngineTestBase -> MediaWikiTestCase
 	 */
-	protected function overrideMwServices( $configOverrides = null, array $services = [] ) {
+	protected function overrideMwServices( \Config $configOverrides = null, array $services = [] ) {
 
 		/**
 		 * `MediaWikiTestCase` isolates the result with  `MediaWikiTestResult` which
