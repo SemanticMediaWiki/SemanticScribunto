@@ -15,7 +15,6 @@ function p.subobject()
 end
 
 function p.subobjectId()
-	local dataStore = {}
 	mw.smw.subobject( { someData = 'FooBar' }, mw.text.gsplit('some','strings') )
 end
 
