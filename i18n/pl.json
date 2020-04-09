@@ -1,8 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Railfail536",
-			"Rail"
+			"Rail",
+			"Railfail536"
 		]
 	},
 	"smw-scribunto-desc": "Rozszerzenie Semantycznej MediaWiki natywnie wspierające Scribunto.",

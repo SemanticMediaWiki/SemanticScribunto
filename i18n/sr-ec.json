@@ -1,8 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Obsuser",
-			"BadDog"
+			"BadDog",
+			"Obsuser"
 		]
 	},
 	"smw-scribunto-desc": "Проширење Semantic MediaWiki за локалну подршку проширења Scribunto",

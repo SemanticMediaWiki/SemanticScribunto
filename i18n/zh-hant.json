@@ -1,8 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kly",
-			"Arthur2e5"
+			"Arthur2e5",
+			"Kly"
 		]
 	},
 	"smw-scribunto-desc": "用於原生支援 Scribunto 擴充的 Semantic MediaWiki 擴充",
