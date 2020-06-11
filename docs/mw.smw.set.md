@@ -42,7 +42,8 @@ function p.inlineSet( frame )
 
     local dataStoreType2 = {
         'my property1=value1',
-        'my property2=value2',
+        'my property2=value2.1,value2.2',
+        '+sep=,',
         'my property3=value3',
     }
 
