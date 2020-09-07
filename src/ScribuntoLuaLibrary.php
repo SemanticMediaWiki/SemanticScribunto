@@ -5,6 +5,7 @@ namespace SMW\Scribunto;
 use Scribunto_LuaLibraryBase;
 use SMW\DIProperty;
 use SMW\ApplicationFactory;
+use SMWQuery as Query;
 use SMWQueryResult as QueryResult;
 use SMWOutputs;
 
