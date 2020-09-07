@@ -62,6 +62,10 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 			$this->processLuaArguments( $arguments )
 		);
 
+		if ( $queryResult->getQuery()->getQueryMode() == Query::MODE_COUNT ) {
+			return [ $queryResult->getCountValue() ];
+		}
+
 		if ( !$this->isAQueryResult( $queryResult ) ) {
 			return [ $queryResult ];
 		}
