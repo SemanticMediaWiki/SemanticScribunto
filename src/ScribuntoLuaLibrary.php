@@ -5,6 +5,7 @@ namespace SMW\Scribunto;
 use Scribunto_LuaLibraryBase;
 use SMW\DIProperty;
 use SMW\ApplicationFactory;
+use SMWQuery as Query;
 use SMWQueryResult as QueryResult;
 use SMWOutputs;
 
@@ -61,6 +62,10 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 		$queryResult = $this->getLibraryFactory()->newQueryResultFrom(
 			$this->processLuaArguments( $arguments )
 		);
+
+		if ( $queryResult->getQuery()->getQueryMode() == Query::MODE_COUNT ) {
+			return [ $queryResult->getCountValue() ];
+		}
 
 		if ( !$this->isAQueryResult( $queryResult ) ) {
 			return [ $queryResult ];
