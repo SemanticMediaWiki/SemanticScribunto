@@ -152,7 +152,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 		}
 
 		// check if icon is set and valid
-		if ( !is_string( $icon ) || !in_array( $icon, [ 'note', 'warning' ] ) ) {
+		if ( !is_string( $icon ) || !in_array( $icon, [ 'note', 'warning', 'error' ] ) ) {
 			$icon = 'info';
 		}
 

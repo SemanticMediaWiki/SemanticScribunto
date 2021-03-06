@@ -63,6 +63,10 @@ class ScribuntoLuaLibraryInfoTest extends ScribuntoLuaEngineTestBase {
 		);
 		$this->assertEquals(
 			1,
+			preg_match('~^<span class=.*<span class="[^"]*error">.*>Test info text<.*</span>$~', $this->getScribuntoLuaLibrary()->info( 'Test info text', 'error' )[0])
+		);
+		$this->assertEquals(
+			1,
 			preg_match('~^<span class=.*<span class="[^"]*info">.*>Test info text<.*</span>$~', $this->getScribuntoLuaLibrary()->info( 'Test info text', 'invalid' )[0])
 		);
 	}
