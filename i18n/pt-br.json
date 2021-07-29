@@ -3,9 +3,10 @@
 		"authors": [
 			"!Silent",
 			"Eduardo Addad de Oliveira",
-			"Eduardoaddad"
+			"Eduardoaddad",
+			"Jaideraf"
 		]
 	},
-	"smw-scribunto-desc": "Uma extensão da MediaWiki Semantic para suportar nativamente a extensão Scribunto",
-	"smw-scribunto-title": "Scribunto Semântico"
+	"smw-scribunto-desc": "Uma extensão Semantic MediaWiki para suportar nativamente a extensão Scribunto",
+	"smw-scribunto-title": "Semantic Scribunto"
 }
