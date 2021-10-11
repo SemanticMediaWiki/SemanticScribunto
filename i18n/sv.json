@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Hannarosendeloitte"
+		]
+	},
+	"smw-scribunto-desc": "Ett Semantic MediaWiki-tillägg för att stödja Scribunto-tillägget",
+	"smw-scribunto-title": "Semantisk Scribunto"
+}
