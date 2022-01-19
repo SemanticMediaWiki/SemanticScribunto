@@ -20,7 +20,7 @@ matrix:
     - env: DB=sqlite; MW=REL1_35; PHPUNIT=6.5.*
       php: 7.3
     - env: DB=mysql; MW=REL1_35; PHPUNIT=6.5.*
-      php: 7.3
+      php: 7.4
     - env: DB=mysql; MW=master; PHPUNIT=6.5.*
       php: 7.4
 
