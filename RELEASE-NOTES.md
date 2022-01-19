@@ -1,5 +1,16 @@
 This file contains the RELEASE-NOTES of the **Semantic Scribunto** (a.k.a. SSC) extension.
 
+## 2.2.0
+
+Released on January 19, 2022.
+
+* Minimum requirement for
+  * PHP changed to version 7.3 and later
+* #75 Fixes string conversions when passing iterators into SMW objects
+* #81 Fixes "mw.smw.ask" for "format=count" queries
+* #82 Fixes the display of "mw.smw.icon" when its type is set to error
+* Localization updates from https://translatewiki.net
+
 ## 2.1.0
 
 Released on August 18, 2019.
