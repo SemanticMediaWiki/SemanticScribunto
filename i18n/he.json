@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
+			"Amire80",
 			"Guycn2"
 		]
 	},
-	"smw-scribunto-desc": "הרחבת מדיה־ויקי סמנטית לתמיכה מקורית בהרחבת ה־Scribunto"
+	"smw-scribunto-desc": "הרחבת מדיה־ויקי סמנטית לתמיכה מובנית בהרחבת ה־Scribunto",
+	"smw-scribunto-title": "סקריבונטו סמנטי"
 }
