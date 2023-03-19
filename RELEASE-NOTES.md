@@ -31,7 +31,7 @@ Released on October 5, 2018.
 * #61 Adds support for extension registration via "extension.json"  
     Now you have to use `wfLoadExtension( 'SemanticScribunto' );` in the "LocalSettings.php" file to invoke the extension
 * Fixes div/span issue in info/highlighter for Semantic MediaWiki 3.0.0 and later
-* Fixes some typos (by zoranzoki21)
+* Fixes some typos (by kizule)
 * Translation updates from https://translatewiki.net
 
 ## 1.2.0
