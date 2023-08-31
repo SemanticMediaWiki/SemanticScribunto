@@ -2,7 +2,8 @@
 
 namespace SMW\Scribunto;
 
-use Hooks;
+use MediaWiki\HookContainer\HookContainer;
+use MediaWiki\MediaWikiServices;
 
 /**
  * @license GNU GPL v2+
@@ -17,6 +18,8 @@ class HookRegistry {
 	 */
 	private $handlers = [];
 
+	private HookContainer $hookContainer;
+
 	/**
 	 * @since 1.0
 	 *
@@ -24,6 +27,7 @@ class HookRegistry {
 	 */
 	public function __construct() {
 		$this->addCallbackHandlers();
+		$this->hookContainer = MediaWikiServices::getInstance()->getHookContainer();
 	}
 
 	/**
@@ -31,7 +35,7 @@ class HookRegistry {
 	 */
 	public function clear() {
 		foreach ( $this->handlers as $name => $callback ) {
-			Hooks::clear( $name );
+			$this->hookContainer->clear( $name );
 		}
 	}
 
@@ -40,7 +44,7 @@ class HookRegistry {
 	 */
 	public function register() {
 		foreach ( $this->handlers as $name => $callback ) {
-			Hooks::register( $name, $callback );
+			$this->hookContainer->register( $name, $callback );
 		}
 	}
 
@@ -52,7 +56,7 @@ class HookRegistry {
 	 * @return boolean
 	 */
 	public function isRegistered( $name ) {
-		return Hooks::isRegistered( $name );
+		return $this->hookContainer->isRegistered( $name );
 	}
 
 	/**
