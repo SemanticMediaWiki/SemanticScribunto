@@ -1,10 +1,9 @@
 # Semantic Scribunto
 
-[![Build Status](https://secure.travis-ci.org/SemanticMediaWiki/SemanticScribunto.svg?branch=master)](http://travis-ci.org/SemanticMediaWiki/SemanticScribunto)
 [![Code Coverage](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticScribunto/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticScribunto/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticScribunto/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticScribunto/?branch=master)
-[![Latest Stable Version](https://poser.pugx.org/mediawiki/semantic-scribunto/version.png)](https://packagist.org/packages/mediawiki/semantic-scribunto)
-[![Packagist download count](https://poser.pugx.org/mediawiki/semantic-scribunto/d/total.png)](https://packagist.org/packages/mediawiki/semantic-scribunto)
+![Latest Stable Version](https://img.shields.io/packagist/v/mediawiki/semantic-scribunto.svg)
+![Packagist Download Count](https://img.shields.io/packagist/dt/mediawiki/semantic-scribunto.svg)
 
 Semantic Scribunto (a.k.a. SSC) is a [Semantic Mediawiki][smw] extension to provide native support for the
 [Scribunto][scri] extension.
