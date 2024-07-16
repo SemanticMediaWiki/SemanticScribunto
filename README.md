@@ -1,5 +1,6 @@
 # Semantic Scribunto
 
+[![Build Status](https://github.com/SemanticMediaWiki/SemanticScribunto/actions/workflows/ci.yml/badge.svg)](https://github.com/oetterer/BootstrapComponents/actions/workflows/ci.yml)
 [![Code Coverage](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticScribunto/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticScribunto/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticScribunto/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticScribunto/?branch=master)
 ![Latest Stable Version](https://img.shields.io/packagist/v/mediawiki/semantic-scribunto.svg)
@@ -11,8 +12,8 @@ Semantic Scribunto (a.k.a. SSC) is a [Semantic Mediawiki][smw] extension to prov
 ## Requirements
 
 - PHP 7.3 or later
-- MediaWiki 1.31 or later
-- [Semantic MediaWiki][smw] 3.0 or later
+- MediaWiki 1.39 or later
+- [Semantic MediaWiki][smw] 4.0.2 or later
 
 ## Installation
 
@@ -23,14 +24,14 @@ Note that the required extensions Semantic MediaWiki and Scribunto must be insta
 the installation instructions provided.
 
 ### Step 1
-    
+
 Change to the base directory of your MediaWiki installation. If you do not have a "composer.local.json" file yet,
 create one and add the following content to it:
 
 ```json
 {
 	"require": {
-		"mediawiki/semantic-scribunto": "~2.2"
+		"mediawiki/semantic-scribunto": "~2.3"
 	}
 }
 ```
@@ -38,7 +39,7 @@ create one and add the following content to it:
 If you already have a "composer.local.json" file add the following line to the end of the "require"
 section in your file:
 
-    "mediawiki/semantic-scribunto": "~2.2"
+    "mediawiki/semantic-scribunto": "~2.3"
 
 Remember to add a comma to the end of the preceding line in this section.
 
