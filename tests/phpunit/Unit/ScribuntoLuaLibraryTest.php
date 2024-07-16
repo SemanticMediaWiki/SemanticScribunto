@@ -1,6 +1,6 @@
 <?php
 
-namespace SMW\Scribunto\Tests;
+namespace SMW\Scribunto\Tests\Unit;
 
 /**
  * @covers \SMW\Scribunto\ScribuntoLuaLibrary

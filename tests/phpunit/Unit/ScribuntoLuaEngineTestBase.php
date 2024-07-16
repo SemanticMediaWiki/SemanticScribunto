@@ -1,31 +1,40 @@
 <?php
 
-namespace SMW\Scribunto\Tests;
+namespace SMW\Scribunto\Tests\Unit;
 
+use PHPUnit\Framework\TestResult;
 use SMW\Scribunto\ScribuntoLuaLibrary;
+use Scribunto_LuaEngineTestBase;
 
 /**
  * Encapsulation of the Scribunto_LuaEngineTestBase class
+ *
+ * @group Test
+ * @group Database
  *
  * @license GNU GPL v2+
  * @since 1.0
  *
  * @author mwjames
  */
-abstract class ScribuntoLuaEngineTestBase extends \Scribunto_LuaEngineTestBase
+abstract class ScribuntoLuaEngineTestBase extends Scribunto_LuaEngineTestBase
 {
 	/**
-	 * @var \SMW\Scribunto\ScribuntoLuaLibrary
+	 * @var ScribuntoLuaLibrary
 	 */
 	private $scribuntoLuaLibrary;
 
-	protected function setUp() {
+	protected function setUp(): void {
 		parent::setUp();
 
-		/** @noinspection PhpParamsInspection */
 		$this->scribuntoLuaLibrary = new ScribuntoLuaLibrary(
 			$this->getEngine()
 		);
+	}
+
+	protected function tearDown(): void {
+		unset( $this->scribuntoLuaLibrary );
+		parent::tearDown();;
 	}
 
 	/**
@@ -40,11 +49,11 @@ abstract class ScribuntoLuaEngineTestBase extends \Scribunto_LuaEngineTestBase
 	/**
 	 * Only needed for MW 1.31
 	 */
-	public function run( \PHPUnit_Framework_TestResult $result = null ) {
+	public function run( TestResult $result = null ): TestResult {
 		// MW 1.31
 		$this->setCliArg( 'use-normal-tables', true );
 
-		parent::run( $result );
+		return parent::run( $result );
 	}
 
 	/**

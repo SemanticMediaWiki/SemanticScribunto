@@ -2,8 +2,8 @@
 
 namespace SMW\Scribunto;
 
-use SMWQueryResult as QueryResult;
-use SMWResultArray as ResultArray;
+use SMW\Query\QueryResult;
+use SMW\Query\Result\ResultArray;
 use SMWDataValue as DataValue;
 use SMW\Query\PrintRequest;
 
@@ -160,7 +160,7 @@ class LuaAskResultProcessor {
 		switch ( $dataValue->getTypeID() ) {
 			case '_boo':
 				// boolean value found, convert it
-				$value = in_array( strtolower( $dataValue->getWikiValue() ), $this->msgTrue );
+				$value = in_array( strtolower( $dataValue->getWikiValue() ?? 'null' ), $this->msgTrue );
 				break;
 			case '_num':
 				// number value found

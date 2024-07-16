@@ -1,7 +1,10 @@
 <?php
 
-namespace SMW\Scribunto\Tests;
+namespace SMW\Scribunto\Tests\Unit;
 
+use PHPUnit\Framework\TestCase;
+use SMW\ParserFunctions\SetParserFunction;
+use SMW\Query\QueryResult;
 use SMW\Scribunto\LibraryFactory;
 
 /**
@@ -13,12 +16,12 @@ use SMW\Scribunto\LibraryFactory;
  *
  * @author mwjames
  */
-class LibraryFactoryTest extends \PHPUnit_Framework_TestCase {
+class LibraryFactoryTest extends TestCase {
 
 	private $store;
 	private $parser;
 
-	protected function setUp() {
+	protected function setUp(): void {
 
 		$language = $this->getMockBuilder( '\Language' )
 			->disableOriginalConstructor()
@@ -36,14 +39,12 @@ class LibraryFactoryTest extends \PHPUnit_Framework_TestCase {
 			->method( 'getQueryResult' )
 			->will( $this->returnValue( $queryResult ) );
 
-		$this->parser = $this->getMockBuilder( '\Parser' )
-			->disableOriginalConstructor()
-			->getMock();
+		$stripState = $this->createMock( \StripState::class );
+		$this->parser = $this->createMock( \Parser::class );
 
-		$mStripState = $this->getMockBuilder( '\StripState' )
-			->disableOriginalConstructor()
-			->getMock();
-		$this->parser->mStripState = $mStripState;
+		$this->parser->expects( $this->any() )
+			->method( 'getStripState' )
+			->will( $this->returnValue( $stripState ) );
 
 		$this->parser->expects( $this->any() )
 			->method( 'getTitle' )
@@ -61,7 +62,7 @@ class LibraryFactoryTest extends \PHPUnit_Framework_TestCase {
 	public function testCanConstruct() {
 
 		$this->assertInstanceOf(
-			'\SMW\Scribunto\LibraryFactory',
+			LibraryFactory::class,
 			new LibraryFactory( $this->store )
 		);
 	}
@@ -73,7 +74,7 @@ class LibraryFactoryTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		$this->assertInstanceOf(
-			'\SMWQueryResult',
+			QueryResult::class,
 			$instance->newQueryResultFrom( [ '[[Foo::Bar]]' ] )
 		);
 	}
@@ -97,7 +98,7 @@ class LibraryFactoryTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		$this->assertInstanceOf(
-			'\SMW\ParserFunctions\SetParserFunction',
+			SetParserFunction::class,
 			$instance->newSetParserFunction( $this->parser )
 		);
 	}

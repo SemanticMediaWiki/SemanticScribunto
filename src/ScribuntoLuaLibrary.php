@@ -3,10 +3,12 @@
 namespace SMW\Scribunto;
 
 use Scribunto_LuaLibraryBase;
+// TODO when dropping support for MW1.39, use the following instead
+// use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LibraryBase;
 use SMW\DIProperty;
-use SMW\ApplicationFactory;
-use SMWQuery as Query;
-use SMWQueryResult as QueryResult;
+use SMW\Query\QueryContext;
+use SMW\Services\ServicesFactory as ApplicationFactory;
+use SMW\Query\QueryResult;
 use SMWOutputs;
 
 /**
@@ -20,7 +22,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	/**
 	 * @var LibraryFactory
 	 */
-	private $libraryFactory;
+	private LibraryFactory $libraryFactory;
 
 	/**
 	 * This is the name of the key for error messages
@@ -57,13 +59,13 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	 *
 	 * @return array    array( null ) or array[]
 	 */
-	public function ask( $arguments = null ) {
+	public function ask( $arguments = null ): array {
 
 		$queryResult = $this->getLibraryFactory()->newQueryResultFrom(
 			$this->processLuaArguments( $arguments )
 		);
 
-		if ( $queryResult->getQuery()->getQueryMode() == Query::MODE_COUNT ) {
+		if ( $queryResult->getQuery()->getQueryMode() == QueryContext::MODE_COUNT ) {
 			return [ $queryResult->getCountValue() ];
 		}
 
@@ -100,11 +102,11 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 
 		$property = DIProperty::newFromUserLabel( $propertyName );
 
-		if ( $property === null ) {
+		if ( is_null( $property ) ) {
 			return [ null ];
 		}
 
-		return [ $property->findPropertyTypeID() ];
+		return [ $property->findPropertyValueType() ];
 	}
 
 	/**
@@ -151,7 +153,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	public function info( $text, $icon = 'info' ) {
 
 		// do some parameter processing
-		if ( ! trim( $text ) || ! is_string( $text ) ) {
+		if ( empty( $text ) || ! trim( $text ) || ! is_string( $text ) ) {
 			// no info-text present, or wrong type. abort
 			return null;
 		}
@@ -297,8 +299,9 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 			$noParse = true;
 		}
 
-		if ( !$noParse ) {
-			$result = $this->getEngine()->getParser()->recursiveTagParseFully( $result );
+		$parser = $this->getEngine()->getParser();
+		if ( !$noParse && $parser ) {
+			$parser->recursiveTagParseFully( $result );
 		}
 
 		return trim( $result );
@@ -311,9 +314,9 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	 *
 	 * @return LibraryFactory
 	 */
-	private function getLibraryFactory() {
+	private function getLibraryFactory(): LibraryFactory {
 
-		if ( $this->libraryFactory !== null ) {
+		if ( !empty( $this->libraryFactory ) ) {
 			return $this->libraryFactory;
 		}
 
@@ -333,7 +336,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	 *
 	 * @return bool
 	 */
-	private function isAQueryResult( $queryResult ) {
+	private function isAQueryResult( mixed $queryResult ): bool {
 		return is_a( $queryResult, QueryResult::class );
 	}
 
@@ -347,8 +350,11 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	 *
 	 * @return array
 	 */
-	private function processLuaArguments( $arguments ) {
+	private function processLuaArguments( mixed $arguments ) {
 
+		if ( empty( $arguments ) ) {
+			return [];
+		}
 		// make sure, we have an array of parameters
 		if ( !is_array( $arguments ) ) {
 			$arguments = preg_split( "/(?<=[^\|])\|(?=[^\|])/", $arguments );

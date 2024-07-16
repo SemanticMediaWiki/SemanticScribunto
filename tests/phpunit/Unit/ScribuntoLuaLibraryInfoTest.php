@@ -1,10 +1,12 @@
 <?php
 
-namespace SMW\Scribunto\Tests;
+namespace SMW\Scribunto\Tests\Unit;
 
 /**
- * @covers \SMW\Scribunto\ScribuntoLuaLibrary
+ * @group Test
+ * @group Database
  * @group semantic-scribunto
+ * @covers \SMW\Scribunto\ScribuntoLuaLibrary
  *
  * @license GNU GPL v2+
  * @since 1.0
@@ -41,8 +43,7 @@ class ScribuntoLuaLibraryInfoTest extends ScribuntoLuaEngineTestBase {
 		$this->assertEmpty(
 			$this->getScribuntoLuaLibrary()->info( '' )
 		);
-		$this->assertInternalType(
-			'string',
+		$this->assertIsString(
 			$this->getScribuntoLuaLibrary()->info( 'Test info text' )[0]
 		);
 		$this->assertStringStartsWith(

@@ -1,32 +1,18 @@
 <?php
 
-use SMW\Scribunto\HookRegistry;
-
 /**
  * @see https://github.com/SemanticMediaWiki/SemanticScribunto/
  *
  * @defgroup SemanticScribunto Semantic Scribunto
  */
-SemanticScribunto::load();
+
+namespace SMW\Scribunto;
 
 /**
  * @codeCoverageIgnore
  */
-class SemanticScribunto {
-
-	/**
-	 * @since 1.0
-	 *
-	 * @note It is expected that this function is loaded before LocalSettings.php
-	 * to ensure that settings and global functions are available by the time
-	 * the extension is activated.
-	 */
-	public static function load() {
-
-		if ( is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
-			include_once __DIR__ . '/vendor/autoload.php';
-		}
-	}
+class SemanticScribunto
+{
 
 	/**
 	 * @since 1.0
@@ -51,7 +37,7 @@ class SemanticScribunto {
 			} else {
 				die(
 					'<b>Error:</b> The <a href="https://github.com/SemanticMediaWiki/SemanticScribunto/">Semantic Scribunto</a> ' .
-					'extension requires <a href="https://www.semantic-mediawiki.org/wiki/Semantic_MediaWiki">Semantic MediaWiki</a> '.
+					'extension requires <a href="https://www.semantic-mediawiki.org/wiki/Semantic_MediaWiki">Semantic MediaWiki</a> ' .
 					'to be installed and enabled.<br />'
 				);
 			}
@@ -69,9 +55,5 @@ class SemanticScribunto {
 				);
 			}
 		}
-
-		$hookRegistry = new HookRegistry();
-		$hookRegistry->register();
 	}
-
 }

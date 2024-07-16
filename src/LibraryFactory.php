@@ -2,12 +2,17 @@
 
 namespace SMW\Scribunto;
 
+use SMW\ParserFunctions\SetParserFunction;
+use SMW\ParserFunctions\SubobjectParserFunction;
+use SMW\ParserParameterProcessor;
+use SMW\Query\QueryContext;
 use SMWQueryProcessor as QueryProcessor;
 use SMWQuery as Query;
+use SMW\Query\QueryResult;
 use SMW\Store;
-use SMW\ApplicationFactory;
+use SMW\Services\ServicesFactory as ApplicationFactory;
 use SMW\ParameterProcessorFactory;
-use Parser;
+use \Parser;
 
 /**
  * @license GNU GPL v2+
@@ -39,9 +44,9 @@ class LibraryFactory {
 	 *
 	 * @param array $rawParameters
 	 *
-	 * @return \SMWQueryResult
+	 * @return QueryResult
 	 */
-	public function newQueryResultFrom( $rawParameters ) {
+	public function newQueryResultFrom( array $rawParameters ): QueryResult {
 
 		list( $queryString, $parameters, $printouts ) = QueryProcessor::getComponentsFromFunctionParams(
 			$rawParameters,
@@ -53,7 +58,7 @@ class LibraryFactory {
 		$query = QueryProcessor::createQuery(
 			$queryString,
 			QueryProcessor::getProcessedParams( $parameters, $printouts ),
-			QueryProcessor::SPECIAL_PAGE,
+			QueryContext::SPECIAL_PAGE,
 			'',
 			$printouts
 		);
@@ -68,11 +73,11 @@ class LibraryFactory {
 	/**
 	 * @since 1.0
 	 *
-	 * @param \SMWQueryResult|string $queryResult
+	 * @param QueryResult|string $queryResult
 	 *
 	 * @return LuaAskResultProcessor
 	 */
-	public function newLuaAskResultProcessor( $queryResult ) {
+	public function newLuaAskResultProcessor( QueryResult $queryResult ): LuaAskResultProcessor {
 		return new LuaAskResultProcessor( $queryResult );
 	}
 
@@ -83,9 +88,9 @@ class LibraryFactory {
 	 *
 	 * @param array $arguments
 	 *
-	 * @return \SMW\ParserParameterProcessor
+	 * @return ParserParameterProcessor
 	 */
-	public function newParserParameterProcessorFrom( $arguments ) {
+	public function newParserParameterProcessorFrom( $arguments ): ParserParameterProcessor {
 		return ParameterProcessorFactory::newFromArray( $arguments );
 	}
 
@@ -96,10 +101,10 @@ class LibraryFactory {
 	 *
 	 * @param Parser $parser
 	 *
-	 * @return \SMW\ParserFunctions\SetParserFunction
+	 * @return SetParserFunction
 	 */
-	public function newSetParserFunction( Parser $parser ) {
-		return ApplicationFactory::getInstance()->newParserFunctionFactory( $parser )->newSetParserFunction( $parser );
+	public function newSetParserFunction( Parser $parser ): SetParserFunction {
+		return ApplicationFactory::getInstance()->newParserFunctionFactory()->newSetParserFunction( $parser );
 	}
 
 	/**
@@ -109,9 +114,9 @@ class LibraryFactory {
 	 *
 	 * @param Parser $parser
 	 *
-	 * @return \SMW\SubobjectParserFunction
+	 * @return SubobjectParserFunction
 	 */
-	public function newSubobjectParserFunction( Parser $parser ) {
-		return ApplicationFactory::getInstance()->newParserFunctionFactory( $parser )->newSubobjectParserFunction( $parser );
+	public function newSubobjectParserFunction( Parser $parser ): SubobjectParserFunction {
+		return ApplicationFactory::getInstance()->newParserFunctionFactory()->newSubobjectParserFunction( $parser );
 	}
 }

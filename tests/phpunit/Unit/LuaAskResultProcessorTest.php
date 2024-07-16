@@ -1,41 +1,42 @@
 <?php
 
-namespace SMW\Scribunto\Tests;
+namespace SMW\Scribunto\Tests\Unit;
 
-use \SMW\Scribunto\LuaAskResultProcessor;
-use \SMWQueryResult;
-use \SMW\Query\PrintRequest;
-use \SMWResultArray;
-use \SMWNumberValue;
+use PHPUnit\Framework\TestCase;
+use SMW\DataValues\StringValue;
+use SMW\Scribunto\LuaAskResultProcessor;
+use SMW\Query\QueryResult;
+use SMW\Query\PrintRequest;
+use SMW\Query\Result\ResultArray;
+use SMWNumberValue;
 
 /**
- * @covers \SMW\Scribunto\LuaAskResultProcessor
+ * @covers LuaAskResultProcessor
  * @group semantic-scribunto
+ * @group Database
  *
  * @license GNU GPL v2+
  * @since 1.0
  *
  * @author Tobias Oetterer
  */
-class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
+class LuaAskResultProcessorTest extends TestCase {
 
 	/**
 	 * Holds a mock of a query result for this test
 	 *
-	 * @var \SMWQueryResult
+	 * @var QueryResult
 	 */
 	private $queryResult;
 
 	/**
 	 * Set-up method prepares a mock {@see \SMWQueryResult}
 	 */
-	protected function setUp() {
+	protected function setUp(): void {
 
 		parent::setUp();
 
-		$this->queryResult = $this->getMockBuilder( SMWQueryResult::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$this->queryResult = $this->createMock( QueryResult::class );
 
 		$this->queryResult->expects( $this->any() )
 			->method( 'getNext' )
@@ -44,20 +45,19 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 		$this->queryResult->expects( $this->any() )
 			->method( 'getCount' )
 			->will( $this->returnValue( 1 ) );
-
 	}
 
 	/**
 	 * Test, if the constructor works
 	 *
-	 * @see \SMW\Scribunto\LuaAskResultProcessor::__construct
+	 * @see LuaAskResultProcessor::__construct
 	 *
 	 * @return void
 	 */
 	public function testCanConstruct() {
 
 		$this->assertInstanceOf(
-			'\SMW\Scribunto\LuaAskResultProcessor',
+			LuaAskResultProcessor::class,
 			new LuaAskResultProcessor(
 				$this->queryResult
 			)
@@ -67,9 +67,9 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * Tests the conversion of a {@see \SMWQueryResult} in a lua table
 	 *
-	 * @see \SMW\Scribunto\LuaAskResultProcessor::getProcessedResult
-	 *
 	 * @return void
+	 * @see LuaAskResultProcessor::getProcessedResult
+	 *
 	 */
 	public function testGetProcessedResult() {
 
@@ -77,8 +77,7 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 
 		$result = $instance->getProcessedResult();
 
-		$this->assertInternalType(
-			'array',
+		$this->assertIsArray(
 			$result
 		);
 
@@ -91,9 +90,9 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * Tests the data extraction from a result row
 	 *
-	 * @see \SMW\Scribunto\LuaAskResultProcessor::getDataFromQueryResultRow
-	 *
 	 * @return void
+	 * @see LuaAskResultProcessor::getDataFromQueryResultRow
+	 *
 	 */
 	public function testGetDataFromQueryResultRow() {
 
@@ -103,7 +102,9 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 
 		$result = $instance->getDataFromQueryResultRow( $resultRow );
 
-		$this->assertInternalType( 'array', $result );
+		$this->assertIsArray(
+			$result
+		);
 
 		$this->assertEquals( 1, count( $result ) );
 	}
@@ -112,7 +113,7 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 	 * Tests the retrieval of a key (string label or numeric index) from
 	 * a print request
 	 *
-	 * @see \SMW\Scribunto\LuaAskResultProcessor::getKeyFromPrintRequest
+	 * @see LuaAskResultProcessor::getKeyFromPrintRequest
 	 *
 	 * @return void
 	 */
@@ -136,25 +137,19 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 			->method( 'getLabel' )
 			->will( $this->returnValue( '' ) );
 
-		/** @noinspection PhpParamsInspection */
-		$this->assertInternalType(
-			'string',
+		$this->assertIsString(
 			$instance->getKeyFromPrintRequest( $printRequest )
 		);
 
-		/** @noinspection PhpParamsInspection */
 		$this->assertEquals(
 			'label',
 			$instance->getKeyFromPrintRequest( $printRequest )
 		);
 
-		/** @noinspection PhpParamsInspection */
-		$this->assertInternalType(
-			'integer',
+		$this->assertIsInt(
 			$instance->getKeyFromPrintRequest( $printRequest2 )
 		);
 
-		/** @noinspection PhpParamsInspection */
 		$this->assertGreaterThan(
 			0,
 			$instance->getKeyFromPrintRequest( $printRequest2 )
@@ -164,9 +159,9 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * Tests the extraction of data from a SMWResultArray
 	 *
-	 * @see \SMW\Scribunto\LuaAskResultProcessor::getDataFromResultArray
-	 *
 	 * @return void
+	 * @see LuaAskResultProcessor::getDataFromResultArray
+	 *
 	 */
 	public function testGetDataFromResultArray() {
 
@@ -174,24 +169,22 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 
 		$resultArray = $this->constructResultArray();
 
-		/** @noinspection PhpParamsInspection */
-		$this->assertInternalType(
-			'array',
+		$this->assertIsArray(
 			$instance->getDataFromResultArray( $resultArray )
 		);
 	}
 
 	/**
-	 * Tests data value extraction. Uses data provider {@see dataProvidergetValueFromDataValueTest}
-	 * @dataProvider dataProvidergetValueFromDataValueTest
+	 * Tests data value extraction. Uses data provider
+	 * @dataProvider dataProviderGetValueFromDataValueTest
 	 *
 	 * @param string $class name of data value class
 	 * @param string $type data value type
 	 * @param string $expects return value type
 	 *
-	 * @see \SMW\Scribunto\LuaAskResultProcessor::getValueFromDataValue
-	 *
 	 * @return void
+	 * @see          LuaAskResultProcessor::getValueFromDataValue
+	 *
 	 */
 	public function testGetValueFromDataValue( $class, $type, $expects ) {
 
@@ -205,10 +198,7 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 			->method( 'getTypeID' )
 			->will( $this->returnValue( $type ) );
 
-
-		/** @noinspection PhpParamsInspection */
-		$this->assertInternalType(
-			$expects,
+		$this->$expects(
 			$instance->getValueFromDataValue( $dataValue )
 		);
 	}
@@ -221,9 +211,9 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 	 * @param mixed $expects expected return value
 	 * @param array $input input for method
 	 *
-	 * @see \SMW\Scribunto\LuaAskResultProcessor::extractLuaDataFromDVData
-	 *
 	 * @return void
+	 * @see          LuaAskResultProcessor::extractLuaDataFromDVData
+	 *
 	 */
 	public function testExtractLuaDataFromDVData( $expects, $input ) {
 
@@ -238,18 +228,15 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * Tests the generation of a numeric index key
 	 *
-	 * @see \SMW\Scribunto\LuaAskResultProcessor::getNumericIndex
-	 *
 	 * @return void
+	 * @see LuaAskResultProcessor::getNumericIndex
+	 *
 	 */
 	public function testGetNumericIndex() {
 
 		$instance = new LuaAskResultProcessor( $this->queryResult );
 
-		$this->assertInternalType(
-			'integer',
-			$instance->getNumericIndex()
-		);
+		$this->assertIsInt( $instance->getNumericIndex() );
 
 		$this->assertGreaterThan(
 			1,
@@ -264,13 +251,13 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 * @return array
 	 */
-	public function dataProvidergetValueFromDataValueTest() {
+	public function dataProviderGetValueFromDataValueTest() {
 
 		return [
-			[ 'SMWNumberValue', '_num', 'integer' ],
-			[ 'SMWWikiPageValue', '_wpg', 'null' ],
-			[ 'SMWStringValue', '_boo', 'boolean' ],
-			[ 'SMWTimeValue', '_dat', 'null' ],
+			[ SMWNumberValue::class, '_num', 'assertIsInt' ],
+			[ \SMWWikiPageValue::class, '_wpg', 'assertNull' ],
+			[ StringValue::class, '_boo', 'assertIsBool' ],
+			[ \SMWTimeValue::class, '_dat', 'assertNull' ],
 		];
 	}
 
@@ -290,13 +277,11 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Constructs a mock {@see \SMWResultArray}
-	 *
-	 * @return \PHPUnit_Framework_MockObject_MockObject
+	 * Constructs a mock {@see ResultArray}
 	 */
 	private function constructResultArray() {
 
-		$resultArray = $this->getMockBuilder( SMWResultArray::class )
+		$resultArray = $this->getMockBuilder( ResultArray::class )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -318,8 +303,6 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 
 	/**
 	 * Constructs a mock {@see \SMW\Query\PrintRequest}
-	 *
-	 * @return \PHPUnit_Framework_MockObject_MockObject
 	 */
 	private function constructPrintRequest() {
 
@@ -333,8 +316,6 @@ class LuaAskResultProcessorTest extends \PHPUnit_Framework_TestCase {
 
 	/**
 	 * Constructs a mock {@see \SMWNumberValue}
-	 *
-	 * @return \PHPUnit_Framework_MockObject_MockObject
 	 */
 	private function constructSMWNumberValue() {
 

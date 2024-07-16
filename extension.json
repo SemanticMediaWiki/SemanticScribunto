@@ -11,20 +11,29 @@
 	"license-name": "GPL-2.0-or-later",
 	"type": "semantic",
 	"requires": {
-		"MediaWiki": ">= 1.35",
+		"MediaWiki": ">= 1.39",
 		"extensions": {
 			"Scribunto": "*",
-			"SemanticMediaWiki": ">= 3.0"
+			"SemanticMediaWiki": ">= 4.1"
 		}
 	},
+	"AutoloadNamespaces": {
+		"SMW\\Scribunto\\": "src/"
+	},
+	"TestAutoloadNamespaces": {
+		"SMW\\Scribunto\\Tests\\": "tests/phpunit/"
+	},
+	"Hooks": {
+		"ScribuntoExternalLibraries": "SMW\\Scribunto\\HooksHandler::onScribuntoExternalLibraries"
+	},
+	"callback": "SMW\\Scribunto\\SemanticScribunto::initExtension",
 	"MessagesDirs": {
 		"SemanticScribunto": [
 			"i18n"
 		]
 	},
-	"callback": "SemanticScribunto::initExtension",
 	"ExtensionFunctions": [
-		"SemanticScribunto::onExtensionFunction"
+		"SMW\\Scribunto\\SemanticScribunto::onExtensionFunction"
 	],
 	"load_composer_autoloader":true,
 	"manifest_version": 2

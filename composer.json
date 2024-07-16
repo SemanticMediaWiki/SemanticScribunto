@@ -33,7 +33,7 @@
 	"require": {
 		"php": ">=7.3",
 		"composer/installers": "^2|^1.0.1",
-		"mediawiki/semantic-media-wiki": "~3.0|~4.0"
+		"mediawiki/semantic-media-wiki": "~4.0"
 	},
 	"require-dev": {
 		"mediawiki/semantic-media-wiki": "@dev",
@@ -43,14 +43,6 @@
 	"extra": {
 		"branch-alias": {
 			"dev-master": "2.3.x-dev"
-		}
-	},
-	"autoload": {
-		"files" : [
-			"SemanticScribunto.php"
-		],
-		"psr-4": {
-			"SMW\\Scribunto\\": "src/"
 		}
 	},
 	"config": {

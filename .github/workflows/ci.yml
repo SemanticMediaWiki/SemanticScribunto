@@ -1,0 +1,107 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ "*" ]
+
+jobs:
+  test:
+    name: "PHPUnit: MW ${{ matrix.mw }}, PHP ${{ matrix.php }} (TYPE ${{ matrix.type }})"
+
+    strategy:
+      matrix:
+        include:
+          - mw: 'REL1_39'
+            php: 8.0
+            type: coverage
+            experimental: false
+          - mw: 'REL1_39'
+            php: 8.1
+            type: normal
+            experimental: false
+          - mw: 'REL1_40'
+            php: 8.1
+            type: normal
+            experimental: false
+          - mw: 'REL1_41'
+            php: 8.1
+            type: normal
+            experimental: false
+          - mw: 'REL1_42'
+            php: 8.2
+            type: normal
+            experimental: false
+          - mw: 'master'
+            php: 8.3
+            type: normal
+            experimental: true
+
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental }}
+
+    defaults:
+      run:
+        working-directory: mediawiki
+
+    env:
+      MW_ROOT: mediawiki
+      TYPE: ${{ matrix.type }}
+
+
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, intl
+          tools: composer
+
+      - name: Cache MediaWiki
+        id: cache-mediawiki
+        uses: actions/cache@v4
+        with:
+          path: |
+            mediawiki
+            !mediawiki/extensions/
+            !mediawiki/vendor/
+          key: mw_${{ matrix.mw }}-php${{ matrix.php }}
+
+      - name: Cache Composer cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.composer/cache
+          key: composer-php${{ matrix.php }}
+
+      - uses: actions/checkout@v4
+        with:
+          path: EarlyCopy
+
+      - name: Install MediaWiki
+        if: steps.cache-mediawiki.outputs.cache-hit != 'true'
+        working-directory: ~
+        run: bash EarlyCopy/.github/workflows/installWiki.sh ${{ matrix.mw }} SemanticScribunto
+
+      - uses: actions/checkout@v4
+        with:
+          path: mediawiki/extensions/SemanticScribunto
+
+      - name: Composer update
+        run: composer update
+
+      - name: run update.php
+        run: php maintenance/update.php --quick
+
+      - if: env.TYPE != 'coverage'
+        name: Run PHPUnit w/o coverage
+        run: php tests/phpunit/phpunit.php -c extensions/SemanticScribunto/ --testsuite semantic-scribunto-unit
+
+      - if: env.TYPE == 'coverage'
+        name: Run PHPUnit w/ coverage
+        run: php tests/phpunit/phpunit.php -c extensions/SemanticScribunto/ --testsuite semantic-scribunto-unit --coverage-clover coverage.clover
+
+      - if: env.TYPE == 'coverage'
+        name: upload coverage report
+        working-directory: ~
+        run: bash EarlyCopy/.github/workflows/uploadCoverageReport.sh
