@@ -21,9 +21,6 @@ class SemanticScribunto
 
 		// See https://phabricator.wikimedia.org/T151136
 		define( 'SMW_SCRIBUNTO_VERSION', isset( $credits['version'] ) ? $credits['version'] : 'UNKNOWN' );
-
-		// Register message files
-		$GLOBALS['wgMessagesDirs']['SemanticScribunto'] = __DIR__ . '/i18n';
 	}
 
 	/**
