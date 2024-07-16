@@ -42,7 +42,7 @@
 	},
 	"extra": {
 		"branch-alias": {
-			"dev-master": "2.3.0"
+			"dev-master": "2.4.0-dev"
 		}
 	},
 	"config": {
