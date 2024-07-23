@@ -336,7 +336,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	 *
 	 * @return bool
 	 */
-	private function isAQueryResult( mixed $queryResult ): bool {
+	private function isAQueryResult( $queryResult ): bool {
 		return is_a( $queryResult, QueryResult::class );
 	}
 
@@ -350,7 +350,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	 *
 	 * @return array
 	 */
-	private function processLuaArguments( mixed $arguments ) {
+	private function processLuaArguments( $arguments ) {
 
 		if ( empty( $arguments ) ) {
 			return [];

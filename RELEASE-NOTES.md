@@ -1,5 +1,29 @@
 This file contains the RELEASE-NOTES of the **Semantic Scribunto** (a.k.a. SSC) extension.
 
+## 2.3.2
+
+Released on July 23, 2024
+
+* Fixes PHP 7.3 issue
+
+## 2.3.1
+
+Released on July 16, 2024
+
+* Fixes message registration
+
+## 2.3.0
+
+Released on July 16, 2024
+
+* Raising minimum requirement to MW 1.39 and SMW 4.1
+* Switch unit tests from tavis to github
+* Add new ci sets for MW > 1.39
+* Switch hook registration to default MW schema
+* Switch to MW autoloader, abandoning composer autoloader
+* Fix unit tests
+
+
 ## 2.2.0
 
 Released on January 19, 2022.
