@@ -26,6 +26,7 @@ jobs:
             experimental: false
           - mediawiki_version: '1.40'
             smw_version: dev-master
+            scribunto_version: REL1_40
             php_version: 8.1
             database_type: mysql
             database_image: "mariadb:11.2"
@@ -33,6 +34,7 @@ jobs:
             experimental: false
           - mediawiki_version: '1.41'
             smw_version: dev-master
+            scribunto_version: REL1_41
             php_version: 8.1
             database_type: mysql
             database_image: "mariadb:11.2"
@@ -40,6 +42,7 @@ jobs:
             experimental: false
           - mediawiki_version: '1.42'
             smw_version: dev-master
+            scribunto_version: REL1_42
             php_version: 8.1
             database_type: mysql
             database_image: "mariadb:11.2"
@@ -47,6 +50,7 @@ jobs:
             experimental: false
           - mediawiki_version: '1.43'
             smw_version: dev-master
+            scribunto_version: REL1_43
             php_version: 8.1
             database_type: mysql
             database_image: "mariadb:11.2"
@@ -56,6 +60,7 @@ jobs:
     env:
       MW_VERSION: ${{ matrix.mediawiki_version }}
       SMW_VERSION: ${{ matrix.smw_version }}
+      SCRIBUNTO_VERSION: ${{ matrix.scribunto_version }}
       PHP_VERSION: ${{ matrix.php_version }}
       DB_TYPE: ${{ matrix.database_type }}
       DB_IMAGE: ${{ matrix.database_image }}

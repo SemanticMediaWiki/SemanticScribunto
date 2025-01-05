@@ -18,6 +18,7 @@ DB_IMAGE?="mariadb:10"
 
 # extensions
 SMW_VERSION?=dev-master
+SCRIBUNTO_VERSION?=REL1_39
 
 # composer
 # Enables "composer update" inside of extension
