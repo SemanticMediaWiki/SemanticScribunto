@@ -11,14 +11,12 @@ namespace SMW\Scribunto;
 /**
  * @codeCoverageIgnore
  */
-class SemanticScribunto
-{
+class SemanticScribunto {
 
 	/**
 	 * @since 1.0
 	 */
 	public static function initExtension( $credits = [] ) {
-
 		// See https://phabricator.wikimedia.org/T151136
 		define( 'SMW_SCRIBUNTO_VERSION', isset( $credits['version'] ) ? $credits['version'] : 'UNKNOWN' );
 	}
@@ -27,7 +25,6 @@ class SemanticScribunto
 	 * @since 1.0
 	 */
 	public static function onExtensionFunction() {
-
 		if ( !defined( 'SMW_VERSION' ) ) {
 			if ( PHP_SAPI === 'cli' || PHP_SAPI === 'phpdbg' ) {
 				die( "\nThe 'Semantic Scribunto' extension requires 'Semantic MediaWiki' to be installed and enabled.\n" );

@@ -2,20 +2,20 @@
 
 namespace SMW\Scribunto;
 
+use Parser;
+use SMW\ParameterProcessorFactory;
 use SMW\ParserFunctions\SetParserFunction;
 use SMW\ParserFunctions\SubobjectParserFunction;
 use SMW\ParserParameterProcessor;
 use SMW\Query\QueryContext;
-use SMWQueryProcessor as QueryProcessor;
-use SMWQuery as Query;
 use SMW\Query\QueryResult;
-use SMW\Store;
 use SMW\Services\ServicesFactory as ApplicationFactory;
-use SMW\ParameterProcessorFactory;
-use \Parser;
+use SMW\Store;
+use SMWQuery as Query;
+use SMWQueryProcessor as QueryProcessor;
 
 /**
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
@@ -23,7 +23,7 @@ use \Parser;
 class LibraryFactory {
 
 	/**
-	 *@var Store
+	 * @var Store
 	 */
 	private $store;
 
@@ -47,8 +47,7 @@ class LibraryFactory {
 	 * @return QueryResult
 	 */
 	public function newQueryResultFrom( array $rawParameters ): QueryResult {
-
-		list( $queryString, $parameters, $printouts ) = QueryProcessor::getComponentsFromFunctionParams(
+		[ $queryString, $parameters, $printouts ] = QueryProcessor::getComponentsFromFunctionParams(
 			$rawParameters,
 			false
 		);
