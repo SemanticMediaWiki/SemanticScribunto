@@ -2,7 +2,6 @@
 
 namespace SMW\Scribunto\Integration\JSONScript;
 
-use SMW\Scribunto\HookRegistry;
 use SMW\Tests\JSONScriptServicesTestCaseRunner;
 use SMW\Tests\JsonTestCaseScriptRunner;
 
@@ -30,18 +29,8 @@ use SMW\Tests\JsonTestCaseScriptRunner;
  */
 class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JSONScriptServicesTestCaseRunner {
 
-	/**
-	 * @var HookRegistry
-	 */
-	private $hookRegistry;
-
 	protected function setUp(): void {
 		parent::setUp();
-
-		$this->hookRegistry = new HookRegistry();
-
-		$this->hookRegistry->clear();
-		$this->hookRegistry->register();
 	}
 
 	/**
