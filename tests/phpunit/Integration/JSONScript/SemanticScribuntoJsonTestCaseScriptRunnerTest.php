@@ -2,7 +2,7 @@
 
 namespace SMW\Scribunto\Integration\JSONScript;
 
-use SMW\Tests\JSONScriptTestCaseRunnerTest;
+use SMW\Tests\Integration\JSONScript\JSONScriptTestCaseRunnerTest;
 use SMW\Tests\JsonTestCaseScriptRunner;
 
 /**
