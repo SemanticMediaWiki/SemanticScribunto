@@ -2,7 +2,7 @@
 
 namespace SMW\Scribunto\Integration\JSONScript;
 
-use SMW\Tests\JSONScriptServicesTestCaseRunner;
+use SMW\Tests\JSONScriptTestCaseRunnerTest;
 use SMW\Tests\JsonTestCaseScriptRunner;
 
 /**
@@ -27,7 +27,7 @@ use SMW\Tests\JsonTestCaseScriptRunner;
  *
  * @author mwjames
  */
-class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JSONScriptServicesTestCaseRunner {
+class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JSONScriptTestCaseRunnerTest {
 
 	/**
 	 * @see JsonTestCaseScriptRunner::getRequiredJsonTestCaseMinVersion
