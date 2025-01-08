@@ -29,10 +29,6 @@ use SMW\Tests\JsonTestCaseScriptRunner;
  */
 class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JSONScriptServicesTestCaseRunner {
 
-	protected function setUp(): void {
-		parent::setUp();
-	}
-
 	/**
 	 * @see JsonTestCaseScriptRunner::getRequiredJsonTestCaseMinVersion
 	 * @return string
