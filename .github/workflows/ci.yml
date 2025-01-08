@@ -19,6 +19,7 @@ jobs:
         include:
           - mediawiki_version: '1.39'
             smw_version: dev-master
+            scribunto_version: REL1_39
             php_version: 8.1
             database_type: mysql
             database_image: "mariadb:10"
