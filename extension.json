@@ -21,8 +21,7 @@
 		"SMW\\Scribunto\\": "src/"
 	},
 	"TestAutoloadNamespaces": {
-		"SMW\\Scribunto\\Tests\\Integration\\": "tests/phpunit/Integration/",
-		"SMW\\Scribunto\\Tests\\Unit\\": "tests/phpunit/Unit/"
+		"SMW\\Scribunto\\Tests\\": "tests/phpunit/"
 	},
 	"Hooks": {
 		"ScribuntoExternalLibraries": "SMW\\Scribunto\\HooksHandler::onScribuntoExternalLibraries"
