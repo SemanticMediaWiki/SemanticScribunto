@@ -3,8 +3,8 @@
 namespace SMW\Scribunto\Integration\JSONScript;
 
 use SMW\Scribunto\HookRegistry;
-use SMW\Tests\JsonTestCaseScriptRunner;
 use SMW\Tests\JSONScriptServicesTestCaseRunner;
+use SMW\Tests\JsonTestCaseScriptRunner;
 
 /**
  * @see https://github.com/SemanticMediaWiki/SemanticMediaWiki/tree/master/tests#write-integration-tests-using-json-script
