@@ -21,7 +21,6 @@ use SMW\Tests\JsonTestCaseScriptRunner;
  *
  * @group semantic-scribunto
  * @group medium
- * @group Database
  *
  * @license GPL-2.0-or-later
  * @since 1.0
