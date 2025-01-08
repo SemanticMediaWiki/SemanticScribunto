@@ -2,11 +2,8 @@
 
 namespace SMW\Scribunto\Integration\JSONScript;
 
-use SMW\DIWikiPage;
-use SMW\Scribunto\HookRegistry;
-use SMW\Tests\JsonTestCaseFileHandler;
+use SMW\Tests\Integration\JSONScript\JSONScriptTestCaseRunnerTest;
 use SMW\Tests\JsonTestCaseScriptRunner;
-use SMW\Tests\LightweightJsonTestCaseScriptRunner;
 
 /**
  * @see https://github.com/SemanticMediaWiki/SemanticMediaWiki/tree/master/tests#write-integration-tests-using-json-script
@@ -23,27 +20,14 @@ use SMW\Tests\LightweightJsonTestCaseScriptRunner;
  *
  * @group semantic-scribunto
  * @group medium
+ * @group Database
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
  */
-class SemanticScribuntoJsonTestCaseScriptRunnerTest extends LightweightJsonTestCaseScriptRunner {
-
-	/**
-	 * @var HookRegistry
-	 */
-	private $hookRegistry;
-
-	protected function setUp() {
-		parent::setUp();
-
-		$this->hookRegistry = new HookRegistry();
-
-		$this->hookRegistry->clear();
-		$this->hookRegistry->register();
-	}
+class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JSONScriptTestCaseRunnerTest {
 
 	/**
 	 * @see JsonTestCaseScriptRunner::getRequiredJsonTestCaseMinVersion
@@ -65,16 +49,16 @@ class SemanticScribuntoJsonTestCaseScriptRunnerTest extends LightweightJsonTestC
 	 * @see JsonTestCaseScriptRunner::getPermittedSettings
 	 */
 	protected function getPermittedSettings() {
-		parent::getPermittedSettings();
+		$settings = parent::getPermittedSettings();
 
-		return [
+		return array_merge( $settings, [
 			'smwgNamespacesWithSemanticLinks',
 			'smwgPageSpecialProperties',
 			'smwgMaxNonExpNumber',
 			'wgLanguageCode',
 			'wgContLang',
 			'wgLang'
-		];
+		] );
 	}
 
 }
