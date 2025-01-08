@@ -14,14 +14,15 @@
 		"MediaWiki": ">= 1.39",
 		"extensions": {
 			"Scribunto": "*",
-			"SemanticMediaWiki": ">= 4.1"
+			"SemanticMediaWiki": ">= 4.2"
 		}
 	},
 	"AutoloadNamespaces": {
 		"SMW\\Scribunto\\": "src/"
 	},
 	"TestAutoloadNamespaces": {
-		"SMW\\Scribunto\\Tests\\": "tests/phpunit/"
+		"SMW\\Scribunto\\Tests\\Integration\\": "tests/phpunit/Integration/",
+		"SMW\\Scribunto\\Tests\\Unit\\": "tests/phpunit/Unit/"
 	},
 	"Hooks": {
 		"ScribuntoExternalLibraries": "SMW\\Scribunto\\HooksHandler::onScribuntoExternalLibraries"
