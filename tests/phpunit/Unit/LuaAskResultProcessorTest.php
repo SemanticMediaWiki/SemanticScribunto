@@ -4,18 +4,18 @@ namespace SMW\Scribunto\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 use SMW\DataValues\StringValue;
-use SMW\Scribunto\LuaAskResultProcessor;
-use SMW\Query\QueryResult;
 use SMW\Query\PrintRequest;
+use SMW\Query\QueryResult;
 use SMW\Query\Result\ResultArray;
+use SMW\Scribunto\LuaAskResultProcessor;
 use SMWNumberValue;
 
 /**
- * @covers LuaAskResultProcessor
+ * @covers \SMW\Scribunto\LuaAskResultProcessor
  * @group semantic-scribunto
  * @group Database
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author Tobias Oetterer
@@ -33,18 +33,17 @@ class LuaAskResultProcessorTest extends TestCase {
 	 * Set-up method prepares a mock {@see \SMWQueryResult}
 	 */
 	protected function setUp(): void {
-
 		parent::setUp();
 
 		$this->queryResult = $this->createMock( QueryResult::class );
 
 		$this->queryResult->expects( $this->any() )
 			->method( 'getNext' )
-			->will( $this->onConsecutiveCalls( [ $this->constructResultArray() ], false ) );
+			->willReturnOnConsecutiveCalls( [ $this->constructResultArray() ], false );
 
 		$this->queryResult->expects( $this->any() )
 			->method( 'getCount' )
-			->will( $this->returnValue( 1 ) );
+			->willReturn( 1 );
 	}
 
 	/**
@@ -55,7 +54,6 @@ class LuaAskResultProcessorTest extends TestCase {
 	 * @return void
 	 */
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			LuaAskResultProcessor::class,
 			new LuaAskResultProcessor(
@@ -72,7 +70,6 @@ class LuaAskResultProcessorTest extends TestCase {
 	 *
 	 */
 	public function testGetProcessedResult() {
-
 		$instance = new LuaAskResultProcessor( $this->queryResult );
 
 		$result = $instance->getProcessedResult();
@@ -81,9 +78,9 @@ class LuaAskResultProcessorTest extends TestCase {
 			$result
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			1,
-			count( $result )
+			$result
 		);
 	}
 
@@ -95,7 +92,6 @@ class LuaAskResultProcessorTest extends TestCase {
 	 *
 	 */
 	public function testGetDataFromQueryResultRow() {
-
 		$instance = new LuaAskResultProcessor( $this->queryResult );
 
 		$resultRow = [ $this->constructResultArray() ];
@@ -106,7 +102,7 @@ class LuaAskResultProcessorTest extends TestCase {
 			$result
 		);
 
-		$this->assertEquals( 1, count( $result ) );
+		$this->assertSame( 1, $result );
 	}
 
 	/**
@@ -118,24 +114,23 @@ class LuaAskResultProcessorTest extends TestCase {
 	 * @return void
 	 */
 	public function testGetKeyFromPrintRequest() {
-
 		$instance = new LuaAskResultProcessor( $this->queryResult );
 
 		$printRequest = $this->constructPrintRequest();
 
 		$printRequest->expects( $this->any() )
 			->method( 'getLabel' )
-			->will( $this->returnValue( 'label' ) );
+			->willReturn( 'label' );
 
 		$printRequest->expects( $this->any() )
 			->method( 'getText' )
-			->will( $this->returnValue( 'label' ) );
+			->willReturn( 'label' );
 
 		$printRequest2 = $this->constructPrintRequest();
 
 		$printRequest2->expects( $this->any() )
 			->method( 'getLabel' )
-			->will( $this->returnValue( '' ) );
+			->willReturn( '' );
 
 		$this->assertIsString(
 			$instance->getKeyFromPrintRequest( $printRequest )
@@ -164,7 +159,6 @@ class LuaAskResultProcessorTest extends TestCase {
 	 *
 	 */
 	public function testGetDataFromResultArray() {
-
 		$instance = new LuaAskResultProcessor( $this->queryResult );
 
 		$resultArray = $this->constructResultArray();
@@ -187,7 +181,6 @@ class LuaAskResultProcessorTest extends TestCase {
 	 *
 	 */
 	public function testGetValueFromDataValue( $class, $type, $expects ) {
-
 		$instance = new LuaAskResultProcessor( $this->queryResult );
 
 		$dataValue = $this->getMockBuilder( '\\' . $class )
@@ -196,7 +189,7 @@ class LuaAskResultProcessorTest extends TestCase {
 
 		$dataValue->expects( $this->any() )
 			->method( 'getTypeID' )
-			->will( $this->returnValue( $type ) );
+			->willReturn( $type );
 
 		$this->$expects(
 			$instance->getValueFromDataValue( $dataValue )
@@ -216,7 +209,6 @@ class LuaAskResultProcessorTest extends TestCase {
 	 *
 	 */
 	public function testExtractLuaDataFromDVData( $expects, $input ) {
-
 		$instance = new LuaAskResultProcessor( $this->queryResult );
 
 		$this->assertEquals(
@@ -233,7 +225,6 @@ class LuaAskResultProcessorTest extends TestCase {
 	 *
 	 */
 	public function testGetNumericIndex() {
-
 		$instance = new LuaAskResultProcessor( $this->queryResult );
 
 		$this->assertIsInt( $instance->getNumericIndex() );
@@ -252,7 +243,6 @@ class LuaAskResultProcessorTest extends TestCase {
 	 * @return array
 	 */
 	public function dataProviderGetValueFromDataValueTest() {
-
 		return [
 			[ SMWNumberValue::class, '_num', 'assertIsInt' ],
 			[ \SMWWikiPageValue::class, '_wpg', 'assertNull' ],
@@ -280,23 +270,22 @@ class LuaAskResultProcessorTest extends TestCase {
 	 * Constructs a mock {@see ResultArray}
 	 */
 	private function constructResultArray() {
-
 		$resultArray = $this->getMockBuilder( ResultArray::class )
 			->disableOriginalConstructor()
 			->getMock();
 
 		$resultArray->expects( $this->any() )
 			->method( 'getPrintRequest' )
-			->will( $this->returnValue(
+			->willReturn(
 				$this->constructPrintRequest()
-			) );
+			);
 
 		$resultArray->expects( $this->any() )
 			->method( 'getNextDataValue' )
-			->will( $this->onConsecutiveCalls(
+			->willReturnOnConsecutiveCalls(
 				$this->constructSMWNumberValue(),
 				false
-			) );
+			);
 
 		return $resultArray;
 	}
@@ -305,7 +294,6 @@ class LuaAskResultProcessorTest extends TestCase {
 	 * Constructs a mock {@see \SMW\Query\PrintRequest}
 	 */
 	private function constructPrintRequest() {
-
 		$printRequest = $this->getMockBuilder( PrintRequest::class )
 			->disableOriginalConstructor()
 			->getMock();
@@ -313,12 +301,10 @@ class LuaAskResultProcessorTest extends TestCase {
 		return $printRequest;
 	}
 
-
 	/**
 	 * Constructs a mock {@see \SMWNumberValue}
 	 */
 	private function constructSMWNumberValue() {
-
 		$printRequest = $this->getMockBuilder( SMWNumberValue::class )
 			->setConstructorArgs( [ '_num' ] )
 			->getMock();
