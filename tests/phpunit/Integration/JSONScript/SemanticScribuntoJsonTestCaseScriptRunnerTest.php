@@ -19,8 +19,8 @@ use SMW\Tests\JsonTestCaseScriptRunner;
  * data are leaked into a production system but requires an active DB connection.
  *
  * @group semantic-scribunto
- * @group medium
  * @group Database
+ * @group medium
  *
  * @license GPL-2.0-or-later
  * @since 1.0
