@@ -13,7 +13,7 @@ use SMW\Tests\Utils\UtilityFactory;
  *
  * @author mwjames
  */
-class I18nJsonFileIntegrityTest extends PHPUnit\Framework\TestCase {
+class I18nJsonFileIntegrityTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * @dataProvider i18nFileProvider
