@@ -16,14 +16,14 @@ cat <<EOT >> composer.local.json
 		"merge-plugin": {
 			"merge-dev": true,
 			"include": [
-				"extensions/${EXTENSION_NAME}/composer.json",
-				"extensions/SemanticMediaWiki/composer.json"
+				"extensions/${EXTENSION_NAME}/composer.json"
 			]
 		}
 	}
 }
 EOT
 
+composer require mediawiki/semantic-media-wiki:dev-master
 composer install
 php maintenance/install.php --dbtype sqlite --dbuser root --dbname mw --dbpath $(pwd) --pass AdminPassword WikiName AdminUser
 
