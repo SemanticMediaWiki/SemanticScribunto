@@ -12,7 +12,7 @@ use SMW\Query\QueryResult;
 use SMW\Store;
 use SMW\Services\ServicesFactory as ApplicationFactory;
 use SMW\ParameterProcessorFactory;
-use \Parser;
+use Parser;
 
 /**
  * @license GNU GPL v2+
@@ -37,7 +37,7 @@ class LibraryFactory {
 	}
 
 	/**
-	 * Creates a new SMWQueryResult from passed arguments,
+	 * Creates a new QueryResult from passed arguments,
 	 * utilizing the {@see SMWQueryProcessor}
 	 *
 	 * @since 1.0
