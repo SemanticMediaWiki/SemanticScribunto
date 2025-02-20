@@ -10,21 +10,22 @@ tar -zxf $MW_BRANCH.tar.gz
 mv mediawiki-$MW_BRANCH mediawiki
 cd $MW_ROOT
 
-composer install
-php maintenance/install.php --dbtype sqlite --dbuser root --dbname mw --dbpath $(pwd) --pass AdminPassword WikiName AdminUser
-
 cat <<EOT >> composer.local.json
 {
 	"extra": {
 		"merge-plugin": {
 			"merge-dev": true,
 			"include": [
-				"extensions/${EXTENSION_NAME}/composer.json"
+				"extensions/${EXTENSION_NAME}/composer.json",
+				"extensions/SemanticMediaWiki/composer.json",
 			]
 		}
 	}
 }
 EOT
+
+composer install
+php maintenance/install.php --dbtype sqlite --dbuser root --dbname mw --dbpath $(pwd) --pass AdminPassword WikiName AdminUser
 
 ## Vector
 cd skins
@@ -39,14 +40,7 @@ wget https://github.com/wikimedia/mediawiki-extensions-Scribunto/archive/${MW_BR
 tar -zxf ${MW_BRANCH}.tar.gz
 [[ -e Scribunto ]] && rm -rf Scribunto
 mv mediawiki-extensions-Scribunto* Scribunto
-
-wget https://github.com/SemanticMediaWiki/SemanticMediaWiki/archive/master.tar.gz
-tar -zxf master.tar.gz
-[[ -e SemanticMediaWiki ]] && rm -rf SemanticMediaWiki
-mv SemanticMediaWiki* SemanticMediaWiki
-cd SemanticMediaWiki
-composer install
-cd ../..
+cd ..
 
 
 ## extend LocalSettings.php
