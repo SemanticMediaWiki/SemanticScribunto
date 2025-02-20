@@ -14,14 +14,6 @@ jobs:
       matrix:
         include:
           - mw: 'REL1_39'
-            php: 7.4
-            type: normal
-            experimental: false
-          - mw: 'REL1_39'
-            php: 8.0
-            type: coverage
-            experimental: false
-          - mw: 'REL1_39'
             php: 8.1
             type: normal
             experimental: false
