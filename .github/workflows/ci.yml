@@ -19,7 +19,7 @@ jobs:
             experimental: false
           - mw: 'REL1_40'
             php: 8.1
-            type: coverage
+            type: normal
             experimental: false
           - mw: 'REL1_41'
             php: 8.1
