@@ -17,7 +17,7 @@ cat <<EOT >> composer.local.json
 			"merge-dev": true,
 			"include": [
 				"extensions/${EXTENSION_NAME}/composer.json",
-				"extensions/SemanticMediaWiki/composer.json",
+				"extensions/SemanticMediaWiki/composer.json"
 			]
 		}
 	}
