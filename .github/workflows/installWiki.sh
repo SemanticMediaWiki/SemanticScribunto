@@ -44,7 +44,9 @@ wget https://github.com/SemanticMediaWiki/SemanticMediaWiki/archive/master.tar.g
 tar -zxf master.tar.gz
 [[ -e SemanticMediaWiki ]] && rm -rf SemanticMediaWiki
 mv SemanticMediaWiki* SemanticMediaWiki
-cd ..
+cd SemanticMediaWiki
+composer install
+cd ../..
 
 
 ## extend LocalSettings.php
