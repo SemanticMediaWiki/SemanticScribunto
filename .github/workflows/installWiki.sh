@@ -39,6 +39,11 @@ wget https://github.com/wikimedia/mediawiki-extensions-Scribunto/archive/${MW_BR
 tar -zxf ${MW_BRANCH}.tar.gz
 [[ -e Scribunto ]] && rm -rf Scribunto
 mv mediawiki-extensions-Scribunto* Scribunto
+
+wget https://github.com/SemanticMediaWiki/SemanticMediaWiki/archive/master.tar.gz
+tar -zxf master.tar.gz
+[[ -e SemanticMediaWiki ]] && rm -rf SemanticMediaWiki
+mv SemanticMediaWiki* SemanticMediaWiki
 cd ..
 
 
