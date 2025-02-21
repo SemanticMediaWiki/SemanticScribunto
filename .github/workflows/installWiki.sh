@@ -23,7 +23,7 @@ cat <<EOT >> composer.local.json
 }
 EOT
 
-composer require mediawiki/semantic-media-wiki:dev-master
+composer require --no-update mediawiki/semantic-media-wiki dev-master
 composer install
 php maintenance/install.php --dbtype sqlite --dbuser root --dbname mw --dbpath $(pwd) --pass AdminPassword WikiName AdminUser
 
