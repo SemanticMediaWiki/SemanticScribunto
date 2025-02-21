@@ -45,6 +45,4 @@ if ( is_readable( $path = $basePath . '/vendor/autoload.php' ) ) {
  */
 /** @var \Composer\Autoload\ClassLoader $autoloader */
 $autoloader = require $path;
-
 $autoloader->addPsr4( 'SMW\\Scribunto\\Tests\\', __DIR__ . '/phpunit' );
-unset( $autoloader );
