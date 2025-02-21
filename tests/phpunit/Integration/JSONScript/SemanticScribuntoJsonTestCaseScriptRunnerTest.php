@@ -30,7 +30,7 @@ use SMW\Tests\JSONScriptTestCaseRunner;
  */
 class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JSONScriptServicesTestCaseRunner {
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$this->testEnvironment->tearDown();
