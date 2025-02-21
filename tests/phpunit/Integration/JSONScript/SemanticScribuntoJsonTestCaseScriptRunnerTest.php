@@ -20,8 +20,8 @@ use SMW\Tests\JSONScriptServicesTestCaseRunner;
  *
  * @group semantic-scribunto
  * @group SMWExtension
- * @group Database
  * @group medium
+ * @group Database
  *
  * @license GPL-2.0-or-later
  * @since 1.0
