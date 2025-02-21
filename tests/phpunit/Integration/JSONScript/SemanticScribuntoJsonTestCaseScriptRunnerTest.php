@@ -2,8 +2,8 @@
 
 namespace SMW\Scribunto\Integration\JSONScript;
 
-use SMW\Tests\Integration\JSONScript\JSONScriptTestCaseRunnerTest;
 use SMW\Tests\JSONScriptTestCaseRunner;
+use SMW\Tests\JSONScriptServicesTestCaseRunner;
 
 /**
  * @see https://github.com/SemanticMediaWiki/SemanticMediaWiki/tree/master/tests#write-integration-tests-using-json-script
@@ -28,7 +28,7 @@ use SMW\Tests\JSONScriptTestCaseRunner;
  *
  * @author mwjames
  */
-class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JSONScriptTestCaseRunnerTest {
+class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JSONScriptServicesTestCaseRunner {
 
 	/**
 	 * @see JSONScriptTestCaseRunner::getRequiredJsonTestCaseMinVersion
