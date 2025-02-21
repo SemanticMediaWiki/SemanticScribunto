@@ -75,7 +75,7 @@ jobs:
 
       - if: env.TYPE != 'coverage'
         name: Run PHPUnit w/o coverage
-        run: php tests/phpunit/phpunit.php -c extensions/SemanticScribunto/ --testsuite semantic-scribunto-unit
+        run: php tests/phpunit/phpunit.php -c extensions/SemanticScribunto/
 
       - if: env.TYPE == 'coverage'
         name: Run PHPUnit w/ coverage
