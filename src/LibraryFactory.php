@@ -37,7 +37,7 @@ class LibraryFactory {
 	}
 
 	/**
-	 * Creates a new SMWQueryResult from passed arguments,
+	 * Creates a new QueryResult from passed arguments,
 	 * utilizing the {@see SMWQueryProcessor}
 	 *
 	 * @since 1.0
