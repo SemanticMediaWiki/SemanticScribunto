@@ -8,7 +8,7 @@ namespace SMW\Scribunto\Tests\Unit;
  * @group semantic-scribunto
  * @covers \SMW\Scribunto\ScribuntoLuaLibrary
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author Tobias Oetterer
@@ -38,10 +38,10 @@ class ScribuntoLuaLibrarySetTest extends ScribuntoLuaEngineTestBase {
 	 * @param array $arguments arguments passed to function
 	 * @param mixed $expected expected return value
 	 */
-	public function testSet( $arguments, $expected) {
+	public function testSet( $arguments, $expected ) {
 		$this->assertEquals(
 			$expected,
-			$this->getScribuntoLuaLibrary()->set($arguments)
+			$this->getScribuntoLuaLibrary()->set( $arguments )
 		);
 	}
 
@@ -63,7 +63,7 @@ class ScribuntoLuaLibrarySetTest extends ScribuntoLuaEngineTestBase {
 				[ 1 => true ]
 			],
 			[
-				[ ],
+				[],
 				[ 1 => true ]
 			],
 			[
@@ -76,7 +76,7 @@ class ScribuntoLuaLibrarySetTest extends ScribuntoLuaEngineTestBase {
 			],
 			[
 				[ 'has type=test' ],
-				[ [ 1 => false, 'error' => wfMessage('smw-datavalue-property-restricted-declarative-use', 'Has type')->inLanguage('en')->plain() ] ]
+				[ [ 1 => false, 'error' => wfMessage( 'smw-datavalue-property-restricted-declarative-use', 'Has type' )->inLanguage( 'en' )->plain() ] ]
 			],
 			[
 				[ '1215623e790d918773db943232068a93b21c9f1419cb85666c6558e87f5b7d47=test' ],

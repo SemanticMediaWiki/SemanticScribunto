@@ -8,7 +8,7 @@ namespace SMW\Scribunto\Tests\Unit;
  * @group semantic-scribunto
  * @covers \SMW\Scribunto\ScribuntoLuaLibrary
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author Tobias Oetterer
@@ -29,7 +29,6 @@ class ScribuntoLuaLibraryAskTest extends ScribuntoLuaEngineTestBase {
 			self::$moduleName => __DIR__ . '/' . 'mw.smw.ask.tests.lua',
 		];
 	}
-
 
 	/**
 	 * Tests method info
