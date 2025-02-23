@@ -30,7 +30,7 @@ class LuaAskResultProcessorTest extends TestCase {
 	private $queryResult;
 
 	/**
-	 * Set-up method prepares a mock {@see \SMWQueryResult}
+	 * Set-up method prepares a mock {@see QueryResult}
 	 */
 	protected function setUp(): void {
 
@@ -65,7 +65,7 @@ class LuaAskResultProcessorTest extends TestCase {
 	}
 
 	/**
-	 * Tests the conversion of a {@see \SMWQueryResult} in a lua table
+	 * Tests the conversion of a {@see QueryResult} in a lua table
 	 *
 	 * @return void
 	 * @see LuaAskResultProcessor::getProcessedResult
