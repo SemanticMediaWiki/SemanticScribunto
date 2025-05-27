@@ -8,7 +8,7 @@ namespace SMW\Scribunto\Tests\Unit;
  * @group semantic-scribunto
  * @covers \SMW\Scribunto\ScribuntoLuaLibrary
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author Tobias Oetterer
@@ -29,7 +29,6 @@ class ScribuntoLuaLibraryInfoTest extends ScribuntoLuaEngineTestBase {
 			self::$moduleName => __DIR__ . '/' . 'mw.smw.info.tests.lua',
 		];
 	}
-
 
 	/**
 	 * Tests method info
@@ -54,21 +53,21 @@ class ScribuntoLuaLibraryInfoTest extends ScribuntoLuaEngineTestBase {
 			'</span>',
 			$this->getScribuntoLuaLibrary()->info( 'Test info text' )[0]
 		);
-		$this->assertEquals(
+		$this->assertSame(
 			1,
-			preg_match('~^<span class=.*<span class="[^"]*info">.*>Test info text<.*</span>$~', $this->getScribuntoLuaLibrary()->info( 'Test info text' )[0])
+			preg_match( '~^<span class=.*<span class="[^"]*info">.*>Test info text<.*</span>$~', $this->getScribuntoLuaLibrary()->info( 'Test info text' )[0] )
 		);
-		$this->assertEquals(
+		$this->assertSame(
 			1,
-			preg_match('~^<span class=.*<span class="[^"]*warning">.*>Test info text<.*</span>$~', $this->getScribuntoLuaLibrary()->info( 'Test info text', 'warning' )[0])
+			preg_match( '~^<span class=.*<span class="[^"]*warning">.*>Test info text<.*</span>$~', $this->getScribuntoLuaLibrary()->info( 'Test info text', 'warning' )[0] )
 		);
-		$this->assertEquals(
+		$this->assertSame(
 			1,
-			preg_match('~^<span class=.*<span class="[^"]*error">.*>Test info text<.*</span>$~', $this->getScribuntoLuaLibrary()->info( 'Test info text', 'error' )[0])
+			preg_match( '~^<span class=.*<span class="[^"]*error">.*>Test info text<.*</span>$~', $this->getScribuntoLuaLibrary()->info( 'Test info text', 'error' )[0] )
 		);
-		$this->assertEquals(
+		$this->assertSame(
 			1,
-			preg_match('~^<span class=.*<span class="[^"]*info">.*>Test info text<.*</span>$~', $this->getScribuntoLuaLibrary()->info( 'Test info text', 'invalid' )[0])
+			preg_match( '~^<span class=.*<span class="[^"]*info">.*>Test info text<.*</span>$~', $this->getScribuntoLuaLibrary()->info( 'Test info text', 'invalid' )[0] )
 		);
 	}
 }
