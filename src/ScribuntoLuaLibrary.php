@@ -3,16 +3,17 @@
 namespace SMW\Scribunto;
 
 use Scribunto_LuaLibraryBase;
-// TODO when dropping support for MW1.39, use the following instead
-// use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LibraryBase;
 use SMW\DIProperty;
 use SMW\Query\QueryContext;
-use SMW\Services\ServicesFactory as ApplicationFactory;
 use SMW\Query\QueryResult;
+use SMW\Services\ServicesFactory as ApplicationFactory;
 use SMWOutputs;
 
+// TODO when dropping support for MW1.39, use the following instead
+// use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LibraryBase;
+
 /**
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
@@ -30,13 +31,12 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	 * @var string
 	 * @since 1.0
 	 */
-	const SMW_ERROR_FIELD = 'error';
+	private const SMW_ERROR_FIELD = 'error';
 
 	/**
 	 * @since 1.0
 	 */
 	public function register() {
-
 		$lib = [
 			'ask'             => [ $this, 'ask' ],
 			'getPropertyType' => [ $this, 'getPropertyType' ],
@@ -55,12 +55,11 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	 *
 	 * @since 1.0
 	 *
-	 * @param string|array $arguments parameters passed from lua, string or array depending on call
+	 * @param string|array|null $arguments parameters passed from lua, string or array depending on call
 	 *
-	 * @return array    array( null ) or array[]
+	 * @return array array( null ) or array[]
 	 */
 	public function ask( $arguments = null ): array {
-
 		$queryResult = $this->getLibraryFactory()->newQueryResultFrom(
 			$this->processLuaArguments( $arguments )
 		);
@@ -87,12 +86,11 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	 *
 	 * @since 1.0
 	 *
-	 * @param string $propertyName
+	 * @param string|null $propertyName
 	 *
 	 * @return array
 	 */
 	public function getPropertyType( $propertyName = null ) {
-
 		$this->checkType( 'getPropertyType', 1, $propertyName, 'string' );
 		$propertyName = trim( $propertyName );
 
@@ -102,7 +100,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 
 		$property = DIProperty::newFromUserLabel( $propertyName );
 
-		if ( is_null( $property ) ) {
+		if ( $property === null ) {
 			return [ null ];
 		}
 
@@ -114,12 +112,11 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	 *
 	 * @since 1.0
 	 *
-	 * @param string|array $arguments
+	 * @param string|array|null $arguments
 	 *
 	 * @return array
 	 */
 	public function getQueryResult( $arguments = null ) {
-
 		$queryResult = $this->getLibraryFactory()->newQueryResultFrom(
 			$this->processLuaArguments( $arguments )
 		);
@@ -130,10 +127,10 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 
 		$result = $queryResult->toArray();
 
-		if( !empty( $result["results"] ) ) {
+		if ( !empty( $result["results"] ) ) {
 			// as of now, "results" has page names as keys. lua is not very good, keeping non-number keys in order
 			// so replace string keys with the corresponding number, starting with 0.
-		    $result["results"] = array_combine( range( 0, count( $result["results"] ) - 1 ), array_values( $result["results"] ) );
+			$result["results"] = array_combine( range( 0, count( $result["results"] ) - 1 ), array_values( $result["results"] ) );
 		}
 
 		return [ $this->convertArrayToLuaTable( $result ) ];
@@ -151,9 +148,8 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	 * @return string[]
 	 */
 	public function info( $text, $icon = 'info' ) {
-
 		// do some parameter processing
-		if ( empty( $text ) || ! trim( $text ) || ! is_string( $text ) ) {
+		if ( empty( $text ) || !trim( $text ) || !is_string( $text ) ) {
 			// no info-text present, or wrong type. abort
 			return null;
 		}
@@ -190,7 +186,6 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	 * @return null|array|array[]
 	 */
 	public function set( $arguments ) {
-
 		$arguments = $this->processLuaArguments( $arguments );
 
 		$setParserFunction = $this->getLibraryFactory()->newSetParserFunction(
@@ -220,19 +215,18 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	 * makes it available to lua.
 	 *
 	 * @param string|array $arguments arguments passed from lua, string or array depending on call
-	 * @param string $subobjectId if you need to manually assign an id, do this here
+	 * @param string|null $subobjectId if you need to manually assign an id, do this here
 	 *
 	 * @return null|array|array[]
 	 */
 	public function subobject( $arguments, $subobjectId = null ) {
-
 		$arguments = $this->processLuaArguments( $arguments );
 
 		// parameters[0] would be the subobject id, so unshift
 		array_unshift( $arguments, null );
 
 		// if subobject id was set, put it on position 0
-		if ( !is_null( $subobjectId ) && $subobjectId ) {
+		if ( $subobjectId !== null && $subobjectId ) {
 			// user deliberately set an id for this subobject
 			$arguments[0] = $subobjectId;
 
@@ -267,8 +261,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	 * @return mixed array
 	 */
 	private function convertArrayToLuaTable( $ar ) {
-
-		if ( is_array( $ar) ) {
+		if ( is_array( $ar ) ) {
 			foreach ( $ar as $key => $value ) {
 				$ar[$key] = $this->convertArrayToLuaTable( $value );
 			}
@@ -289,7 +282,6 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	 * @return string
 	 */
 	private function doPostProcessParserFunctionCallResult( $parserFunctionResult ) {
-
 		// parser function call can return string or array
 		if ( is_array( $parserFunctionResult ) ) {
 			$result = $parserFunctionResult[0];
@@ -315,7 +307,6 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	 * @return LibraryFactory
 	 */
 	private function getLibraryFactory(): LibraryFactory {
-
 		if ( !empty( $this->libraryFactory ) ) {
 			return $this->libraryFactory;
 		}
@@ -351,7 +342,6 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 	 * @return array
 	 */
 	private function processLuaArguments( $arguments ) {
-
 		if ( empty( $arguments ) ) {
 			return [];
 		}
@@ -370,7 +360,7 @@ class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 					$processedArguments[] = $key . '=' . $item;
 				}
 			} else {
-				if ( !is_int($key) && !preg_match('/^[0-9]+$/', $key) ) {
+				if ( !is_int( $key ) && !preg_match( '/^[0-9]+$/', $key ) ) {
 					$value = (string)$key . '=' . (string)$value;
 				}
 				$processedArguments[] = $value;

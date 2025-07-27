@@ -2,8 +2,8 @@
 
 namespace SMW\Scribunto\Tests\Unit;
 
-use SMW\Scribunto\HooksHandler;
 use PHPUnit\Framework\TestCase;
+use SMW\Scribunto\HooksHandler;
 use SMW\Scribunto\ScribuntoLuaLibrary;
 
 /**
@@ -13,14 +13,12 @@ use SMW\Scribunto\ScribuntoLuaLibrary;
  *
  * @group semantic-scribunto
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  *
  * @since   2.3
  * @author  Tobias Oetterer
  */
-class HooksHandlerTest extends TestCase
-{
-
+class HooksHandlerTest extends TestCase {
 
 	/**
 	 * @throws \ConfigException
