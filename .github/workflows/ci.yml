@@ -18,7 +18,7 @@ jobs:
       matrix:
         include:
           - mediawiki_version: '1.39'
-            smw_version: dev-master
+            smw_version: 5.1.0
             scribunto_version: REL1_39
             php_version: 8.1
             database_type: mysql
@@ -26,7 +26,7 @@ jobs:
             coverage: false
             experimental: false
           - mediawiki_version: '1.40'
-            smw_version: dev-master
+            smw_version: 5.1.0
             scribunto_version: REL1_40
             php_version: 8.1
             database_type: mysql
@@ -34,7 +34,7 @@ jobs:
             coverage: true
             experimental: false
           - mediawiki_version: '1.41'
-            smw_version: dev-master
+            smw_version: 5.1.0
             scribunto_version: REL1_41
             php_version: 8.1
             database_type: mysql
@@ -42,7 +42,7 @@ jobs:
             coverage: false
             experimental: false
           - mediawiki_version: '1.42'
-            smw_version: dev-master
+            smw_version: 5.1.0
             scribunto_version: REL1_42
             php_version: 8.1
             database_type: mysql
