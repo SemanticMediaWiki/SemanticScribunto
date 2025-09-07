@@ -169,8 +169,14 @@ class LuaAskResultProcessor {
 				$value = ( $value == (int)$value ) ? intval( $value ) : $value;
 				break;
 			default:
+				if ( class_exists( 'MediaWiki\\Linker\\Linker' ) ) {
+					// MW 1.40+
+					$linker = new \MediaWiki\Linker\Linker();
+				} else {
+					$linker = new \Linker();
+				}
 				# FIXME ignores parameter link=none|subject
-				$value = $dataValue->getShortText( SMW_OUTPUT_WIKI, new \Linker() );
+				$value = $dataValue->getShortText( SMW_OUTPUT_WIKI, $linker );
 		}
 
 		return $value;
