@@ -2,8 +2,7 @@
 
 namespace SMW\Scribunto;
 
-class HooksHandler
-{
+class HooksHandler {
 
 	/**
 	 * Hook: ScribuntoExternalLibraries
@@ -12,8 +11,7 @@ class HooksHandler
 	 *
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ScribuntoExternalLibraries
 	 */
-	public static function onScribuntoExternalLibraries( $engine, array &$extraLibraries ): bool
-	{
+	public static function onScribuntoExternalLibraries( $engine, array &$extraLibraries ): bool {
 		if ( $engine == 'lua' ) {
 			$extraLibraries['mw.smw'] = ScribuntoLuaLibrary::class;
 		}
