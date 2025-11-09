@@ -1,5 +1,14 @@
 This file contains the RELEASE-NOTES of the **Semantic Scribunto** (a.k.a. SSC) extension.
 
+## 2.3.3
+
+Released on October 10, 2025
+
+* Fixes installation issues with newer versions of Semantic MediaWiki
+* Bug fixes and code improvements
+* Localization updates from https://translatewiki.net
+
+
 ## 2.3.2
 
 Released on July 23, 2024
