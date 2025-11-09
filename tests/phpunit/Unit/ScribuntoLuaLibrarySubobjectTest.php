@@ -8,7 +8,7 @@ namespace SMW\Scribunto\Tests\Unit;
  * @group semantic-scribunto
  * @covers \SMW\Scribunto\ScribuntoLuaLibrary
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author Tobias Oetterer
@@ -52,8 +52,7 @@ class ScribuntoLuaLibrarySubobjectTest extends ScribuntoLuaEngineTestBase {
 	 *
 	 * @return array
 	 */
-	public function dataProviderSubobjectTest()
-	{
+	public function dataProviderSubobjectTest() {
 		$provider = [
 			[
 				[ [] ],
@@ -73,10 +72,10 @@ class ScribuntoLuaLibrarySubobjectTest extends ScribuntoLuaEngineTestBase {
 			],
 			[
 				[ [ 'has type=test', 'Is bool=true' ] ],
-				[ [ 1 => false, 'error' => wfMessage('smw-datavalue-property-restricted-declarative-use', 'Has type')->inLanguage('en')->plain() ] ]
+				[ [ 1 => false, 'error' => wfMessage( 'smw-datavalue-property-restricted-declarative-use', 'Has type' )->inLanguage( 'en' )->plain() ] ]
 			],
 			[
-				[ [ 'has text=test', 'Is bool=true','1215623e790d918773db943232068a93b21c9f1419cb85666c6558e87f5b7d47=test' ] ],
+				[ [ 'has text=test', 'Is bool=true', '1215623e790d918773db943232068a93b21c9f1419cb85666c6558e87f5b7d47=test' ] ],
 				[ 1 => true ]
 			],
 			[
@@ -97,10 +96,10 @@ class ScribuntoLuaLibrarySubobjectTest extends ScribuntoLuaEngineTestBase {
 			],
 			[
 				[ [ 'has type=test', 'Allows value=test' ], '01234567890_testStringAsId' ],
-				[ [ 1 => false, 'error' => '&lt;ul&gt;&lt;li&gt;' . wfMessage('smw-datavalue-property-restricted-declarative-use', 'Has type')->inLanguage('en')->plain() . '&lt;/li&gt; &lt;!--br--&gt;&lt;li&gt;' . wfMessage('smw-datavalue-property-restricted-declarative-use', 'Allows value')->inLanguage('en')->plain() . '&lt;/li&gt;&lt;/ul&gt;' ] ]
+				[ [ 1 => false, 'error' => '&lt;ul&gt;&lt;li&gt;' . wfMessage( 'smw-datavalue-property-restricted-declarative-use', 'Has type' )->inLanguage( 'en' )->plain() . '&lt;/li&gt; &lt;!--br--&gt;&lt;li&gt;' . wfMessage( 'smw-datavalue-property-restricted-declarative-use', 'Allows value' )->inLanguage( 'en' )->plain() . '&lt;/li&gt;&lt;/ul&gt;' ] ]
 			],
 			[
-				[ [ 'has text=test', 'Is bool=true' => 'test','1215623e790d918773db943232068a93b21c9f1419cb85666c6558e87f5b7d47=test' ], '01234567890_testStringAsId' ],
+				[ [ 'has text=test', 'Is bool=true' => 'test', '1215623e790d918773db943232068a93b21c9f1419cb85666c6558e87f5b7d47=test' ], '01234567890_testStringAsId' ],
 				[ 1 => true ]
 			],
 		];

@@ -5,107 +5,87 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ "*" ]
+  workflow_dispatch:
 
 jobs:
-  test:
-    name: "PHPUnit: MW ${{ matrix.mw }}, PHP ${{ matrix.php }} (TYPE ${{ matrix.type }})"
 
-    strategy:
-      matrix:
-        include:
-          - mw: 'REL1_39'
-            php: 7.4
-            type: normal
-            experimental: false
-          - mw: 'REL1_39'
-            php: 8.0
-            type: coverage
-            experimental: false
-          - mw: 'REL1_39'
-            php: 8.1
-            type: normal
-            experimental: false
-          - mw: 'REL1_40'
-            php: 8.1
-            type: normal
-            experimental: false
-          - mw: 'REL1_41'
-            php: 8.1
-            type: normal
-            experimental: false
-          - mw: 'REL1_42'
-            php: 8.2
-            type: normal
-            experimental: false
-          - mw: 'master'
-            php: 8.3
-            type: normal
-            experimental: true
+  test:
 
     runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.experimental }}
 
-    defaults:
-      run:
-        working-directory: mediawiki
+    strategy:
+      matrix:
+        include:
+          - mediawiki_version: '1.39'
+            smw_version: 5.1.0
+            scribunto_version: REL1_39
+            php_version: 8.1
+            database_type: mysql
+            database_image: "mariadb:10"
+            coverage: false
+            experimental: false
+          - mediawiki_version: '1.40'
+            smw_version: 5.1.0
+            scribunto_version: REL1_40
+            php_version: 8.1
+            database_type: mysql
+            database_image: "mariadb:11.2"
+            coverage: true
+            experimental: false
+          - mediawiki_version: '1.41'
+            smw_version: 5.1.0
+            scribunto_version: REL1_41
+            php_version: 8.1
+            database_type: mysql
+            database_image: "mariadb:11.2"
+            coverage: false
+            experimental: false
+          - mediawiki_version: '1.42'
+            smw_version: 5.1.0
+            scribunto_version: REL1_42
+            php_version: 8.1
+            database_type: mysql
+            database_image: "mariadb:11.2"
+            coverage: false
+            experimental: false
+          - mediawiki_version: '1.43'
+            smw_version: dev-master
+            scribunto_version: REL1_43
+            php_version: 8.1
+            database_type: mysql
+            database_image: "mariadb:11.2"
+            coverage: false
+            experimental: false
 
     env:
-      MW_ROOT: mediawiki
-      TYPE: ${{ matrix.type }}
-
+      MW_VERSION: ${{ matrix.mediawiki_version }}
+      SMW_VERSION: ${{ matrix.smw_version }}
+      SCRIBUNTO_VERSION: ${{ matrix.scribunto_version }}
+      PHP_VERSION: ${{ matrix.php_version }}
+      DB_TYPE: ${{ matrix.database_type }}
+      DB_IMAGE: ${{ matrix.database_image }}
 
     steps:
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          php-version: ${{ matrix.php }}
-          extensions: mbstring, intl
-          tools: composer
+          submodules: recursive
 
-      - name: Cache MediaWiki
-        id: cache-mediawiki
-        uses: actions/cache@v4
+      - name: Update submodules
+        run: git submodule update --init --remote
+
+      - name: Run tests
+        run: make ci
+        if: matrix.coverage == false
+
+      - name: Run tests with coverage
+        run: make ci-coverage
+        if: matrix.coverage == true
+
+      - name: Upload code coverage
+        uses: codecov/codecov-action@v4
         with:
-          path: |
-            mediawiki
-            !mediawiki/extensions/
-            !mediawiki/vendor/
-          key: mw_${{ matrix.mw }}-php${{ matrix.php }}
-
-      - name: Cache Composer cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.composer/cache
-          key: composer-php${{ matrix.php }}
-
-      - uses: actions/checkout@v4
-        with:
-          path: EarlyCopy
-
-      - name: Install MediaWiki
-        if: steps.cache-mediawiki.outputs.cache-hit != 'true'
-        working-directory: ~
-        run: bash EarlyCopy/.github/workflows/installWiki.sh ${{ matrix.mw }} SemanticScribunto
-
-      - uses: actions/checkout@v4
-        with:
-          path: mediawiki/extensions/SemanticScribunto
-
-      - name: Composer update
-        run: composer update
-
-      - name: run update.php
-        run: php maintenance/update.php --quick
-
-      - if: env.TYPE != 'coverage'
-        name: Run PHPUnit w/o coverage
-        run: php tests/phpunit/phpunit.php -c extensions/SemanticScribunto/ --testsuite semantic-scribunto-unit
-
-      - if: env.TYPE == 'coverage'
-        name: Run PHPUnit w/ coverage
-        run: php tests/phpunit/phpunit.php -c extensions/SemanticScribunto/ --testsuite semantic-scribunto-unit --coverage-clover coverage.clover
-
-      - if: env.TYPE == 'coverage'
-        name: upload coverage report
-        working-directory: ~
-        run: bash EarlyCopy/.github/workflows/uploadCoverageReport.sh
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage/php/coverage.xml
+        if: matrix.coverage == true
