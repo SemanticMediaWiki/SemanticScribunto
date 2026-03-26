@@ -4,6 +4,7 @@ namespace SMW\Scribunto\Tests\Unit;
 
 /**
  * @covers \SMW\Scribunto\ScribuntoLuaLibrary
+ * @group Database
  *
  * @license GPL-2.0-or-later
  * @since 1.0
