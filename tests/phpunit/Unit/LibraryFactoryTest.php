@@ -3,6 +3,10 @@
 namespace SMW\Scribunto\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
+use MediaWiki\Language\Language;
+use MediaWiki\Parser\Parser;
+use MediaWiki\Parser\ParserOutput;
+use MediaWiki\Title\Title;
 use SMW\ParserFunctions\SetParserFunction;
 use SMW\Query\QueryResult;
 use SMW\Scribunto\LibraryFactory;
@@ -22,7 +26,7 @@ class LibraryFactoryTest extends TestCase {
 	private $parser;
 
 	protected function setUp(): void {
-		$language = $this->getMockBuilder( '\Language' )
+		$language = $this->getMockBuilder( Language::class )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -39,7 +43,7 @@ class LibraryFactoryTest extends TestCase {
 			->willReturn( $queryResult );
 
 		$stripState = $this->createMock( \StripState::class );
-		$this->parser = $this->createMock( \Parser::class );
+		$this->parser = $this->createMock( Parser::class );
 
 		$this->parser->expects( $this->any() )
 			->method( 'getStripState' )
@@ -47,11 +51,11 @@ class LibraryFactoryTest extends TestCase {
 
 		$this->parser->expects( $this->any() )
 			->method( 'getTitle' )
-			->willReturn( \Title::newFromText( 'Foo' ) );
+			->willReturn( Title::newFromText( 'Foo' ) );
 
 		$this->parser->expects( $this->any() )
 			->method( 'getOutput' )
-			->willReturn( new \ParserOutput() );
+			->willReturn( new ParserOutput() );
 
 		$this->parser->expects( $this->any() )
 			->method( 'getTargetLanguage' )
