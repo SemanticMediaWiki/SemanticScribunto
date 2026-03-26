@@ -2,11 +2,11 @@
 
 namespace SMW\Scribunto\Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
 use MediaWiki\Language\Language;
 use MediaWiki\Parser\Parser;
 use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Title\Title;
+use PHPUnit\Framework\TestCase;
 use SMW\ParserFunctions\SetParserFunction;
 use SMW\Query\QueryResult;
 use SMW\Scribunto\LibraryFactory;
