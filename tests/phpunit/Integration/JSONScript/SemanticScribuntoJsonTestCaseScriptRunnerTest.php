@@ -34,7 +34,7 @@ class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JSONScriptServicesTe
 	 * @see JSONScriptTestCaseRunner::getRequiredJsonTestCaseMinVersion
 	 * @return string
 	 */
-	protected function getRequiredJsonTestCaseMinVersion() {
+	protected function getRequiredJsonTestCaseMinVersion(): string {
 		return '1';
 	}
 
