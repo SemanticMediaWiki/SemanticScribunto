@@ -49,7 +49,7 @@ class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JSONScriptServicesTe
 	/**
 	 * @see JSONScriptTestCaseRunner::getPermittedSettings
 	 */
-	protected function getPermittedSettings() {
+	protected function getPermittedSettings(): array {
 		$settings = parent::getPermittedSettings();
 
 		return array_merge( $settings, [
