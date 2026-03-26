@@ -42,7 +42,7 @@ class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JSONScriptServicesTe
 	 * @see JSONScriptTestCaseRunner::getTestCaseLocation
 	 * @return string
 	 */
-	protected function getTestCaseLocation() {
+	protected function getTestCaseLocation(): string {
 		return __DIR__ . '/TestCases';
 	}
 
