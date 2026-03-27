@@ -166,7 +166,7 @@ class LuaAskResultProcessor {
 				break;
 			default:
 				# FIXME ignores parameter link=none|subject
-				$value = $dataValue->getShortText( SMW_OUTPUT_WIKI, new Linker(); );
+				$value = $dataValue->getShortText( SMW_OUTPUT_WIKI, new Linker() );
 		}
 
 		return $value;
