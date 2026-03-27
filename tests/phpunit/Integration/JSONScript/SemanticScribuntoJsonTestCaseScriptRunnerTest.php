@@ -58,8 +58,7 @@ class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JSONScriptServicesTe
 			'smwgMaxNonExpNumber',
 			'wgLanguageCode',
 			'wgContLang',
-			'wgLang',
-			'wgScribuntoDefaultEngine'
+			'wgLang'
 		];
 	}
 
