@@ -153,8 +153,7 @@
 		"wgLang": "en",
 		"smwgPageSpecialProperties": [
 			"_MDAT"
-		],
-		"wgScribuntoDefaultEngine": "luastandalone"
+		]
 	},
 	"meta": {
 		"version": "1",
