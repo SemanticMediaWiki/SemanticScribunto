@@ -11,14 +11,14 @@ endif
 EXTENSION=SemanticScribunto
 
 # docker images
-MW_VERSION?=1.39
+MW_VERSION?=1.43
 PHP_VERSION?=8.1
 DB_TYPE?=mysql
 DB_IMAGE?="mariadb:10"
 
 # extensions
 SMW_VERSION?=dev-master
-SCRIBUNTO_VERSION?=REL1_39
+SCRIBUNTO_VERSION?=REL1_43
 
 # composer
 # Enables "composer update" inside of extension
