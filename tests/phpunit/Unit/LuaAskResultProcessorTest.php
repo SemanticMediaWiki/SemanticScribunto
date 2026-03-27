@@ -102,7 +102,7 @@ class LuaAskResultProcessorTest extends TestCase {
 			$result
 		);
 
-		$this->assertSame( 1, $result );
+		$this->assertSame( 1, count( $result ) );
 	}
 
 	/**
