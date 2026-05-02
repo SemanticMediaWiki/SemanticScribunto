@@ -2,15 +2,16 @@
 
 namespace SMW\Scribunto;
 
+use MediaWiki\Linker\Linker;
+use SMW\Query\PrintRequest;
 use SMW\Query\QueryResult;
 use SMW\Query\Result\ResultArray;
 use SMWDataValue as DataValue;
-use SMW\Query\PrintRequest;
 
 /**
  * Class LuaAskResultProcessor
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author Tobias Oetterer
@@ -60,7 +61,6 @@ class LuaAskResultProcessor {
 	 * @return array|null
 	 */
 	public function getProcessedResult() {
-
 		$result = null;
 
 		if ( $this->queryResult->getCount() ) {
@@ -86,14 +86,13 @@ class LuaAskResultProcessor {
 	 * @return array
 	 */
 	public function getDataFromQueryResultRow( array $resultRow ) {
-
 		$rowData = [];
 
 		/** @var ResultArray $resultArray */
 		foreach ( $resultRow as $resultArray ) {
 
 			// get key and data
-			list ( $key, $data ) = $this->getDataFromResultArray( $resultArray );
+			[ $key, $data ] = $this->getDataFromResultArray( $resultArray );
 
 			$rowData[$key] = $data;
 		}
@@ -110,7 +109,6 @@ class LuaAskResultProcessor {
 	 * @return array array ( int|string, array )
 	 */
 	public function getDataFromResultArray( ResultArray $resultArray ) {
-
 		// first, extract the key (label), if any
 		$key = $this->getKeyFromPrintRequest( $resultArray->getPrintRequest() );
 
@@ -139,7 +137,6 @@ class LuaAskResultProcessor {
 	 * @return int|string
 	 */
 	public function getKeyFromPrintRequest( PrintRequest $printRequest ) {
-
 		if ( $printRequest->getLabel() !== '' ) {
 			return $printRequest->getText( SMW_OUTPUT_WIKI );
 		}
@@ -156,7 +153,6 @@ class LuaAskResultProcessor {
 	 * @return mixed
 	 */
 	public function getValueFromDataValue( DataValue $dataValue ) {
-
 		switch ( $dataValue->getTypeID() ) {
 			case '_boo':
 				// boolean value found, convert it
@@ -169,14 +165,8 @@ class LuaAskResultProcessor {
 				$value = ( $value == (int)$value ) ? intval( $value ) : $value;
 				break;
 			default:
-				if ( class_exists( 'MediaWiki\\Linker\\Linker' ) ) {
-					// MW 1.40+
-					$linker = new \MediaWiki\Linker\Linker();
-				} else {
-					$linker = new \Linker();
-				}
 				# FIXME ignores parameter link=none|subject
-				$value = $dataValue->getShortText( SMW_OUTPUT_WIKI, $linker );
+				$value = $dataValue->getShortText( SMW_OUTPUT_WIKI, new Linker() );
 		}
 
 		return $value;
@@ -190,7 +180,6 @@ class LuaAskResultProcessor {
 	 * @return mixed
 	 */
 	public function extractLuaDataFromDVData( $resultArrayData ) {
-
 		if ( empty( $resultArrayData ) ) {
 			// this key has no value(s). set to null
 			return null;

@@ -4,8 +4,9 @@ namespace SMW\Scribunto\Tests\Unit;
 
 /**
  * @covers \SMW\Scribunto\ScribuntoLuaLibrary
+ * @group Database
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author Tobias Oetterer
@@ -26,7 +27,6 @@ class ScribuntoLuaLibraryTest extends ScribuntoLuaEngineTestBase {
 			self::$moduleName => __DIR__ . '/' . 'mw.smw.tests.lua',
 		];
 	}
-
 
 	public function testCanConstruct() {
 		$this->assertInstanceOf(
@@ -50,7 +50,6 @@ class ScribuntoLuaLibraryTest extends ScribuntoLuaEngineTestBase {
 		);
 	}
 
-
 	/**
 	 * Data provider for {@see testFunctions}
 	 *
@@ -59,7 +58,6 @@ class ScribuntoLuaLibraryTest extends ScribuntoLuaEngineTestBase {
 	 * @return array
 	 */
 	public function dataProviderFunctionTest() {
-
 		return [
 			[ 'ask' ],
 			[ 'getPropertyType' ],
