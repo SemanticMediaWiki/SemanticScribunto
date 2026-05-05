@@ -30,6 +30,12 @@ use SMW\Tests\JSONScriptTestCaseRunner;
  */
 class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JSONScriptServicesTestCaseRunner {
 
+	protected function setUp(): void {
+		parent::setUp();
+		// Ensure Scribunto and SemanticScribunto are loaded
+		\MediaWiki\MediaWikiServices::getInstance()->resetServiceForTesting( 'ScribuntoEngineFactory' );
+	}
+
 	/**
 	 * @see JSONScriptTestCaseRunner::getRequiredJsonTestCaseMinVersion
 	 * @return string
