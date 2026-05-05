@@ -33,7 +33,8 @@ class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JSONScriptServicesTe
 
 	protected function setUp(): void {
 		parent::setUp();
-		HooksHandler::onScribuntoExternalLibraries( 'lua', [] );
+		$extraLibraries = [];
+		HooksHandler::onScribuntoExternalLibraries( 'lua', $extraLibraries );
 	}
 
 	/**
