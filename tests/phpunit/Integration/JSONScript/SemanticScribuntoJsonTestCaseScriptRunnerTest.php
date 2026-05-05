@@ -2,7 +2,6 @@
 
 namespace SMW\Scribunto\Integration\JSONScript;
 
-use SMW\Scribunto\HooksHandler;
 use SMW\Tests\JSONScriptServicesTestCaseRunner;
 use SMW\Tests\JSONScriptTestCaseRunner;
 
@@ -33,8 +32,6 @@ class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JSONScriptServicesTe
 
 	protected function setUp(): void {
 		parent::setUp();
-		$extraLibraries = [];
-		HooksHandler::onScribuntoExternalLibraries( 'lua', $extraLibraries );
 	}
 
 	/**
