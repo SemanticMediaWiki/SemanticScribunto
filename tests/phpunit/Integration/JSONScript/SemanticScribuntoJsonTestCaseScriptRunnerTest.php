@@ -50,16 +50,16 @@ class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JSONScriptServicesTe
 	 * @see JSONScriptTestCaseRunner::getPermittedSettings
 	 */
 	protected function getPermittedSettings(): array {
-		parent::getPermittedSettings();
+		$settings = parent::getPermittedSettings();
 
-		return [
+		return array_merge( $settings, [
 			'smwgNamespacesWithSemanticLinks',
 			'smwgPageSpecialProperties',
 			'smwgMaxNonExpNumber',
 			'wgLanguageCode',
 			'wgContLang',
 			'wgLang'
-		];
+		] );
 	}
 
 }
