@@ -2,15 +2,12 @@
 
 namespace SMW\Scribunto;
 
-use Scribunto_LuaLibraryBase;
+use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LibraryBase;
 use SMW\DIProperty;
 use SMW\Query\QueryContext;
 use SMW\Query\QueryResult;
 use SMW\Services\ServicesFactory as ApplicationFactory;
 use SMWOutputs;
-
-// TODO when dropping support for MW1.39, use the following instead
-// use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LibraryBase;
 
 /**
  * @license GPL-2.0-or-later
@@ -18,7 +15,7 @@ use SMWOutputs;
  *
  * @author mwjames
  */
-class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
+class ScribuntoLuaLibrary extends LibraryBase {
 
 	/**
 	 * @var LibraryFactory
