@@ -58,7 +58,7 @@ class LibraryFactory {
 		$query = QueryProcessor::createQuery(
 			$queryString,
 			QueryProcessor::getProcessedParams( $parameters, $printouts ),
-			QueryContext::SPECIAL_PAGE,
+			QueryContext::INLINE_QUERY,
 			'',
 			$printouts
 		);
