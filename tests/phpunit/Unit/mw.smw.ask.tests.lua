@@ -13,7 +13,7 @@ local testframework = require 'Module:TestFramework'
 local tests = {
 	{ name = 'ask (nil argument)', func = mw.smw.ask,
 		args = { nil },
-		expect = { nil }
+		expect = 'Invalid parameter type supplied to smw.ask().'
 	},
 	{ name = 'ask (no argument)', func = mw.smw.ask,
 		args = { '' },
