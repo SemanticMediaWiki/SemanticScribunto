@@ -2,20 +2,20 @@
 
 namespace SMW\Scribunto;
 
+use Parser;
+use SMW\ParameterProcessorFactory;
 use SMW\ParserFunctions\SetParserFunction;
 use SMW\ParserFunctions\SubobjectParserFunction;
 use SMW\ParserParameterProcessor;
 use SMW\Query\QueryContext;
-use SMWQueryProcessor as QueryProcessor;
-use SMWQuery as Query;
 use SMW\Query\QueryResult;
-use SMW\Store;
 use SMW\Services\ServicesFactory as ApplicationFactory;
-use SMW\ParameterProcessorFactory;
-use \Parser;
+use SMW\Store;
+use SMWQuery as Query;
+use SMWQueryProcessor as QueryProcessor;
 
 /**
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
@@ -23,7 +23,7 @@ use \Parser;
 class LibraryFactory {
 
 	/**
-	 *@var Store
+	 * @var Store
 	 */
 	private $store;
 
@@ -38,17 +38,17 @@ class LibraryFactory {
 
 	/**
 	 * Creates a new QueryResult from passed arguments,
-	 * utilizing the {@see SMWQueryProcessor}
+	 * utilizing the {@see SMWQueryProcessor}.
+	 *
+	 * Note: SMW's Store::getQueryResult() returns a debug-output string rather
+	 * than a QueryResult when the query uses `format=debug` (and a handful of
+	 * other introspection formats). Callers must therefore handle either a
+	 * QueryResult or a string — see ScribuntoLuaLibrary::isAQueryResult().
 	 *
 	 * @since 1.0
-	 *
-	 * @param array $rawParameters
-	 *
-	 * @return QueryResult
 	 */
-	public function newQueryResultFrom( array $rawParameters ): QueryResult {
-
-		list( $queryString, $parameters, $printouts ) = QueryProcessor::getComponentsFromFunctionParams(
+	public function newQueryResultFrom( array $rawParameters ): QueryResult|string {
+		[ $queryString, $parameters, $printouts ] = QueryProcessor::getComponentsFromFunctionParams(
 			$rawParameters,
 			false
 		);

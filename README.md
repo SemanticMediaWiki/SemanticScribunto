@@ -1,8 +1,7 @@
 # Semantic Scribunto
 
-[![Build Status](https://github.com/SemanticMediaWiki/SemanticScribunto/actions/workflows/ci.yml/badge.svg)](https://github.com/oetterer/BootstrapComponents/actions/workflows/ci.yml)
-[![Code Coverage](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticScribunto/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticScribunto/?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticScribunto/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticScribunto/?branch=master)
+[![Build Status](https://github.com/SemanticMediaWiki/SemanticScribunto/actions/workflows/ci.yml/badge.svg)](https://github.com/SemanticMediaWiki/SemanticScribunto/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/SemanticMediaWiki/SemanticScribunto/graph/badge.svg)](https://codecov.io/gh/SemanticMediaWiki/SemanticScribunto)
 ![Latest Stable Version](https://img.shields.io/packagist/v/mediawiki/semantic-scribunto.svg)
 ![Packagist Download Count](https://img.shields.io/packagist/dt/mediawiki/semantic-scribunto.svg)
 
@@ -11,9 +10,9 @@ Semantic Scribunto (a.k.a. SSC) is a [Semantic Mediawiki][smw] extension to prov
 
 ## Requirements
 
-- PHP 7.3 or later
-- MediaWiki 1.39 or later
-- [Semantic MediaWiki][smw] 4.1 or later
+- PHP 8.1 or later
+- MediaWiki 1.43 or later
+- [Semantic MediaWiki][smw] 7.0 or later
 
 ## Installation
 
@@ -31,7 +30,7 @@ create one and add the following content to it:
 ```json
 {
 	"require": {
-		"mediawiki/semantic-scribunto": "~2.3"
+		"mediawiki/semantic-scribunto": "~7.0"
 	}
 }
 ```
@@ -39,7 +38,7 @@ create one and add the following content to it:
 If you already have a "composer.local.json" file add the following line to the end of the "require"
 section in your file:
 
-    "mediawiki/semantic-scribunto": "~2.3"
+    "mediawiki/semantic-scribunto": "~7.0"
 
 Remember to add a comma to the end of the preceding line in this section.
 
@@ -72,9 +71,9 @@ have a look at the contribution guideline.
 
 ## Tests
 
-This extension provides unit and integration tests that are run by a [continues integration platform][travis]
-but can also be executed using the `composer phpunit` command from the extension base directory that will
-run all tests. In order to run only a specific test suit, the following commands are provided for convenience:
+This extension provides unit and integration tests that are run by GitHub Actions on every push, and
+can also be executed locally using the `composer phpunit` command from the extension base directory.
+The following commands are provided for running specific suites:
 
 - `composer unit` to run all unit tests
 - `composer integration` to run all integration tests (which requires an active MediaWiki, DB connection)
@@ -85,7 +84,6 @@ run all tests. In order to run only a specific test suit, the following commands
 
 [smw]: https://github.com/SemanticMediaWiki/SemanticMediaWiki
 [contributors]: https://github.com/SemanticMediaWiki/SemanticScribunto/graphs/contributors
-[travis]: https://travis-ci.org/SemanticMediaWiki/SemanticScribunto
 [gpl-licence]: https://www.gnu.org/copyleft/gpl.html
 [composer]: https://getcomposer.org/
 [scri]: https://www.mediawiki.org/wiki/Extension:Scribunto

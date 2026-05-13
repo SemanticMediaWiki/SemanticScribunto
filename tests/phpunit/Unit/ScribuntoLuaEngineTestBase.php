@@ -3,8 +3,8 @@
 namespace SMW\Scribunto\Tests\Unit;
 
 use PHPUnit\Framework\TestResult;
-use SMW\Scribunto\ScribuntoLuaLibrary;
 use Scribunto_LuaEngineTestBase;
+use SMW\Scribunto\ScribuntoLuaLibrary;
 
 /**
  * Encapsulation of the Scribunto_LuaEngineTestBase class
@@ -12,13 +12,12 @@ use Scribunto_LuaEngineTestBase;
  * @group Test
  * @group Database
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
  */
-abstract class ScribuntoLuaEngineTestBase extends Scribunto_LuaEngineTestBase
-{
+abstract class ScribuntoLuaEngineTestBase extends Scribunto_LuaEngineTestBase {
 	/**
 	 * @var ScribuntoLuaLibrary
 	 */
@@ -34,7 +33,7 @@ abstract class ScribuntoLuaEngineTestBase extends Scribunto_LuaEngineTestBase
 
 	protected function tearDown(): void {
 		unset( $this->scribuntoLuaLibrary );
-		parent::tearDown();;
+		parent::tearDown();
 	}
 
 	/**
@@ -60,7 +59,6 @@ abstract class ScribuntoLuaEngineTestBase extends Scribunto_LuaEngineTestBase
 	 * @see Scribunto_LuaEngineTestBase -> MediaWikiTestCase
 	 */
 	protected function overrideMwServices( \Config $configOverrides = null, array $services = [] ) {
-
 		/**
 		 * `MediaWikiTestCase` isolates the result with  `MediaWikiTestResult` which
 		 * ecapsultes the commandline args and since we need to use "real" tables

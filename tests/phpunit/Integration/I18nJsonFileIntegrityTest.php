@@ -8,7 +8,7 @@ use SMW\Tests\Utils\UtilityFactory;
  * @group semantic-scribunto
  * @group medium
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
@@ -19,24 +19,22 @@ class I18nJsonFileIntegrityTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider i18nFileProvider
 	 */
 	public function testI18NJsonDecodeEncode( $file ) {
-
 		$jsonFileReader = UtilityFactory::getInstance()->newJsonFileReader( $file );
 
-		$this->assertInternalType(
-			'integer',
+		$this->assertIsInt(
+
 			$jsonFileReader->getModificationTime()
 		);
 
-		$this->assertInternalType(
-			'array',
+		$this->assertIsArray(
+
 			$jsonFileReader->read()
 		);
 	}
 
 	public function i18nFileProvider() {
-
 		$provider = [];
-		$location = $GLOBALS['wgMessagesDirs']['SemanticScribunto'];
+		$location = $GLOBALS['wgMessagesDirs']['SemanticScribunto'][0];
 
 		$bulkFileProvider = UtilityFactory::getInstance()->newBulkFileProvider( $location );
 		$bulkFileProvider->searchByFileExtension( 'json' );
