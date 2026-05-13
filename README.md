@@ -1,6 +1,7 @@
 # Semantic Scribunto
 
 [![Build Status](https://github.com/SemanticMediaWiki/SemanticScribunto/actions/workflows/ci.yml/badge.svg)](https://github.com/SemanticMediaWiki/SemanticScribunto/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/SemanticMediaWiki/SemanticScribunto/graph/badge.svg)](https://codecov.io/gh/SemanticMediaWiki/SemanticScribunto)
 ![Latest Stable Version](https://img.shields.io/packagist/v/mediawiki/semantic-scribunto.svg)
 ![Packagist Download Count](https://img.shields.io/packagist/dt/mediawiki/semantic-scribunto.svg)
 
