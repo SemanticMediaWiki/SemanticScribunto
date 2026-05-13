@@ -59,6 +59,9 @@ end
 
 -- ask
 function smw.ask( parameters )
+	if not validate( parameters ) then
+		error( 'Invalid parameter type supplied to smw.ask().' )
+	end
 	return php.ask( parameters )
 end
 
@@ -69,6 +72,9 @@ end
 
 -- getQueryResult
 function smw.getQueryResult( queryString )
+	if not validate( queryString ) then
+		error( 'Invalid parameter type supplied to smw.getQueryResult().' )
+	end
 	local queryResult = php.getQueryResult( queryString )
 	if queryResult == nil then return nil end
 	return queryResult
@@ -76,6 +82,12 @@ end
 
 -- info
 function smw.info( text, icon )
+	if not validate_type( text ) then
+		error( 'Invalid parameter type supplied to smw.info() (text must be string/number/boolean/nil).' )
+	end
+	if icon ~= nil and not validate_type( icon ) then
+		error( 'Invalid parameter type supplied to smw.info() (icon must be string/number/boolean/nil).' )
+	end
 	return php.info( text, icon )
 end
 

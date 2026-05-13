@@ -1,0 +1,53 @@
+{
+	"description": "Test `mw.smw.ask` respects `$smwgQMaxInlineLimit` (regression for QueryContext::INLINE_QUERY fix)",
+	"setup": [
+		{
+			"namespace": "SMW_NS_PROPERTY",
+			"page": "Has inline limit text",
+			"contents": "[[Has type::Text]]"
+		},
+		{
+			"namespace": "NS_MODULE",
+			"page": "smw",
+			"contents": {
+				"import-from": "/../Fixtures/module.smw.lua"
+			}
+		},
+		{ "page": "Scribunto/ask/005/0", "contents": "[[Has inline limit text::x]] [[Category:ask-005]]" },
+		{ "page": "Scribunto/ask/005/1", "contents": "[[Has inline limit text::x]] [[Category:ask-005]]" },
+		{ "page": "Scribunto/ask/005/2", "contents": "[[Has inline limit text::x]] [[Category:ask-005]]" },
+		{ "page": "Scribunto/ask/005/3", "contents": "[[Has inline limit text::x]] [[Category:ask-005]]" },
+		{ "page": "Scribunto/ask/005/4", "contents": "[[Has inline limit text::x]] [[Category:ask-005]]" },
+		{ "page": "Scribunto/ask/005/5", "contents": "[[Has inline limit text::x]] [[Category:ask-005]]" },
+		{ "page": "Scribunto/ask/005/6", "contents": "[[Has inline limit text::x]] [[Category:ask-005]]" },
+		{ "page": "Scribunto/ask/005/7", "contents": "[[Has inline limit text::x]] [[Category:ask-005]]" },
+		{ "page": "Scribunto/ask/005/8", "contents": "[[Has inline limit text::x]] [[Category:ask-005]]" },
+		{ "page": "Scribunto/ask/005/9", "contents": "[[Has inline limit text::x]] [[Category:ask-005]]" },
+		{
+			"page": "Scribunto/ask/005/Q",
+			"contents": "{{#invoke:smw|askCount|[[Category:ask-005]] [[Has inline limit text::+]]|?#-=page|limit=10000|mainlabel=-}}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 inline limit caps result at $smwgQMaxInlineLimit (5), not $smwgQMaxLimit (default 10000)",
+			"subject": "Scribunto/ask/005/Q",
+			"assert-output": {
+				"to-contain": [ "5" ],
+				"not-contain": [ "10", "6" ]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgQMaxInlineLimit": 5,
+		"smwgPageSpecialProperties": [ "_MDAT" ]
+	},
+	"meta": {
+		"version": "1",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

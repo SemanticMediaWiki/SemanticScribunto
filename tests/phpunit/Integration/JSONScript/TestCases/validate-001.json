@@ -1,0 +1,37 @@
+{
+	"description": "Test Lua-side validate() rejects too-deeply-nested input for mw.smw.ask",
+	"setup": [
+		{
+			"namespace": "NS_MODULE",
+			"page": "smw",
+			"contents": {
+				"import-from": "/../Fixtures/module.smw.lua"
+			}
+		},
+		{
+			"message-cache": "clear",
+			"page": "Validate/ask/Q",
+			"contents": "{{#invoke:smw|askInvalid}}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 deeply nested table raises validate error",
+			"subject": "Validate/ask/Q",
+			"assert-output": {
+				"to-contain": [ "Invalid parameter type supplied to smw.ask()" ]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en",
+		"smwgPageSpecialProperties": [ "_MDAT" ]
+	},
+	"meta": {
+		"version": "1",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

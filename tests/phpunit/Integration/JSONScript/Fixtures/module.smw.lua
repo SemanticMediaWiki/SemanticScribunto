@@ -16,6 +16,33 @@ function p.ask( frame )
     return convertResultTableToString( queryResult )
 end
 
+function p.askCount( frame )
+    if not mw.smw then
+        return "mw.smw module not found"
+    end
+    if frame.args[1] == nil then
+        return "no parameter found"
+    end
+    local queryResult = mw.smw.ask( frame.args )
+    if type( queryResult ) ~= 'table' then
+        return "(no values)"
+    end
+    return tostring( #queryResult )
+end
+
+function p.askInvalid( frame )
+    if not mw.smw then
+        return "mw.smw module not found"
+    end
+    -- Build a table too deep for validate() (3 levels).
+    local badInput = { foo = { bar = { 'too', 'deep' } } }
+    local ok, errMsg = pcall( mw.smw.ask, badInput )
+    if ok then
+        return "expected validate to fail but it did not"
+    end
+    return tostring( errMsg )
+end
+
 function p.getQueryResult( frame )
 
     if not mw.smw then

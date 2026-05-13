@@ -25,7 +25,7 @@
 				"to-contain": [
 					"mw-parser-output",
 					"scribunto-error",
-					"Lua error in mw.smw.lua at line 85: Invalid parameter type supplied to smw.set()."
+					"Lua error in mw.smw.lua at line 97: Invalid parameter type supplied to smw.set()."
 				]
 			}
 		}
