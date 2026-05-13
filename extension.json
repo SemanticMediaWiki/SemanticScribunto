@@ -14,7 +14,7 @@
 		"MediaWiki": ">= 1.43",
 		"extensions": {
 			"Scribunto": "*",
-			"SemanticMediaWiki": ">= 6.0"
+			"SemanticMediaWiki": ">= 7.0"
 		}
 	},
 	"AutoloadNamespaces": {

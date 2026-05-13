@@ -9,6 +9,7 @@ MediaWiki's major version. Subsequent releases follow the same convention.
 Versions 3.x through 6.x were never released and are intentionally skipped to
 align with SMW.
 
+* Raise minimum Semantic MediaWiki to 7.0 to match this extension's major.
 * CI modernisation: drop MediaWiki < 1.43 and PHP < 8.1 from the test matrix.
   Add MediaWiki 1.43 / 1.44 / 1.45 jobs running PHP 8.1–8.4 against MariaDB
   via the gesinn-it `docker-compose-ci` framework.
