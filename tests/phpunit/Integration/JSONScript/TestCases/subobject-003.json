@@ -29,7 +29,7 @@
 				"to-contain": [
 					"mw-parser-output",
 					"scribunto-error",
-					"Lua error in mw.smw.lua at line 93: Invalid parameter type supplied to smw.subobject()."
+					"Lua error in mw.smw.lua at line 105: Invalid parameter type supplied to smw.subobject()."
 				]
 			}
 		},
@@ -44,7 +44,7 @@
 				"to-contain": [
 					"mw-parser-output",
 					"scribunto-error",
-					"Lua error in mw.smw.lua at line 96: Invalid type for subobject id supplied to smw.subobject()."
+					"Lua error in mw.smw.lua at line 108: Invalid type for subobject id supplied to smw.subobject()."
 				]
 			}
 		}
