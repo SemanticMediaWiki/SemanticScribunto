@@ -2,7 +2,6 @@
 
 namespace SMW\Scribunto\Integration\JSONScript;
 
-use MediaWiki\MediaWikiServices;
 use SMW\Tests\JSONScriptServicesTestCaseRunner;
 use SMW\Tests\JSONScriptTestCaseRunner;
 
@@ -30,29 +29,6 @@ use SMW\Tests\JSONScriptTestCaseRunner;
  * @author mwjames
  */
 class SemanticScribuntoJsonTestCaseScriptRunnerTest extends JSONScriptServicesTestCaseRunner {
-
-	protected function setUp(): void {
-		parent::setUp();
-
-		// SMW's MwHooksHandler::deregisterListedHooks (called from
-		// JSONScriptTestCaseRunner::setUp) issues HookContainer::clear() against
-		// every hook in its list, including ParserFirstCallInit. clear() wipes
-		// ALL handlers for the hook — not just SMW's — and the subsequent
-		// invokeHooksFromRegistry() only restores SMW's. Without this re-register,
-		// Scribunto's #invoke parser function is missing during the test parse
-		// and {{#invoke:...}} renders literally.
-		//
-		// Read the handler spec dynamically from Scribunto's extension.json so
-		// the test stays compatible across MW versions where Scribunto's
-		// constructor service list changes.
-		$services = MediaWikiServices::getInstance();
-		$scribuntoExtJsonPath = $services->getMainConfig()->get( 'ExtensionDirectory' ) . '/Scribunto/extension.json';
-		$scribuntoConfig = json_decode( file_get_contents( $scribuntoExtJsonPath ), true );
-		$pfciHandlerName = $scribuntoConfig['Hooks']['ParserFirstCallInit'];
-		$handlerSpec = $scribuntoConfig['HookHandlers'][$pfciHandlerName];
-		$handler = $services->getObjectFactory()->createObject( $handlerSpec, [ 'allowClassName' => true ] );
-		$services->getHookContainer()->register( 'ParserFirstCallInit', [ $handler, 'onParserFirstCallInit' ] );
-	}
 
 	/**
 	 * @see JSONScriptTestCaseRunner::getRequiredJsonTestCaseMinVersion
