@@ -38,15 +38,16 @@ class LibraryFactory {
 
 	/**
 	 * Creates a new QueryResult from passed arguments,
-	 * utilizing the {@see SMWQueryProcessor}
+	 * utilizing the {@see SMWQueryProcessor}.
+	 *
+	 * Note: SMW's Store::getQueryResult() returns a debug-output string rather
+	 * than a QueryResult when the query uses `format=debug` (and a handful of
+	 * other introspection formats). Callers must therefore handle either a
+	 * QueryResult or a string — see ScribuntoLuaLibrary::isAQueryResult().
 	 *
 	 * @since 1.0
-	 *
-	 * @param array $rawParameters
-	 *
-	 * @return QueryResult
 	 */
-	public function newQueryResultFrom( array $rawParameters ): QueryResult {
+	public function newQueryResultFrom( array $rawParameters ): QueryResult|string {
 		[ $queryString, $parameters, $printouts ] = QueryProcessor::getComponentsFromFunctionParams(
 			$rawParameters,
 			false

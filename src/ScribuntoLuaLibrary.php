@@ -61,12 +61,15 @@ class ScribuntoLuaLibrary extends LibraryBase {
 			$this->processLuaArguments( $arguments )
 		);
 
-		if ( $queryResult->getQuery()->getQueryMode() == QueryContext::MODE_COUNT ) {
-			return [ $queryResult->getCountValue() ];
-		}
-
+		// newQueryResultFrom returns a debug-output string instead of a QueryResult
+		// when format=debug (and a few similar formats). Bail out before any
+		// member access in that case.
 		if ( !$this->isAQueryResult( $queryResult ) ) {
 			return [ $queryResult ];
+		}
+
+		if ( $queryResult->getQuery()->getQueryMode() == QueryContext::MODE_COUNT ) {
+			return [ $queryResult->getCountValue() ];
 		}
 
 		$luaResultProcessor = $this->getLibraryFactory()->newLuaAskResultProcessor(
