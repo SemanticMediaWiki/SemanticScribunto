@@ -22,35 +22,35 @@ use SMW\Query\Result\ResultArray;
 class LuaAskResultProcessor {
 
 	/**
-	 * Holds all possible representations of "true" in this smw instance
-	 *
-	 * @var array
+	 * Cached representations of "true" — shared across all processor instances
+	 * within a request because the message bundle is request-stable.
 	 */
-	private $msgTrue;
+	private static ?array $msgTrue = null;
 
 	/**
-	 * This counter serves as fallback, if no label for printout is specified
-	 *
-	 * @var int
+	 * Fallback index for printouts without a label.
 	 */
-	private $numericIndex;
+	private int $numericIndex;
+
+	private QueryResult $queryResult;
+
+	private readonly Linker $linker;
 
 	/**
-	 * Holds the query result for this object
+	 * Memoised PrintRequest labels, keyed by spl_object_id.
+	 * Per-processor (i.e. per-ask-call) scope.
 	 *
-	 * @var QueryResult
+	 * @var array<int, int|string>
 	 */
-	private $queryResult;
+	private array $printRequestLabels = [];
 
-	/**
-	 * LuaAskResultProcessor constructor.
-	 *
-	 * @param QueryResult $queryResult
-	 */
 	public function __construct( QueryResult $queryResult ) {
 		$this->queryResult = $queryResult;
-		$this->msgTrue = explode( ',', wfMessage( 'smw_true_words' )->text() . ',true,t,yes,y' );
+		if ( self::$msgTrue === null ) {
+			self::$msgTrue = explode( ',', wfMessage( 'smw_true_words' )->text() . ',true,t,yes,y' );
+		}
 		$this->numericIndex = 1;
+		$this->linker = new Linker();
 	}
 
 	/**
@@ -138,11 +138,15 @@ class LuaAskResultProcessor {
 	 * @return int|string
 	 */
 	public function getKeyFromPrintRequest( PrintRequest $printRequest ) {
-		if ( $printRequest->getLabel() !== '' ) {
-			return $printRequest->getText( SMW_OUTPUT_WIKI );
+		$id = spl_object_id( $printRequest );
+		if ( isset( $this->printRequestLabels[$id] ) ) {
+			return $this->printRequestLabels[$id];
 		}
-
-		return $this->getNumericIndex();
+		$label = $printRequest->getLabel() !== ''
+			? $printRequest->getText( SMW_OUTPUT_WIKI )
+			: $this->getNumericIndex();
+		$this->printRequestLabels[$id] = $label;
+		return $label;
 	}
 
 	/**
@@ -157,7 +161,7 @@ class LuaAskResultProcessor {
 		switch ( $dataValue->getTypeID() ) {
 			case '_boo':
 				// boolean value found, convert it
-				$value = in_array( strtolower( $dataValue->getWikiValue() ?? 'null' ), $this->msgTrue );
+				$value = in_array( strtolower( $dataValue->getWikiValue() ?? 'null' ), self::$msgTrue );
 				break;
 			case '_num':
 				// number value found
@@ -167,7 +171,7 @@ class LuaAskResultProcessor {
 				break;
 			default:
 				# FIXME ignores parameter link=none|subject
-				$value = $dataValue->getShortText( SMW_OUTPUT_WIKI, new Linker() );
+				$value = $dataValue->getShortText( SMW_OUTPUT_WIKI, $this->linker );
 		}
 
 		return $value;

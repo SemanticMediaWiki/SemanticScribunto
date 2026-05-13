@@ -130,7 +130,7 @@ class ScribuntoLuaLibrary extends LibraryBase {
 		if ( !empty( $result["results"] ) ) {
 			// as of now, "results" has page names as keys. lua is not very good, keeping non-number keys in order
 			// so replace string keys with the corresponding number, starting with 0.
-			$result["results"] = array_combine( range( 0, count( $result["results"] ) - 1 ), array_values( $result["results"] ) );
+			$result["results"] = array_values( $result["results"] );
 		}
 
 		return [ $this->convertArrayToLuaTable( $result ) ];
@@ -254,21 +254,26 @@ class ScribuntoLuaLibrary extends LibraryBase {
 	}
 
 	/**
-	 * This takes an array and converts it so, that the result is a viable lua table.
-	 * I.e. the resulting table has its numerical indices start with 1
-	 * If `$ar` is not an array, it is simply returned
-	 * @param mixed $ar
-	 * @return mixed array
+	 * Converts an array into a shape suitable for a Lua table: integer keys shift
+	 * by +1 (Lua arrays are 1-indexed), string keys are left untouched. Recurses
+	 * into nested arrays. Non-array inputs are returned unchanged.
+	 *
+	 * Precondition: integer-keyed inputs are expected to use contiguous 0-based
+	 * indices (as produced by `array_values()` or `QueryResultSerializer` output).
+	 * Sparse integer keys are shifted by +1 here rather than re-indexed to a
+	 * contiguous sequence — diverging from the pre-7.0 `array_unshift` + `unset`
+	 * implementation. No caller in this codebase feeds sparse keys.
 	 */
 	private function convertArrayToLuaTable( $ar ) {
-		if ( is_array( $ar ) ) {
-			foreach ( $ar as $key => $value ) {
-				$ar[$key] = $this->convertArrayToLuaTable( $value );
-			}
-			array_unshift( $ar, '' );
-			unset( $ar[0] );
+		if ( !is_array( $ar ) ) {
+			return $ar;
 		}
-		return $ar;
+		$result = [];
+		foreach ( $ar as $key => $value ) {
+			$newKey = is_int( $key ) ? $key + 1 : $key;
+			$result[$newKey] = $this->convertArrayToLuaTable( $value );
+		}
+		return $result;
 	}
 
 	/**
@@ -307,7 +312,7 @@ class ScribuntoLuaLibrary extends LibraryBase {
 	 * @return LibraryFactory
 	 */
 	private function getLibraryFactory(): LibraryFactory {
-		if ( !empty( $this->libraryFactory ) ) {
+		if ( isset( $this->libraryFactory ) ) {
 			return $this->libraryFactory;
 		}
 
