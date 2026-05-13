@@ -254,11 +254,15 @@ class ScribuntoLuaLibrary extends LibraryBase {
 	}
 
 	/**
-	 * This takes an array and converts it so, that the result is a viable lua table.
-	 * I.e. the resulting table has its numerical indices start with 1
-	 * If `$ar` is not an array, it is simply returned
-	 * @param mixed $ar
-	 * @return mixed array
+	 * Converts an array into a shape suitable for a Lua table: integer keys shift
+	 * by +1 (Lua arrays are 1-indexed), string keys are left untouched. Recurses
+	 * into nested arrays. Non-array inputs are returned unchanged.
+	 *
+	 * Precondition: integer-keyed inputs are expected to use contiguous 0-based
+	 * indices (as produced by `array_values()` or `QueryResultSerializer` output).
+	 * Sparse integer keys are shifted by +1 here rather than re-indexed to a
+	 * contiguous sequence — diverging from the pre-7.0 `array_unshift` + `unset`
+	 * implementation. No caller in this codebase feeds sparse keys.
 	 */
 	private function convertArrayToLuaTable( $ar ) {
 		if ( !is_array( $ar ) ) {
