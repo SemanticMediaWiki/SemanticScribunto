@@ -22,7 +22,7 @@ jobs:
             scribunto_version: REL1_43
             php_version: 8.1
             database_type: mysql
-            database_image: "mariadb:10"
+            database_image: "mariadb:11.2"
             coverage: false
             experimental: false
           - mediawiki_version: '1.43'
