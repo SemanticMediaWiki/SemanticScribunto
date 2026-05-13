@@ -130,7 +130,7 @@ class ScribuntoLuaLibrary extends LibraryBase {
 		if ( !empty( $result["results"] ) ) {
 			// as of now, "results" has page names as keys. lua is not very good, keeping non-number keys in order
 			// so replace string keys with the corresponding number, starting with 0.
-			$result["results"] = array_combine( range( 0, count( $result["results"] ) - 1 ), array_values( $result["results"] ) );
+			$result["results"] = array_values( $result["results"] );
 		}
 
 		return [ $this->convertArrayToLuaTable( $result ) ];
@@ -261,14 +261,15 @@ class ScribuntoLuaLibrary extends LibraryBase {
 	 * @return mixed array
 	 */
 	private function convertArrayToLuaTable( $ar ) {
-		if ( is_array( $ar ) ) {
-			foreach ( $ar as $key => $value ) {
-				$ar[$key] = $this->convertArrayToLuaTable( $value );
-			}
-			array_unshift( $ar, '' );
-			unset( $ar[0] );
+		if ( !is_array( $ar ) ) {
+			return $ar;
 		}
-		return $ar;
+		$result = [];
+		foreach ( $ar as $key => $value ) {
+			$newKey = is_int( $key ) ? $key + 1 : $key;
+			$result[$newKey] = $this->convertArrayToLuaTable( $value );
+		}
+		return $result;
 	}
 
 	/**
@@ -307,7 +308,7 @@ class ScribuntoLuaLibrary extends LibraryBase {
 	 * @return LibraryFactory
 	 */
 	private function getLibraryFactory(): LibraryFactory {
-		if ( !empty( $this->libraryFactory ) ) {
+		if ( isset( $this->libraryFactory ) ) {
 			return $this->libraryFactory;
 		}
 
