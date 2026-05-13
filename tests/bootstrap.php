@@ -12,9 +12,8 @@ ini_set( 'display_errors', 1 );
 #	die( "\nThe Semantic MediaWiki test autoloader is not available" );
 # }
 
-if ( !defined( 'SMW_SCRIBUNTO_VERSION' ) ) {
-	die( "\nSemantic Scribunto is not available or loaded, please check your Composer or LocalSettings.\n" );
-}
+$extensionCredits = json_decode( file_get_contents( __DIR__ . '/../extension.json' ), true );
+$semanticScribuntoVersion = $extensionCredits['version'] ?? 'UNKNOWN';
 
 $lua = 'n/a';
 
@@ -23,7 +22,7 @@ if ( class_exists( $luaInterpreterClass ) && method_exists( $luaInterpreterClass
 	$lua = $luaInterpreterClass::getLuaVersion( [ 'luaPath' => null ] );
 }
 
-print sprintf( "\n%-20s%s\n", "Semantic Scribunto: ", SMW_SCRIBUNTO_VERSION );
+print sprintf( "\n%-20s%s\n", "Semantic Scribunto: ", $semanticScribuntoVersion );
 print sprintf( "%-20s%s\n", "Lua version: ", $lua );
 
 // What is the Scribunto version?? Who knows ..., it doesn't have a version number
