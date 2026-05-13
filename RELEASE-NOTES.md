@@ -16,6 +16,13 @@ align with SMW.
   another format whose store result is a string rather than a `QueryResult`).
 * Removed the undocumented `SMW_SCRIBUNTO_VERSION` PHP constant. Dependency
   checks are now handled entirely by `extension.json`'s `requires` block.
+* `mw.smw.ask` and `mw.smw.getQueryResult` now run as inline queries
+  (matching the actual call site inside page parsing) instead of being
+  mis-tagged as special-page queries. The practical effect is that the
+  default result cap is `$smwgQMaxInlineLimit` (default 500) instead of
+  `$smwgQMaxLimit` (default 10000). Wikis that need higher limits in
+  Lua-driven reports should raise `$smwgQMaxInlineLimit` in
+  `LocalSettings.php`.
 
 ## 2.3.3
 
