@@ -2,17 +2,17 @@
 
 namespace SMW\Scribunto;
 
-use Parser;
+use MediaWiki\Parser\Parser;
 use SMW\ParameterProcessorFactory;
 use SMW\ParserFunctions\SetParserFunction;
 use SMW\ParserFunctions\SubobjectParserFunction;
 use SMW\ParserParameterProcessor;
+use SMW\Query\Query;
 use SMW\Query\QueryContext;
+use SMW\Query\QueryProcessor;
 use SMW\Query\QueryResult;
 use SMW\Services\ServicesFactory as ApplicationFactory;
 use SMW\Store;
-use SMWQuery as Query;
-use SMWQueryProcessor as QueryProcessor;
 
 /**
  * @license GPL-2.0-or-later
@@ -38,7 +38,7 @@ class LibraryFactory {
 
 	/**
 	 * Creates a new QueryResult from passed arguments,
-	 * utilizing the {@see SMWQueryProcessor}.
+	 * utilizing the {@see QueryProcessor}.
 	 *
 	 * Note: SMW's Store::getQueryResult() returns a debug-output string rather
 	 * than a QueryResult when the query uses `format=debug` (and a handful of
@@ -63,7 +63,7 @@ class LibraryFactory {
 			$printouts
 		);
 
-		if ( defined( 'SMWQuery::PROC_CONTEXT' ) ) {
+		if ( defined( Query::class . '::PROC_CONTEXT' ) ) {
 			$query->setOption( Query::PROC_CONTEXT, 'SSC.LibraryFactory' );
 		}
 

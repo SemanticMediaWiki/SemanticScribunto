@@ -2,12 +2,13 @@
 
 namespace SMW\Scribunto\Tests\Unit;
 
+use MediaWiki\Config\Config;
+use MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon\LuaEngineTestBase;
 use PHPUnit\Framework\TestResult;
-use Scribunto_LuaEngineTestBase;
 use SMW\Scribunto\ScribuntoLuaLibrary;
 
 /**
- * Encapsulation of the Scribunto_LuaEngineTestBase class
+ * Encapsulation of the LuaEngineTestBase class
  *
  * @group Test
  * @group Database
@@ -17,7 +18,7 @@ use SMW\Scribunto\ScribuntoLuaLibrary;
  *
  * @author mwjames
  */
-abstract class ScribuntoLuaEngineTestBase extends Scribunto_LuaEngineTestBase {
+abstract class ScribuntoLuaEngineTestBase extends LuaEngineTestBase {
 	/**
 	 * @var ScribuntoLuaLibrary
 	 */
@@ -56,9 +57,9 @@ abstract class ScribuntoLuaEngineTestBase extends Scribunto_LuaEngineTestBase {
 	}
 
 	/**
-	 * @see Scribunto_LuaEngineTestBase -> MediaWikiTestCase
+	 * @see LuaEngineTestBase -> MediaWikiIntegrationTestCase
 	 */
-	protected function overrideMwServices( \Config $configOverrides = null, array $services = [] ) {
+	protected function overrideMwServices( ?Config $configOverrides = null, array $services = [] ) {
 		/**
 		 * `MediaWikiTestCase` isolates the result with  `MediaWikiTestResult` which
 		 * ecapsultes the commandline args and since we need to use "real" tables

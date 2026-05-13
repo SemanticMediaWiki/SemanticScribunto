@@ -3,12 +3,12 @@
 namespace SMW\Scribunto\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
+use SMW\DataValues\NumberValue;
 use SMW\DataValues\StringValue;
 use SMW\Query\PrintRequest;
 use SMW\Query\QueryResult;
 use SMW\Query\Result\ResultArray;
 use SMW\Scribunto\LuaAskResultProcessor;
-use SMWNumberValue;
 
 /**
  * @covers \SMW\Scribunto\LuaAskResultProcessor
@@ -244,7 +244,7 @@ class LuaAskResultProcessorTest extends TestCase {
 	 */
 	public function dataProviderGetValueFromDataValueTest() {
 		return [
-			[ SMWNumberValue::class, '_num', 'assertIsInt' ],
+			[ NumberValue::class, '_num', 'assertIsInt' ],
 			[ \SMWWikiPageValue::class, '_wpg', 'assertNull' ],
 			[ StringValue::class, '_boo', 'assertIsBool' ],
 			[ \SMWTimeValue::class, '_dat', 'assertNull' ],
@@ -302,10 +302,10 @@ class LuaAskResultProcessorTest extends TestCase {
 	}
 
 	/**
-	 * Constructs a mock {@see \SMWNumberValue}
+	 * Constructs a mock {@see NumberValue}
 	 */
 	private function constructSMWNumberValue() {
-		$printRequest = $this->getMockBuilder( SMWNumberValue::class )
+		$printRequest = $this->getMockBuilder( NumberValue::class )
 			->setConstructorArgs( [ '_num' ] )
 			->getMock();
 

@@ -3,11 +3,11 @@
 namespace SMW\Scribunto;
 
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LibraryBase;
-use SMW\DIProperty;
+use SMW\DataItems\Property;
+use SMW\MediaWiki\Outputs;
 use SMW\Query\QueryContext;
 use SMW\Query\QueryResult;
 use SMW\Services\ServicesFactory as ApplicationFactory;
-use SMWOutputs;
 
 /**
  * @license GPL-2.0-or-later
@@ -98,7 +98,7 @@ class ScribuntoLuaLibrary extends LibraryBase {
 			return [ null ];
 		}
 
-		$property = DIProperty::newFromUserLabel( $propertyName );
+		$property = Property::newFromUserLabel( $propertyName );
 
 		if ( $property === null ) {
 			return [ null ];
@@ -167,8 +167,8 @@ class ScribuntoLuaLibrary extends LibraryBase {
 			false // No escaping.
 		);
 
-		// to have all necessary data committed to output, use SMWOutputs::commitToParser()
-		SMWOutputs::commitToParser(
+		// to have all necessary data committed to output, use Outputs::commitToParser()
+		Outputs::commitToParser(
 			$this->getEngine()->getParser()
 		);
 
