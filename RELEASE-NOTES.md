@@ -14,6 +14,8 @@ align with SMW.
 * Minimum requirement for Semantic MediaWiki raised to 7.0.
 * Fixed a fatal error when calling `mw.smw.ask` with `format=debug` (or
   another format whose store result is a string rather than a `QueryResult`).
+* Removed the undocumented `SMW_SCRIBUNTO_VERSION` PHP constant. Dependency
+  checks are now handled entirely by `extension.json`'s `requires` block.
 
 ## 2.3.3
 
