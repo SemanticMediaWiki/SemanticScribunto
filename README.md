@@ -1,8 +1,6 @@
 # Semantic Scribunto
 
-[![Build Status](https://github.com/SemanticMediaWiki/SemanticScribunto/actions/workflows/ci.yml/badge.svg)](https://github.com/oetterer/BootstrapComponents/actions/workflows/ci.yml)
-[![Code Coverage](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticScribunto/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticScribunto/?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticScribunto/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticScribunto/?branch=master)
+[![Build Status](https://github.com/SemanticMediaWiki/SemanticScribunto/actions/workflows/ci.yml/badge.svg)](https://github.com/SemanticMediaWiki/SemanticScribunto/actions/workflows/ci.yml)
 ![Latest Stable Version](https://img.shields.io/packagist/v/mediawiki/semantic-scribunto.svg)
 ![Packagist Download Count](https://img.shields.io/packagist/dt/mediawiki/semantic-scribunto.svg)
 
@@ -72,9 +70,9 @@ have a look at the contribution guideline.
 
 ## Tests
 
-This extension provides unit and integration tests that are run by a [continues integration platform][travis]
-but can also be executed using the `composer phpunit` command from the extension base directory that will
-run all tests. In order to run only a specific test suit, the following commands are provided for convenience:
+This extension provides unit and integration tests that are run by GitHub Actions on every push, and
+can also be executed locally using the `composer phpunit` command from the extension base directory.
+The following commands are provided for running specific suites:
 
 - `composer unit` to run all unit tests
 - `composer integration` to run all integration tests (which requires an active MediaWiki, DB connection)
@@ -85,7 +83,6 @@ run all tests. In order to run only a specific test suit, the following commands
 
 [smw]: https://github.com/SemanticMediaWiki/SemanticMediaWiki
 [contributors]: https://github.com/SemanticMediaWiki/SemanticScribunto/graphs/contributors
-[travis]: https://travis-ci.org/SemanticMediaWiki/SemanticScribunto
 [gpl-licence]: https://www.gnu.org/copyleft/gpl.html
 [composer]: https://getcomposer.org/
 [scri]: https://www.mediawiki.org/wiki/Extension:Scribunto
