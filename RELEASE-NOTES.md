@@ -23,6 +23,13 @@ align with SMW.
   `$smwgQMaxLimit` (default 10000). Wikis that need higher limits in
   Lua-driven reports should raise `$smwgQMaxInlineLimit` in
   `LocalSettings.php`.
+* `mw.smw.ask`, `mw.smw.getQueryResult`, and `mw.smw.info` now raise a
+  Lua error on invalid argument shapes (nested-too-deep tables,
+  non-scalar values, or `nil` where a value is required). Previously
+  the same inputs silently produced empty results or leaked PHP
+  warnings from `processLuaArguments` when `display_errors=On`. Lua
+  modules calling these functions without arguments will now error
+  instead of receiving a degenerate empty response.
 
 ## 2.3.3
 
