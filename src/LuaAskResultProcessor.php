@@ -3,10 +3,11 @@
 namespace SMW\Scribunto;
 
 use MediaWiki\Linker\Linker;
+use SMW\DataValues\DataValue;
+use SMW\DataValues\NumberValue;
 use SMW\Query\PrintRequest;
 use SMW\Query\QueryResult;
 use SMW\Query\Result\ResultArray;
-use SMWDataValue as DataValue;
 
 /**
  * Class LuaAskResultProcessor
@@ -160,7 +161,7 @@ class LuaAskResultProcessor {
 				break;
 			case '_num':
 				// number value found
-				/** @var \SMWNumberValue $dataValue */
+				/** @var NumberValue $dataValue */
 				$value = $dataValue->getNumber();
 				$value = ( $value == (int)$value ) ? intval( $value ) : $value;
 				break;
