@@ -10,9 +10,9 @@ Semantic Scribunto (a.k.a. SSC) is a [Semantic Mediawiki][smw] extension to prov
 
 ## Requirements
 
-- PHP 7.3 or later
-- MediaWiki 1.39 or later
-- [Semantic MediaWiki][smw] 4.1 or later
+- PHP 8.1 or later
+- MediaWiki 1.43 or later
+- [Semantic MediaWiki][smw] 7.0 or later
 
 ## Installation
 
@@ -30,7 +30,7 @@ create one and add the following content to it:
 ```json
 {
 	"require": {
-		"mediawiki/semantic-scribunto": "~2.3"
+		"mediawiki/semantic-scribunto": "~7.0"
 	}
 }
 ```
@@ -38,7 +38,7 @@ create one and add the following content to it:
 If you already have a "composer.local.json" file add the following line to the end of the "require"
 section in your file:
 
-    "mediawiki/semantic-scribunto": "~2.3"
+    "mediawiki/semantic-scribunto": "~7.0"
 
 Remember to add a comma to the end of the preceding line in this section.
 
