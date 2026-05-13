@@ -1,5 +1,26 @@
 This file contains the RELEASE-NOTES of the **Semantic Scribunto** (a.k.a. SSC) extension.
 
+## 7.0.0
+
+Not yet released.
+
+Starting with this release, Semantic Scribunto's major version tracks Semantic
+MediaWiki's major version. Subsequent releases follow the same convention.
+Versions 3.x through 6.x were never released and are intentionally skipped to
+align with SMW.
+
+* CI modernisation: drop MediaWiki < 1.43 and PHP < 8.1 from the test matrix.
+  Add MediaWiki 1.43 / 1.44 / 1.45 jobs running PHP 8.1–8.4 against MariaDB
+  via the gesinn-it `docker-compose-ci` framework.
+* Fix `{{#invoke}}` not being executed inside JSON-script integration tests
+  (Scribunto's `ParserFirstCallInit` handler was being clobbered by SMW's
+  test infrastructure; see [SMW#6797](https://github.com/SemanticMediaWiki/SemanticMediaWiki/issues/6797)).
+* Fix `TypeError` from `LibraryFactory::newQueryResultFrom` when `mw.smw.ask`
+  is called with `format=debug` (and similar introspection formats) where
+  `Store::getQueryResult` returns a string rather than a `QueryResult`.
+* Use the MediaWiki-namespaced `LibraryBase` class; drop the legacy
+  `Scribunto_LuaLibraryBase` alias path.
+
 ## 2.3.3
 
 Released on October 10, 2025
