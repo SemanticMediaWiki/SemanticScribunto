@@ -39,10 +39,13 @@ Because the repository is public and can be watched by potential attackers,
 please avoid describing the vulnerability in public channels, including commit
 messages and issue comments, until a fix has been released.
 
-## Vulnerabilities in MediaWiki core
+## Vulnerabilities in MediaWiki or Semantic MediaWiki
 
-Semantic Scribunto is an extension to MediaWiki. If the issue is in MediaWiki
-core or another extension rather than in Semantic Scribunto itself, please
-report it to the
-[Wikimedia security team](https://www.mediawiki.org/wiki/Reporting_security_bugs)
-instead.
+Semantic Scribunto is an extension to MediaWiki that builds on Semantic
+MediaWiki. If the issue is actually in one of those rather than in Semantic
+Scribunto itself, please report it there instead:
+
+- For Semantic MediaWiki, use its
+  [private vulnerability reporting](https://github.com/SemanticMediaWiki/SemanticMediaWiki/security/advisories/new).
+- For MediaWiki core or another extension, contact the
+  [Wikimedia security team](https://www.mediawiki.org/wiki/Reporting_security_bugs).
