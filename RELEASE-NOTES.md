@@ -1,13 +1,8 @@
 This file contains the RELEASE-NOTES of the **Semantic Scribunto** (a.k.a. SSC) extension.
 
-## 7.0.0
+## 3.0.0
 
 Not yet released.
-
-Starting with this release, Semantic Scribunto's major version tracks Semantic
-MediaWiki's major version. Subsequent releases follow the same convention.
-Versions 3.x through 6.x were never released and are intentionally skipped to
-align with SMW.
 
 * Minimum requirement for PHP raised to 8.1.
 * Minimum requirement for MediaWiki raised to 1.43.
