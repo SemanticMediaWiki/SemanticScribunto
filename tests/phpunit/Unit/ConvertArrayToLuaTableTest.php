@@ -17,7 +17,7 @@ use SMW\Scribunto\ScribuntoLuaLibrary;
  * @group semantic-scribunto
  *
  * @license GPL-2.0-or-later
- * @since 7.0.0
+ * @since 3.0.0
  */
 class ConvertArrayToLuaTableTest extends TestCase {
 
