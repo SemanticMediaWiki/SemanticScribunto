@@ -1,6 +1,6 @@
 # Semantic Scribunto
 
-[![Build Status](https://github.com/SemanticMediaWiki/SemanticScribunto/actions/workflows/ci.yml/badge.svg)](https://github.com/SemanticMediaWiki/SemanticScribunto/actions/workflows/ci.yml)
+[![CI](https://github.com/SemanticMediaWiki/SemanticScribunto/actions/workflows/ci.yml/badge.svg)](https://github.com/SemanticMediaWiki/SemanticScribunto/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/SemanticMediaWiki/SemanticScribunto/graph/badge.svg)](https://codecov.io/gh/SemanticMediaWiki/SemanticScribunto)
 ![Latest Stable Version](https://img.shields.io/packagist/v/mediawiki/semantic-scribunto.svg)
 ![Packagist Download Count](https://img.shields.io/packagist/dt/mediawiki/semantic-scribunto.svg)
@@ -30,7 +30,7 @@ create one and add the following content to it:
 ```json
 {
 	"require": {
-		"mediawiki/semantic-scribunto": "~7.0"
+		"mediawiki/semantic-scribunto": "~3.0"
 	}
 }
 ```
@@ -38,7 +38,7 @@ create one and add the following content to it:
 If you already have a "composer.local.json" file add the following line to the end of the "require"
 section in your file:
 
-    "mediawiki/semantic-scribunto": "~7.0"
+    "mediawiki/semantic-scribunto": "~3.0"
 
 Remember to add a comma to the end of the preceding line in this section.
 
@@ -71,8 +71,8 @@ have a look at the contribution guideline.
 
 ## Tests
 
-This extension provides unit and integration tests that are run by GitHub Actions on every push, and
-can also be executed locally using the `composer phpunit` command from the extension base directory.
+This extension provides unit and integration tests and is usually run by a [continues integration platform][GitHub Actions]
+but can also be executed locally using the shortcut command `composer phpunit` from the extension base directory.
 The following commands are provided for running specific suites:
 
 - `composer unit` to run all unit tests
@@ -83,6 +83,7 @@ The following commands are provided for running specific suites:
 [GNU General Public License, version 2 or later][gpl-licence].
 
 [smw]: https://github.com/SemanticMediaWiki/SemanticMediaWiki
+[GitHub Actions]: https://docs.github.com/en/actions
 [contributors]: https://github.com/SemanticMediaWiki/SemanticScribunto/graphs/contributors
 [gpl-licence]: https://www.gnu.org/copyleft/gpl.html
 [composer]: https://getcomposer.org/
