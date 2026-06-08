@@ -2,7 +2,7 @@ This file contains the RELEASE-NOTES of the **Semantic Scribunto** (a.k.a. SSC) 
 
 ## 3.0.0
 
-Not yet released.
+Released on June 8, 2026.
 
 * Minimum requirement for PHP raised to 8.1.
 * Minimum requirement for MediaWiki raised to 1.43.
@@ -25,6 +25,7 @@ Not yet released.
   warnings from `processLuaArguments` when `display_errors=On`. Lua
   modules calling these functions without arguments will now error
   instead of receiving a degenerate empty response.
+* Localization updates from https://translatewiki.net
 
 ## 2.3.3
 
