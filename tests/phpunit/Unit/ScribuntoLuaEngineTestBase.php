@@ -24,6 +24,10 @@ abstract class ScribuntoLuaEngineTestBase extends LuaEngineTestBase {
 	 */
 	private $scribuntoLuaLibrary;
 
+	protected function getEngineName(): string {
+		return 'LuaStandalone';
+	}
+
 	protected function setUp(): void {
 		parent::setUp();
 
