@@ -49,6 +49,14 @@ jobs:
             database_image: "mariadb:12.3"
             coverage: false
             experimental: false
+          - mediawiki_version: '1.46'
+            smw_version: dev-master
+            scribunto_version: REL1_45
+            php_version: 8.4
+            database_type: mysql
+            database_image: "mariadb:12.3"
+            coverage: false
+            experimental: false
 
     env:
       MW_VERSION: ${{ matrix.mediawiki_version }}

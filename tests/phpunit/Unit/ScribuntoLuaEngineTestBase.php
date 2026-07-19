@@ -24,6 +24,10 @@ abstract class ScribuntoLuaEngineTestBase extends LuaEngineTestBase {
 	 */
 	private $scribuntoLuaLibrary;
 
+	protected function getEngineName(): string {
+		return 'LuaStandalone';
+	}
+
 	protected function setUp(): void {
 		parent::setUp();
 
@@ -49,7 +53,7 @@ abstract class ScribuntoLuaEngineTestBase extends LuaEngineTestBase {
 	/**
 	 * Only needed for MW 1.31
 	 */
-	public function run( TestResult $result = null ): TestResult {
+	public function run( ?TestResult $result = null ): TestResult {
 		// MW 1.31
 		$this->setCliArg( 'use-normal-tables', true );
 
